@@ -1,0 +1,31 @@
+{
+  "name": "react-redux-swapi",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "3",
+    "history": "^4.7.2",
+    "prettier": "^1.10.2",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-bootstrap": "^0.32.0",
+    "react-dom": "^16.2.0",
+    "react-loadable": "^5.3.1",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "next",
+    "react-scripts": "1.0.17",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "code-style": "prettier --write \"src/**/*.{js,jsx,json,css}\"",
+    "coverage": "npm test -- --coverage",
+    "dist": "npm run code-style && CI=true npm test && npm run build"
+  },
+  "proxy": "https://swapi.co"
+}

@@ -1,0 +1,43 @@
+.ModuleLoader {
+  font-size: 350px;
+  padding: 5% 0;
+  text-align: center;
+  color: #373738;
+}
+
+.ModuleLoader i,
+.ResourceLoader i {
+  display: inline-block;
+}
+
+.ResourceLoader {
+  font-size: 50px;
+  text-align: center;
+  color: #ab856e;
+}
+
+.Loader-spin {
+  animation: animation-spin infinite 2s linear;
+}
+
+.Loader-flip {
+  animation: animation-flip infinite 2s linear;
+}
+
+@keyframes animation-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animation-flip {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
