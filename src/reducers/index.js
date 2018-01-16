@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
-import swapi from './swapi.js'
+import { apiReducer } from './Api'
+import swapiReducer from './swapi'
 
 export default combineReducers({
   routing: routerReducer,
-  swapi
+  api: apiReducer,
+  swapi: swapiReducer
 })

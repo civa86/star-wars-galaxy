@@ -1,38 +1,35 @@
 .Navigation {
-  padding-top: 25px;
   text-transform: uppercase;
 }
 
-.Navigation.full {
-  border-right: 1px solid #4c596f;
+.Navigation-list {
+  list-style: none;
 }
 
-.Navigation a {
+.Navigation-list-item {
   text-decoration: none;
   text-align: center;
   display: block;
   color: #9ba0a8;
-  padding: 5px 0px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
-.Navigation a i {
+.Navigation-list-item:hover,
+.Navigation-list-item:focus,
+.Navigation-list-item.active {
+  border-color: #3f74ae;
+  color: #3f74ae;
+  text-decoration: none;
+  transition: 0.6s;
+}
+
+.Navigation-list-item i {
   display: block;
   font-size: 30px;
 }
 
-.Navigation a:first-child i {
-  font-size: 60px;
-  line-height: 50px;
-}
-
-.Navigation a span {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.Navigation a:hover,
-.Navigation a:focus,
-.Navigation a.active {
-  color: #3f74ae;
+.Navigation-Card .Navigation-list-item {
+  border: 1px solid #9ba0a8;
+  border-radius: 5px;
+  padding: 15px;
 }

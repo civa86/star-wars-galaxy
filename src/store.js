@@ -4,7 +4,6 @@ import thunk from 'redux-thunk'
 import createHistory from 'history/createBrowserHistory'
 
 import rootReducer from './reducers'
-import initialState from './reducers/initialState'
 
 export const history = createHistory()
 
@@ -21,6 +20,6 @@ if (process.env.NODE_ENV === 'development') {
 
 const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers)
 
-const store = createStore(rootReducer, initialState, composedEnhancers)
+const store = createStore(rootReducer, {}, composedEnhancers)
 
 export default store

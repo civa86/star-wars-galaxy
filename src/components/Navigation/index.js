@@ -7,25 +7,34 @@ import iconMapping from './IconMapping'
 import { ResourceLoader } from '../Loader'
 import StarWarsIcon from '../StarWarsIcon'
 
-export const NavigationItem = props => (
-  <NavLink to={'/' + props.resource.name}>
-    <StarWarsIcon icon={iconMapping[props.resource.name] || iconMapping.defaultIcon} />{' '}
-    <span>{props.resource.name}</span>
+const NavigationItem = props => (
+  <NavLink to={'/' + props.item.name} className="Navigation-list-item">
+    <StarWarsIcon icon={iconMapping[props.item.name] || iconMapping.defaultIcon} />{' '}
+    {!props.noLabel && <span>{props.item.name}</span>}
   </NavLink>
 )
 
 const Navigation = props => {
-  const { resources, isFetching } = props
-
+  const { resources, fetchingItems, homeLink, type, column } = props
+  const homeItem = { name: '' }
   return (
-    <nav className={'Navigation' + (resources.length > 0 ? ' full' : '')}>
-      <NavLink exact to="/">
-        <StarWarsIcon icon="swg-starwars" /> <span className="sr-only">home</span>
-      </NavLink>
+    <nav className={'Navigation ' + (type || 'Navigation-Listing')}>
+      <ul className="Navigation-list row">
+        {homeLink && (
+          <li className={column || 'col-xs-12'}>
+            <NavigationItem item={homeItem} noLabel />
+          </li>
+        )}
 
-      {isFetching && <ResourceLoader />}
+        {fetchingItems > 0 && <ResourceLoader />}
 
-      {!isFetching && resources.map((e, i) => <NavigationItem key={'nav-item' + i} resource={e} />)}
+        {fetchingItems === 0 &&
+          resources.map((e, i) => (
+            <li key={'nav-item' + i} className={column || 'col-xs-12'}>
+              <NavigationItem item={e} />
+            </li>
+          ))}
+      </ul>
     </nav>
   )
 }

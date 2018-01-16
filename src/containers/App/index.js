@@ -42,7 +42,7 @@ const FullContent = () => (
 const SplitContent = props => (
   <div className="row">
     <div className="col-sm-2">
-      <Navigation resources={props.resources} isFetching={props.isFetching} />
+      <Navigation resources={props.resources} homeLink fetchingItems={props.fetchingItems} />
     </div>
     <div className="col-sm-10">
       <List />
@@ -70,7 +70,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  isFetching: state.swapi.isFetching,
+  fetchingItems: state.api.fetchingItems,
   resources: state.swapi.resources
 })
 
