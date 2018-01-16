@@ -4,6 +4,8 @@
 
 .Navigation-list {
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .Navigation-list-item {
@@ -26,6 +28,11 @@
 .Navigation-list-item i {
   display: block;
   font-size: 30px;
+}
+
+.Navigation-home .Navigation-list-item i {
+  font-size: 80px;
+  line-height: 60px;
 }
 
 .Navigation-Card .Navigation-list-item {

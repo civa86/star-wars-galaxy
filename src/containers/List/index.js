@@ -1,14 +1,18 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 class List extends Component {
   render() {
     return (
-      <div>
-        <h1>Resource</h1>
-        asdsada
+      <div className="Home">
+        <h1 className="Home-Logo">RES</h1>
       </div>
     )
   }
 }
 
-export default List
+const mapStateToProps = state => ({
+  fetchingItems: state.api.fetchingItems
+})
+
+export default connect(mapStateToProps, null)(List)

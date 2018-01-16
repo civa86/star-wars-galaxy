@@ -8,6 +8,7 @@ import Loadable from 'react-loadable'
 import './App.css'
 
 import { ModuleLoader } from '../../components/Loader'
+import { FullContent, SplitContent } from '../../components/Layout'
 import Navigation from '../../components/Navigation'
 
 import { getResources } from '../../reducers/swapi'
@@ -27,29 +28,6 @@ const NotFound = Loadable({
   loading: () => <ModuleLoader />
 })
 
-//TODO: move in a layout file....
-
-const FullContent = () => (
-  <div className="row">
-    <div className="col-xs-12">
-      <main>
-        <Home />
-      </main>
-    </div>
-  </div>
-)
-
-const SplitContent = props => (
-  <div className="row">
-    <div className="col-sm-2">
-      <Navigation resources={props.resources} homeLink fetchingItems={props.fetchingItems} />
-    </div>
-    <div className="col-sm-10">
-      <List />
-    </div>
-  </div>
-)
-
 class App extends Component {
   componentDidMount() {
     const { getResources } = this.props
@@ -57,13 +35,33 @@ class App extends Component {
   }
 
   render() {
+    const { resources, fetchingItems } = this.props
     return (
       <div className="App container-fluid">
-        <Switch>
-          <Route exact path="/" render={() => <FullContent {...this.props} />} />
-          <Route exact path="/:resource" render={() => <SplitContent {...this.props} />} />
-          <Route component={NotFound} />
-        </Switch>
+        {fetchingItems > 0 && <ModuleLoader />}
+        {fetchingItems === 0 && (
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <FullContent>
+                  <Home />
+                </FullContent>
+              )}
+            />
+            <Route
+              exact
+              path="/:resource"
+              render={() => (
+                <SplitContent navigation={<Navigation resources={resources} homeLink />}>
+                  <List />
+                </SplitContent>
+              )}
+            />
+            <Route component={NotFound} />
+          </Switch>
+        )}
       </div>
     )
   }
