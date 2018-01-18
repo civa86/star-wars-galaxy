@@ -7,7 +7,7 @@ import Loadable from 'react-loadable'
 
 import './App.css'
 
-import { ModuleLoader } from '../../components/Loader'
+import { MainLoader } from '../../components/Loader'
 import { FullContent, SplitContent } from '../../components/Layout'
 import Navigation from '../../components/Navigation'
 
@@ -15,17 +15,17 @@ import { getResources } from '../../reducers/swapi'
 
 const Home = Loadable({
   loader: () => import('../Home'),
-  loading: () => <ModuleLoader />
+  loading: () => <MainLoader />
 })
 
 const List = Loadable({
   loader: () => import('../List'),
-  loading: () => <ModuleLoader />
+  loading: () => <MainLoader />
 })
 
 const NotFound = Loadable({
   loader: () => import('../NotFound'),
-  loading: () => <ModuleLoader />
+  loading: () => <MainLoader />
 })
 
 class App extends Component {
@@ -36,40 +36,43 @@ class App extends Component {
 
   render() {
     const { resources, fetchingItems } = this.props
+
     return (
       <div className="App container-fluid">
-        {fetchingItems > 0 && <ModuleLoader />}
-        {fetchingItems === 0 && (
+        <div className={fetchingItems > 0 ? 'hidden' : ''}>
           <Switch>
             <Route
               exact
               path="/"
-              render={() => (
+              render={props => (
                 <FullContent>
-                  <Home />
+                  <Home {...props} />
                 </FullContent>
               )}
             />
             <Route
               exact
               path="/:resource"
-              render={() => (
+              render={props => (
                 <SplitContent navigation={<Navigation resources={resources} homeLink />}>
-                  <List />
+                  <List {...props} />
                 </SplitContent>
               )}
             />
             <Route component={NotFound} />
           </Switch>
-        )}
+        </div>
+
+        {fetchingItems > 0 && <MainLoader />}
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   fetchingItems: state.api.fetchingItems,
-  resources: state.swapi.resources
+  resources: state.swapi.resources,
+  ownProps: ownProps
 })
 
 const mapDispatchToProps = dispatch =>

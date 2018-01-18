@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Navigation from '../Navigation'
-
 export const FullContent = props => (
   <div className="row">
     <div className="col-xs-12">

@@ -5,34 +5,28 @@ import './Loader.css'
 import StarWarsIcon from '../StarWarsIcon'
 import Error from '../Error'
 
-export const Spinner = props => {
+export const AnimationSpin = props => {
   return <div className="Loader-spin">{props.children}</div>
 }
 
-export const SpinnerFlip = props => {
+export const AnimationFlip = props => {
   return <div className="Loader-flip">{props.children}</div>
 }
 
-export const ModuleLoader = props => {
+export const AnimationWalk = props => {
+  return <div className="Loader-walk">{props.children}</div>
+}
+
+export const MainLoader = props => {
   if (props.error) {
     return <Error message="App loading error" />
   } else {
     return (
       <div className="ModuleLoader">
-        <SpinnerFlip>
-          <StarWarsIcon icon="swg-reball" />
-        </SpinnerFlip>
+        <AnimationFlip>
+          <StarWarsIcon icon="swg-yoda-2" />
+        </AnimationFlip>
       </div>
     )
   }
-}
-
-export const ResourceLoader = props => {
-  return (
-    <div className="ResourceLoader">
-      <SpinnerFlip>
-        <StarWarsIcon icon="swg-lightsabers-2" />
-      </SpinnerFlip>
-    </div>
-  )
 }
