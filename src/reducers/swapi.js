@@ -36,7 +36,12 @@ export const getSchema = (resource, schemas) => {
 // Initial State
 export const initialState = {
   resources: [],
-  items: [],
+  items: {
+    count: 0,
+    next: null,
+    previous: null,
+    results: []
+  },
   schemas: {}
 }
 

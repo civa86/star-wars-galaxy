@@ -36,10 +36,9 @@ class App extends Component {
 
   render() {
     const { resources, fetchingItems } = this.props
-
     return (
       <div className="App container-fluid">
-        <div className={fetchingItems > 0 ? 'hidden' : ''}>
+        <div>
           <Switch>
             <Route
               exact
