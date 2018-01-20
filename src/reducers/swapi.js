@@ -24,7 +24,13 @@ const getSchemaSuccess = (resource, data) => ({
 })
 
 export const getResources = () => apiCall('/api', null, getResourcesSuccess)
-export const getItems = resource => apiCall('/api/' + resource, null, data => getItemsSuccess(resource, data))
+export const getItems = (resource, items) => {
+  if (!items[resource]) {
+    return apiCall('/api/' + resource, null, data => getItemsSuccess(resource, data))
+  } else {
+    return getItemsSuccess(resource, items[resource])
+  }
+}
 export const getSchema = (resource, schemas) => {
   if (!schemas[resource]) {
     return apiCall('/api/' + resource + '/schema', null, data => getSchemaSuccess(resource, data))
@@ -36,12 +42,7 @@ export const getSchema = (resource, schemas) => {
 // Initial State
 export const initialState = {
   resources: [],
-  items: {
-    count: 0,
-    next: null,
-    previous: null,
-    results: []
-  },
+  items: {},
   schemas: {}
 }
 
@@ -52,7 +53,7 @@ export default (state = initialState, action) => {
       return { ...state, resources: Object.keys(action.data).map(e => ({ name: e, url: action.data[e] })) }
 
     case GET_ITEMS_SUCCESS:
-      return { ...state, items: action.data }
+      return { ...state, items: { ...state.items, [action.resource]: action.data } }
 
     case GET_SCHEMA_SUCCESS:
       return {

@@ -13,8 +13,8 @@ class List extends Component {
   }
 
   loadData(resource) {
-    const { schemas, getItems, getSchema } = this.props
-    getItems(resource)
+    const { schemas, items, getItems, getSchema } = this.props
+    getItems(resource, items)
     getSchema(resource, schemas)
   }
 
@@ -33,12 +33,13 @@ class List extends Component {
   render() {
     const { items, schemas } = this.props
     const resource = this.getResource()
+    const itemsList = items[resource] && items[resource].results ? items[resource].results : []
     return (
       <div className="List">
         <h1>{resource}</h1>
         <section>
           <ul>
-            {items.results.map((item, i) => (
+            {itemsList.map((item, i) => (
               <li key={i}>{item && schemas[resource] && <ItemPreview item={item} schema={schemas[resource]} />}</li>
             ))}
           </ul>
