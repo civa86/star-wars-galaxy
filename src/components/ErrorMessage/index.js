@@ -2,11 +2,11 @@ import React from 'react'
 
 import StarWarsIcon from '../StarWarsIcon'
 
-import './Error.css'
+import './ErrorMessage.css'
 
-const Error = props => {
+const ErrorMessage = props => {
   return (
-    <div className="Error">
+    <div className="ErrorMessage">
       <div className="icon">
         <StarWarsIcon icon="swg-lightsabers" />
       </div>
@@ -15,4 +15,4 @@ const Error = props => {
   )
 }
 
-export default Error
+export default ErrorMessage

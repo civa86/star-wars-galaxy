@@ -13,6 +13,8 @@ import Navigation from '../../components/Navigation'
 
 import { getResources } from '../../reducers/swapi'
 
+import Error from '../Error'
+
 const Home = Loadable({
   loader: () => import('../Home'),
   loading: () => <MainLoader />
@@ -20,6 +22,11 @@ const Home = Loadable({
 
 const List = Loadable({
   loader: () => import('../List'),
+  loading: () => <MainLoader />
+})
+
+const Detail = Loadable({
+  loader: () => import('../Detail'),
   loading: () => <MainLoader />
 })
 
@@ -40,6 +47,7 @@ class App extends Component {
       <div className="App container-fluid">
         <div>
           <Switch>
+            <Route exact path="/error" component={Error} />
             <Route
               exact
               path="/"
@@ -55,6 +63,15 @@ class App extends Component {
               render={props => (
                 <SplitContent navigation={<Navigation resources={resources} homeLink />}>
                   <List {...props} />
+                </SplitContent>
+              )}
+            />
+            <Route
+              exact
+              path="/:resource/:id"
+              render={props => (
+                <SplitContent navigation={<Navigation resources={resources} homeLink />}>
+                  <Detail {...props} />
                 </SplitContent>
               )}
             />

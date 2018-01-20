@@ -1,10 +1,10 @@
-.Error .icon {
+.ErrorMessage .icon {
   font-size: 350px;
   line-height: 340px;
   color: #b64419;
 }
 
-.Error p {
+.ErrorMessage p {
   color: #ab856e;
   font-size: 25px;
 }

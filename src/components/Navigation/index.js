@@ -7,7 +7,7 @@ import iconMapping from './IconMapping'
 import StarWarsIcon from '../StarWarsIcon'
 
 const NavigationItem = props => (
-  <NavLink exact to={'/' + props.item.name} className="Navigation-list-item">
+  <NavLink exact={props.exact} to={'/' + props.item.name} className="Navigation-list-item">
     <StarWarsIcon icon={iconMapping[props.item.name] || iconMapping.defaultIcon} />{' '}
     {!props.noLabel && <span>{props.item.name}</span>}
   </NavLink>
@@ -21,7 +21,7 @@ const Navigation = props => {
       <ul className="Navigation-list row">
         {homeLink && (
           <li className={'Navigation-home ' + (column || 'col-xs-12')}>
-            <NavigationItem item={homeItem} noLabel />
+            <NavigationItem exact item={homeItem} noLabel />
           </li>
         )}
         {resources.map((e, i) => (
