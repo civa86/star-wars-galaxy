@@ -36,7 +36,7 @@ const NotFound = Loadable({
 })
 
 class App extends Component {
-  componentDidMount() {
+  componentWillMount() {
     const { getResources } = this.props
     getResources()
   }

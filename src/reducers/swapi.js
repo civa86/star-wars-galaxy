@@ -4,7 +4,23 @@ import { apiCall } from '../reducers/Api'
 // Constants
 const GET_RESOURCE_SUCCESS = 'GET_RESOURCE_SUCCESS'
 const GET_ITEMS_SUCCESS = 'GET_ITEMS_SUCCESS'
+const GET_ITEM_SUCCESS = 'GET_ITEM_SUCCESS'
 const GET_SCHEMA_SUCCESS = 'GET_SCHEMA_SUCCESS'
+
+// Utilities
+const getIdFromUrl = url =>
+  url
+    .split('/')
+    .filter(e => e !== '')
+    .pop()
+
+const addItemIfNotInStateResults = (resource, newResults, state) => {
+  const oldResults = state.items[resource] && state.items[resource].results ? state.items[resource].results : []
+  const itemsToAdd = newResults.filter(
+    newR => !oldResults.some(oldR => getIdFromUrl(newR.url) === getIdFromUrl(oldR.url))
+  )
+  return [...oldResults, ...itemsToAdd]
+}
 
 // Actions
 const getResourcesSuccess = data => ({
@@ -17,6 +33,12 @@ const getItemsSuccess = (resource, data, page) => ({
   resource,
   data,
   page
+})
+
+const getItemSuccess = (resource, data) => ({
+  type: GET_ITEM_SUCCESS,
+  resource,
+  data
 })
 
 const getSchemaSuccess = (resource, data) => ({
@@ -34,6 +56,7 @@ const errorHandler = (error, dispatch) => {
 }
 
 export const getResources = () => apiCall('/api', null, getResourcesSuccess, errorHandler)
+
 export const getItems = (resource, items, page = 1) => {
   const lastPage = items[resource] && items[resource].lastPage ? items[resource].lastPage : 0
   if (!items[resource] || lastPage < page) {
@@ -47,6 +70,16 @@ export const getItems = (resource, items, page = 1) => {
     return getItemsSuccess(resource, items[resource], page)
   }
 }
+
+export const getItem = (resource, itemId, items) => {
+  const currentItems = items && items[resource] && items[resource].results ? items[resource].results : []
+  if (!currentItems.map(e => getIdFromUrl(e.url)).includes(itemId)) {
+    return apiCall('/api/' + resource + '/' + itemId, null, data => getItemSuccess(resource, data), errorHandler)
+  } else {
+    return getItemSuccess(resource, currentItems.filter(e => getIdFromUrl(e.url) === itemId).pop())
+  }
+}
+
 export const getSchema = (resource, schemas) => {
   if (!schemas[resource]) {
     return apiCall('/api/' + resource + '/schema', null, data => getSchemaSuccess(resource, data), errorHandler)
@@ -63,20 +96,6 @@ export const initialState = {
 }
 
 // Reducer
-const getIdFromUrl = url =>
-  url
-    .split('/')
-    .filter(e => e !== '')
-    .pop()
-
-const getUpdatedResults = (resource, newResults, state) => {
-  const oldResults = state.items[resource] && state.items[resource].results ? state.items[resource].results : []
-  const itemsToAdd = newResults.filter(
-    newR => !oldResults.some(oldR => getIdFromUrl(newR.url) === getIdFromUrl(oldR.url))
-  )
-  return [...oldResults, ...itemsToAdd]
-}
-
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_RESOURCE_SUCCESS:
@@ -89,12 +108,22 @@ export default (state = initialState, action) => {
           ...state.items,
           [action.resource]: {
             ...action.data,
-            results: getUpdatedResults(action.resource, action.data.results, state),
+            results: addItemIfNotInStateResults(action.resource, action.data.results, state),
             lastPage: action.page
           }
         }
       }
-
+    case GET_ITEM_SUCCESS:
+      return {
+        ...state,
+        items: {
+          ...state.items,
+          [action.resource]: {
+            ...state.items[action.resource],
+            results: addItemIfNotInStateResults(action.resource, [action.data], state)
+          }
+        }
+      }
     case GET_SCHEMA_SUCCESS:
       return {
         ...state,

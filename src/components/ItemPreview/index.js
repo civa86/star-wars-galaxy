@@ -1,13 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
+import ItemPrimaryField from '../ItemPrimaryField'
+
 const ItemPreview = props => {
   const { item, schema } = props
-
-  const getPrimaryField = () => {
-    const key = schema && schema.required && schema.required.length > 0 ? schema.required[0] : null
-    return key && item[key] ? item[key] : ''
-  }
 
   const getSecondaryFields = () => {
     const keys = schema.required.slice(1, 5)
@@ -22,7 +19,9 @@ const ItemPreview = props => {
 
   return (
     <div>
-      <h2>{getPrimaryField()}</h2>
+      <h2>
+        <ItemPrimaryField item={item} schema={schema} />
+      </h2>
       <ul>
         {getSecondaryFields().map((e, i) => (
           <li key={i}>

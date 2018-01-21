@@ -59,7 +59,9 @@ class List extends Component {
           </ul>
           {nextItemsUrl && (
             <div>
-              <button onClick={event => this.laodNextItems(event, nextItemsUrl)}>Load More</button>
+              <button className="btn btn-default" onClick={event => this.laodNextItems(event, nextItemsUrl)}>
+                Load More
+              </button>
             </div>
           )}
         </section>
