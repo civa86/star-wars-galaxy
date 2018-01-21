@@ -35,7 +35,7 @@ const NotFound = Loadable({
   loading: () => <MainLoader />
 })
 
-class App extends Component {
+export class App extends Component {
   componentWillMount() {
     const { getResources } = this.props
     getResources()

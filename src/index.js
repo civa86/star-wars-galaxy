@@ -7,7 +7,7 @@ import store, { history } from './store'
 import 'bootstrap/dist/css/bootstrap.css'
 import './index.css'
 
-import App from './containers/App'
+import ConnectedApp from './containers/App'
 
 import registerServiceWorker from './registerServiceWorker'
 
@@ -15,7 +15,7 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <div>
-        <App />
+        <ConnectedApp />
       </div>
     </ConnectedRouter>
   </Provider>,

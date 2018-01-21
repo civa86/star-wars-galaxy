@@ -1,14 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { MemoryRouter } from 'react-router'
-import App from './index'
+import { shallow } from 'enzyme'
+import { App } from './index'
 
 it('renders without crashing', () => {
-  const div = document.createElement('div')
-  ReactDOM.render(
-    <MemoryRouter>
-      <App />
-    </MemoryRouter>,
-    div
-  )
+  console.log(shallow(<App getResources={() => []} />))
 })
