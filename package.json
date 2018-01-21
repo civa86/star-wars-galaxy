@@ -7,6 +7,8 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "history": "^4.7.2",
+    "husky": "^0.15.0-rc.2",
+    "lint-staged": "^6.0.1",
     "prettier": "^1.10.2",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
@@ -22,14 +24,17 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": ["prettier --write", "git add"]
+  },
   "scripts": {
+    "precommit": "lint-staged",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "code-style": "prettier --write \"src/**/*.{js,jsx,json,css}\"",
     "coverage": "npm test -- --coverage",
-    "dist": "npm run code-style && CI=true npm test && npm run build"
+    "dist": "CI=true npm test && npm run build"
   },
   "proxy": "https://swapi.co"
 }
