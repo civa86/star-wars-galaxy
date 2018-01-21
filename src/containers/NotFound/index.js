@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import './NotFound.css'
 
-import ErrorMessage from '../../components/Error'
+import ErrorMessage from '../../components/ErrorMessage'
 
 class NotFound extends Component {
   render() {

@@ -3,7 +3,7 @@ import React from 'react'
 import './Loader.css'
 
 import StarWarsIcon from '../StarWarsIcon'
-import Error from '../Error'
+import ErrorMessage from '../ErrorMessage'
 
 export const AnimationSpin = props => {
   return <div className="Loader-spin">{props.children}</div>
@@ -19,7 +19,7 @@ export const AnimationWalk = props => {
 
 export const MainLoader = props => {
   if (props.error) {
-    return <Error message="App loading error" />
+    return <ErrorMessage message="App loading error" />
   } else {
     return (
       <div className="ModuleLoader">

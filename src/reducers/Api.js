@@ -2,24 +2,35 @@
 const API_IS_FETCHING = '@@API/IS_FETCHING'
 const API_FINISH_CALL = '@@API/FINISH_CALL'
 
+const errorHandler = (dispatch, response, error) => {
+  console.log(error)
+  dispatch({ type: API_FINISH_CALL })
+  if (typeof error === 'function') {
+    error(response, dispatch)
+  } else {
+    throw new Error('Error on response')
+  }
+}
+
 // Actions
 export const apiCall = (url, options, success, error) => {
   return async dispatch => {
     dispatch({ type: API_IS_FETCHING })
+    let response
     try {
-      const resources = await fetch(url, options)
-      const data = await resources.json()
-      dispatch({ type: API_FINISH_CALL })
-      if (typeof success === 'function') {
-        dispatch(success(data))
+      response = await fetch(url, options)
+
+      try {
+        const data = await response.json()
+        dispatch({ type: API_FINISH_CALL })
+        if (typeof success === 'function') {
+          dispatch(success(data))
+        }
+      } catch (e) {
+        errorHandler(dispatch, response, error)
       }
     } catch (e) {
-      dispatch({ type: API_FINISH_CALL })
-      if (typeof error === 'function') {
-        error(e)
-      } else {
-        throw new Error(e)
-      }
+      errorHandler(dispatch, response, error)
     }
   }
 }

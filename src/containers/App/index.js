@@ -48,6 +48,7 @@ class App extends Component {
         <div>
           <Switch>
             <Route exact path="/error" component={Error} />
+            <Route exact path="/404" component={NotFound} />
             <Route
               exact
               path="/"
