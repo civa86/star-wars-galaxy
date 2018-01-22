@@ -16,9 +16,10 @@ const getIdFromUrl = url =>
 
 const addItemIfNotInStateResults = (resource, newResults, state) => {
   const oldResults = state.items[resource] && state.items[resource].results ? state.items[resource].results : []
-  const itemsToAdd = newResults.filter(
-    newR => !oldResults.some(oldR => getIdFromUrl(newR.url) === getIdFromUrl(oldR.url))
-  )
+  const itemsToAdd = newResults.filter(newR => !oldResults.some(oldR => getIdFromUrl(newR.url) === oldR.id)).map(e => ({
+    id: getIdFromUrl(e.url),
+    ...e
+  }))
   return [...oldResults, ...itemsToAdd]
 }
 

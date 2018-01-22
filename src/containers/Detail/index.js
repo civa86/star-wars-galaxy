@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 
 import { getSchema, getItem } from '../../reducers/swapi'
 
-// import ItemPreview from '../../components/ItemPreview'
+import ItemPrimaryField from '../../components/ItemPrimaryField'
+import ItemFieldLabel from '../../components/ItemFieldLabel'
 
 class Detail extends Component {
   getResource() {
@@ -15,6 +16,25 @@ class Detail extends Component {
   getId() {
     const { match } = this.props
     return match.params ? match.params.id : null
+  }
+
+  getLoadedItem() {
+    const { items } = this.props
+    const id = this.getId()
+    const resource = this.getResource()
+    return items && items[resource] && items[resource].results
+      ? items[resource].results.filter(e => e.id === id).pop()
+      : null
+  }
+
+  getItemFields(item) {
+    const { schemas } = this.props
+    const resource = this.getResource()
+    return schemas[resource] && item
+      ? schemas[resource].required
+          .slice(1, schemas[resource].required.length)
+          .map(e => ({ name: e, value: item[e], ...schemas[resource].properties[e] }))
+      : []
   }
 
   loadData(resource) {
@@ -38,21 +58,33 @@ class Detail extends Component {
   render() {
     const { schemas } = this.props
     const resource = this.getResource()
-    const id = this.getId()
+    const item = this.getLoadedItem()
+    const fields = this.getItemFields(item)
 
     return (
-      <div className="Detail">
-        <h1>
-          {resource} {id}
-        </h1>
-        {schemas[resource] &&
-          schemas[resource].properties && (
-            <section>
-              {Object.keys(schemas[resource].properties)
-                .filter(e => schemas[resource].properties[e].type !== 'array')
-                .filter(e => !e.match(/created|edited|url/))
-                .map(e => <div>{e}</div>)}
-            </section>
+      <div>
+        {item &&
+          schemas[resource] && (
+            <div className="Detail">
+              <h1>
+                <ItemPrimaryField item={item} schema={schemas[resource]} />
+              </h1>
+              <section>
+                <table className="table">
+                  <tbody>
+                    {fields.filter(e => e.type !== 'array' && !e.name.match(/created|edited|url/)).map((e, i) => (
+                      <tr key={'label' + i}>
+                        <td>
+                          <ItemFieldLabel label={e.name} />
+                        </td>
+                        <td>{e.value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <div>{fields.filter(e => e.type === 'array').map((e, i) => <div key={'obj' + i}>{e.name}</div>)}</div>
+              </section>
+            </div>
           )}
       </div>
     )
