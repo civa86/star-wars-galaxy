@@ -2,6 +2,25 @@
 const API_IS_FETCHING = '@@API/IS_FETCHING'
 const API_FINISH_CALL = '@@API/FINISH_CALL'
 
+// Functions
+export const isUrl = str => {
+  var pattern = new RegExp(
+    '^((https?:)?\\/\\/)?' + // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$',
+    'i'
+  ) // fragment locater
+  if (!pattern.test(str)) {
+    return false
+  } else {
+    return true
+  }
+}
+
+// Utilities
 const errorHandler = (dispatch, response, error) => {
   console.log(error)
   dispatch({ type: API_FINISH_CALL })

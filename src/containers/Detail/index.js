@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { getSchema, getItem } from '../../reducers/swapi'
+import { isUrl } from '../../reducers/Api'
 
 import ItemPrimaryField from '../../components/ItemPrimaryField'
 import ItemFieldLabel from '../../components/ItemFieldLabel'
@@ -77,7 +78,10 @@ class Detail extends Component {
                         <td>
                           <ItemFieldLabel label={e.name} />
                         </td>
-                        <td>{e.value}</td>
+                        <td>
+                          {isUrl(e.value) && <span>url....</span>}
+                          {!isUrl(e.value) && <span>{e.value}</span>}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
