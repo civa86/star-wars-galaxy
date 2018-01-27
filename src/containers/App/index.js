@@ -4,15 +4,11 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { Switch, Route } from 'react-router-dom'
 import Loadable from 'react-loadable'
-
 import Loader from '../../components/Loader'
-import { FullContent, SplitContent } from '../../components/Layout'
-import Navigation from '../../components/Navigation'
-
+import Error from '../Error'
 import { getResources } from '../../reducers/swapi'
 
-import Error from '../Error'
-
+// Async Components Loading
 const Home = Loadable({
   loader: () => import('../Home'),
   loading: () => <Loader />
@@ -34,13 +30,15 @@ const NotFound = Loadable({
 })
 
 export class App extends Component {
+  // Component Lifecycle
   componentWillMount() {
     const { getResources } = this.props
     getResources()
   }
 
+  // Component Rendering
   render() {
-    const { resources, force, fetchingItems } = this.props
+    const { force, fetchingItems } = this.props
     return (
       <div className={force.side}>
         <div className="app">
@@ -54,25 +52,10 @@ export class App extends Component {
               <Route exact path="/404" component={NotFound} />
 
               {/* Resource and Items routes */}
+              <Route exact path="/:resource" component={ItemList} />
+              <Route exact path="/:resource/:id" component={ItemDetail} />
 
-              {/* <Route
-              exact
-              path="/:resource"
-              render={props => (
-                <SplitContent navigation={<Navigation resources={resources} homeLink />}>
-                  <ItemList {...props} />
-                </SplitContent>
-              )}
-            />
-            <Route
-              exact
-              path="/:resource/:id"
-              render={props => (
-                <SplitContent navigation={<Navigation resources={resources} homeLink />}>
-                  <ItemDetail {...props} />
-                </SplitContent>
-              )}
-            /> */}
+              {/* Not Found catch all route */}
               <Route component={NotFound} />
             </Switch>
           </div>

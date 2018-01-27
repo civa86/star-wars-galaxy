@@ -1,19 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Switch from 'react-switch'
-import Navigation from '../../components/Navigation'
+import { NavLink } from 'react-router-dom'
 import StarWarsIcon from '../../components/StarWarsIcon'
+import ResourceIcon from '../../components/ResourceIcon'
+import ForceSideSwitch from '../../components/ForceSideSwitch'
 import { setForceSide } from '../../reducers/force'
 
 class Home extends Component {
-  changeForceSide() {
-    const { force, setForceSide } = this.props
-    const changeSide = force.side === 'light' ? 'dark' : 'light'
-    setForceSide(changeSide)
-  }
   render() {
-    const { force, resources } = this.props
+    const { force, resources, setForceSide } = this.props
 
     return (
       <div className="home">
@@ -40,53 +36,30 @@ class Home extends Component {
                   </a>
                 </li>
               </ul>
-              <label className="pull-right" htmlFor="force-side-switch">
-                <span className="sr-only">Switch to change Force Side</span>
-                <Switch
-                  checked={force.side && force.side === 'dark'}
-                  onChange={() => this.changeForceSide()}
-                  uncheckedIcon={
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: '100%',
-                        fontSize: 35,
-                        paddingTop: 5,
-                        color: '#bd4422'
-                      }}>
-                      <StarWarsIcon icon="swg-galrep" />
-                    </div>
-                  }
-                  checkedIcon={
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: '100%',
-                        fontSize: 35,
-                        paddingTop: 5,
-                        color: '#018acc'
-                      }}>
-                      <StarWarsIcon icon="swg-reball" />
-                    </div>
-                  }
-                  offColor="#1a1112"
-                  onColor="#bba79c"
-                  offHandleColor="#70787D"
-                  onHandleColor="#41363A"
-                  handleDiameter={30}
-                  height={40}
-                  width={90}
-                  className="react-switch"
-                  id="force-side-switch"
-                />
-              </label>
+              <ForceSideSwitch side={force.side} changeForceSide={side => setForceSide(side)} />
             </div>
           </div>
         </header>
+        <section className="sub-title">
+          <span>
+            A long time ago in a galaxy far,<br />
+            far away....
+          </span>
+        </section>
+        <section className="resources">
+          <ul className="row">
+            {resources.map((resource, i) => (
+              <li key={i} className="col-xs-12 col-sm-4 col-md-3">
+                <NavLink to={'/' + resource.name}>
+                  <div className="item">
+                    <ResourceIcon resource={resource.name} />
+                    <span className="name">{resource.name}</span>
+                  </div>
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
     )
   }

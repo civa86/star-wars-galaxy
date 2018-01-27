@@ -47,7 +47,7 @@ class ItemList extends Component {
     const itemsList = items[resource] && items[resource].results ? items[resource].results : []
     const nextItemsUrl = items[resource] && items[resource].next ? items[resource].next : null
     return (
-      <div className="List">
+      <div className="item-list">
         <h1>{resource}</h1>
         <section>
           <ul className="row">
