@@ -6,7 +6,7 @@ import { getItems, getSchema } from '../../reducers/swapi'
 
 import ItemPreview from '../../components/ItemPreview'
 
-class List extends Component {
+class ItemList extends Component {
   // Component Methods
   getResource() {
     const { match } = this.props
@@ -84,4 +84,4 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default connect(mapStateToProps, mapDispatchToProps)(List)
+export default connect(mapStateToProps, mapDispatchToProps)(ItemList)

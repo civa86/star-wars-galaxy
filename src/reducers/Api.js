@@ -22,7 +22,6 @@ export const isUrl = str => {
 
 // Utilities
 const errorHandler = (dispatch, response, error) => {
-  console.log(error)
   dispatch({ type: API_FINISH_CALL })
   if (typeof error === 'function') {
     error(response, dispatch)

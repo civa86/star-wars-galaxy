@@ -5,9 +5,7 @@ import { withRouter } from 'react-router'
 import { Switch, Route } from 'react-router-dom'
 import Loadable from 'react-loadable'
 
-import './App.css'
-
-import { MainLoader } from '../../components/Loader'
+import Loader from '../../components/Loader'
 import { FullContent, SplitContent } from '../../components/Layout'
 import Navigation from '../../components/Navigation'
 
@@ -17,22 +15,22 @@ import Error from '../Error'
 
 const Home = Loadable({
   loader: () => import('../Home'),
-  loading: () => <MainLoader />
+  loading: () => <Loader />
 })
 
-const List = Loadable({
-  loader: () => import('../List'),
-  loading: () => <MainLoader />
+const ItemList = Loadable({
+  loader: () => import('../ItemList'),
+  loading: () => <Loader />
 })
 
-const Detail = Loadable({
-  loader: () => import('../Detail'),
-  loading: () => <MainLoader />
+const ItemDetail = Loadable({
+  loader: () => import('../ItemDetail'),
+  loading: () => <Loader />
 })
 
 const NotFound = Loadable({
   loader: () => import('../NotFound'),
-  loading: () => <MainLoader />
+  loading: () => <Loader />
 })
 
 export class App extends Component {
@@ -42,28 +40,27 @@ export class App extends Component {
   }
 
   render() {
-    const { resources, fetchingItems } = this.props
+    const { resources, force, fetchingItems } = this.props
     return (
-      <div className="App container-fluid">
-        <div>
-          <Switch>
-            <Route exact path="/error" component={Error} />
-            <Route exact path="/404" component={NotFound} />
-            <Route
-              exact
-              path="/"
-              render={props => (
-                <FullContent>
-                  <Home {...props} />
-                </FullContent>
-              )}
-            />
-            <Route
+      <div className={force.side}>
+        <div className="app">
+          <div className="container-fluid">
+            <Switch>
+              {/* Home route */}
+              <Route exact path="/" component={Home} />
+
+              {/* Errors routes */}
+              <Route exact path="/error" component={Error} />
+              <Route exact path="/404" component={NotFound} />
+
+              {/* Resource and Items routes */}
+
+              {/* <Route
               exact
               path="/:resource"
               render={props => (
                 <SplitContent navigation={<Navigation resources={resources} homeLink />}>
-                  <List {...props} />
+                  <ItemList {...props} />
                 </SplitContent>
               )}
             />
@@ -72,21 +69,22 @@ export class App extends Component {
               path="/:resource/:id"
               render={props => (
                 <SplitContent navigation={<Navigation resources={resources} homeLink />}>
-                  <Detail {...props} />
+                  <ItemDetail {...props} />
                 </SplitContent>
               )}
-            />
-            <Route component={NotFound} />
-          </Switch>
+            /> */}
+              <Route component={NotFound} />
+            </Switch>
+          </div>
+          {fetchingItems > 0 && <Loader />}
         </div>
-
-        {fetchingItems > 0 && <MainLoader />}
       </div>
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  force: state.force,
   fetchingItems: state.api.fetchingItems,
   resources: state.swapi.resources,
   ownProps: ownProps

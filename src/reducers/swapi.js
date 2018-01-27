@@ -2,6 +2,7 @@ import { push } from 'react-router-redux'
 import { apiCall } from '../reducers/Api'
 
 // Constants
+const API_DOMAIN = 'https://swapi.co'
 const GET_RESOURCE_SUCCESS = 'GET_RESOURCE_SUCCESS'
 const GET_ITEMS_SUCCESS = 'GET_ITEMS_SUCCESS'
 const GET_ITEM_SUCCESS = 'GET_ITEM_SUCCESS'
@@ -56,13 +57,13 @@ const errorHandler = (error, dispatch) => {
   }
 }
 
-export const getResources = () => apiCall('/api', null, getResourcesSuccess, errorHandler)
+export const getResources = () => apiCall(API_DOMAIN + '/api/', null, getResourcesSuccess, errorHandler)
 
 export const getItems = (resource, items, page = 1) => {
   const lastPage = items[resource] && items[resource].lastPage ? items[resource].lastPage : 0
   if (!items[resource] || lastPage < page) {
     return apiCall(
-      '/api/' + resource + '?page=' + page,
+      API_DOMAIN + '/api/' + resource + '?page=' + page,
       null,
       data => getItemsSuccess(resource, data, page),
       errorHandler
@@ -75,7 +76,12 @@ export const getItems = (resource, items, page = 1) => {
 export const getItem = (resource, itemId, items) => {
   const currentItems = items && items[resource] && items[resource].results ? items[resource].results : []
   if (!currentItems.map(e => getIdFromUrl(e.url)).includes(itemId)) {
-    return apiCall('/api/' + resource + '/' + itemId, null, data => getItemSuccess(resource, data), errorHandler)
+    return apiCall(
+      API_DOMAIN + '/api/' + resource + '/' + itemId,
+      null,
+      data => getItemSuccess(resource, data),
+      errorHandler
+    )
   } else {
     return getItemSuccess(resource, currentItems.filter(e => getIdFromUrl(e.url) === itemId).pop())
   }
@@ -83,7 +89,12 @@ export const getItem = (resource, itemId, items) => {
 
 export const getSchema = (resource, schemas) => {
   if (!schemas[resource]) {
-    return apiCall('/api/' + resource + '/schema', null, data => getSchemaSuccess(resource, data), errorHandler)
+    return apiCall(
+      API_DOMAIN + '/api/' + resource + '/schema',
+      null,
+      data => getSchemaSuccess(resource, data),
+      errorHandler
+    )
   } else {
     return getSchemaSuccess(resource, schemas[resource])
   }

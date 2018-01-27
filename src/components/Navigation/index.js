@@ -1,8 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-import './Navigation.css'
-
 import iconMapping from './IconMapping'
 import StarWarsIcon from '../StarWarsIcon'
 

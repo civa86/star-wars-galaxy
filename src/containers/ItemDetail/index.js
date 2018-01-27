@@ -8,7 +8,7 @@ import { isUrl } from '../../reducers/Api'
 import ItemPrimaryField from '../../components/ItemPrimaryField'
 import ItemFieldLabel from '../../components/ItemFieldLabel'
 
-class Detail extends Component {
+class ItemDetail extends Component {
   getResource() {
     const { match } = this.props
     return match.params ? match.params.resource : null
@@ -86,7 +86,14 @@ class Detail extends Component {
                     ))}
                   </tbody>
                 </table>
-                <div>{fields.filter(e => e.type === 'array').map((e, i) => <div key={'obj' + i}>{e.name}</div>)}</div>
+                <ul className="row">
+                  {fields.filter(e => e.type === 'array').map((e, i) => (
+                    <li className="col-xs-12 col-md-4" key={'obj' + i}>
+                      <h2>{e.name}</h2>
+                      <ul>{e.value.map((url, i) => <li key={'obj-url' + i}>{url}</li>)}</ul>
+                    </li>
+                  ))}
+                </ul>
               </section>
             </div>
           )}
@@ -109,4 +116,4 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default connect(mapStateToProps, mapDispatchToProps)(Detail)
+export default connect(mapStateToProps, mapDispatchToProps)(ItemDetail)

@@ -1,0 +1,75 @@
+//Helper classes
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.cursor-default {
+  cursor: default !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.no-select {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+
+.drag-area {
+  -webkit-app-region: drag;
+}
+
+//Transitions
+
+.transition-duration (@seconds) {
+  -moz-transition-duration: @seconds;
+  -webkit-transition-duration: @seconds;
+  -o-transition-duration: @seconds;
+  transition-duration: @seconds;
+}
+
+.transition-timing-function (@function) {
+  -moz-transition-timing-function: @function;
+  -webkit-transition-timing-function: @function;
+  -o-transition-timing-function: @function;
+  transition-timing-function: @function;
+}
+
+.transition (@transition) {
+  -webkit-transition: @transition;
+  -moz-transition: @transition;
+  -ms-transition: @transition;
+  -o-transition: @transition;
+}
+
+//Animations
+
+.animation-spin {
+  animation-name: spin;
+  animation-duration: 2500ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

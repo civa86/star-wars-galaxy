@@ -2,8 +2,6 @@ import React from 'react'
 
 import StarWarsIcon from '../StarWarsIcon'
 
-import './ErrorMessage.css'
-
 const ErrorMessage = props => {
   return (
     <div className="ErrorMessage">

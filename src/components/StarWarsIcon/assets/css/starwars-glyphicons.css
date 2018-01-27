@@ -640,6 +640,9 @@
 .swg-porg-10:before {
   content: '\f095';
 }
+.swg-github:before {
+  content: '\f09b';
+}
 
 .sr-only {
   position: absolute;

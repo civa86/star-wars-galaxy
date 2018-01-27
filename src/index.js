@@ -5,7 +5,7 @@ import { ConnectedRouter } from 'react-router-redux'
 import store, { history } from './store'
 
 import 'bootstrap/dist/css/bootstrap.css'
-import './index.css'
+import './style.css'
 
 import ConnectedApp from './containers/App'
 
