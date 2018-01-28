@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-
-import { getSchema, getItem } from '../../reducers/swapi'
-import { isUrl } from '../../reducers/Api'
-
+import withSidebar from '../../components/withSidebar'
 import ItemPrimaryField from '../../components/ItemPrimaryField'
 import ItemFieldLabel from '../../components/ItemFieldLabel'
+import { isUrl } from '../../reducers/Api'
+import { getSchema, getItem } from '../../reducers/swapi'
 
 class ItemDetail extends Component {
   getResource() {
@@ -116,4 +115,4 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default connect(mapStateToProps, mapDispatchToProps)(ItemDetail)
+export default connect(mapStateToProps, mapDispatchToProps)(withSidebar(ItemDetail))

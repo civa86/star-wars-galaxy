@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-
-import { getItems, getSchema } from '../../reducers/swapi'
-
+import withSidebar from '../../components/withSidebar'
 import ItemPreview from '../../components/ItemPreview'
+import { getItems, getSchema } from '../../reducers/swapi'
 
 class ItemList extends Component {
   // Component Methods
@@ -71,6 +70,7 @@ class ItemList extends Component {
 }
 
 const mapStateToProps = state => ({
+  sidebarItems: state.swapi.resources,
   items: state.swapi.items,
   schemas: state.swapi.schemas
 })
@@ -84,4 +84,4 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default connect(mapStateToProps, mapDispatchToProps)(ItemList)
+export default connect(mapStateToProps, mapDispatchToProps)(withSidebar(ItemList))
