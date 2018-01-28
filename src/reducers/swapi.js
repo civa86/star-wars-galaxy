@@ -1,5 +1,6 @@
 import { push } from 'react-router-redux'
 import { apiCall } from '../reducers/Api'
+import { sortObjectCollectionByProp } from '../utils/sorter'
 
 // Constants
 const API_DOMAIN = 'https://swapi.co'
@@ -10,10 +11,12 @@ const GET_SCHEMA_SUCCESS = 'GET_SCHEMA_SUCCESS'
 
 // Utilities
 const getIdFromUrl = url =>
-  url
-    .split('/')
-    .filter(e => e !== '')
-    .pop()
+  Number(
+    url
+      .split('/')
+      .filter(e => e !== '')
+      .pop()
+  )
 
 const addItemIfNotInStateResults = (resource, newResults, state) => {
   const oldResults = state.items[resource] && state.items[resource].results ? state.items[resource].results : []
@@ -21,7 +24,7 @@ const addItemIfNotInStateResults = (resource, newResults, state) => {
     id: getIdFromUrl(e.url),
     ...e
   }))
-  return [...oldResults, ...itemsToAdd]
+  return sortObjectCollectionByProp([...oldResults, ...itemsToAdd], 'id')
 }
 
 // Actions
