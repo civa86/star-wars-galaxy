@@ -85,11 +85,11 @@ class ItemDetail extends Component {
                     ))}
                   </tbody>
                 </table>
-                <ul className="row">
+                <ul className="list-unstyled row">
                   {fields.filter(e => e.type === 'array').map((e, i) => (
                     <li className="col-xs-12 col-md-4" key={'obj' + i}>
                       <h2>{e.name}</h2>
-                      <ul>{e.value.map((url, i) => <li key={'obj-url' + i}>{url}</li>)}</ul>
+                      <ul className="list-unstyled">{e.value.map((url, i) => <li key={'obj-url' + i}>{url}</li>)}</ul>
                     </li>
                   ))}
                 </ul>

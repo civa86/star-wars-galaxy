@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import withSidebar from '../../components/withSidebar'
 import ItemPreview from '../../components/ItemPreview'
+import { setActiveSidebar } from '../../reducers/sidebar'
 import { getItems, getSchema } from '../../reducers/swapi'
 
 class ItemList extends Component {
@@ -41,15 +42,18 @@ class ItemList extends Component {
 
   // Component Rendering
   render() {
-    const { items, schemas } = this.props
+    const { setActiveSidebar, sidebarIsActive, items, schemas } = this.props
     const resource = this.getResource()
     const itemsList = items[resource] && items[resource].results ? items[resource].results : []
     const nextItemsUrl = items[resource] && items[resource].next ? items[resource].next : null
     return (
       <div className="item-list">
-        <h1>{resource}</h1>
+        <h1>
+          <button onClick={() => setActiveSidebar(!sidebarIsActive)}>SIDE</button>
+          {resource}
+        </h1>
         <section>
-          <ul className="row">
+          <ul className="list-unstyled row">
             {itemsList.map((item, i) => (
               <li key={i} className="col-xs-12 col-sm-6 col-md-4">
                 {item && schemas[resource] && <ItemPreview item={item} schema={schemas[resource]} />}
@@ -71,6 +75,7 @@ class ItemList extends Component {
 
 const mapStateToProps = state => ({
   sidebarItems: state.swapi.resources,
+  sidebarIsActive: state.sidebar.active,
   items: state.swapi.items,
   schemas: state.swapi.schemas
 })
@@ -79,7 +84,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getItems,
-      getSchema
+      getSchema,
+      setActiveSidebar
     },
     dispatch
   )

@@ -3,14 +3,15 @@ import { NavLink } from 'react-router-dom'
 import ResourceIcon from '../ResourceIcon'
 
 const withSidebar = WrappedComponent => {
-  // ...and returns another component...
   return class extends Component {
     render() {
       const items = this.props.sidebarItems || []
+      const isActive = this.props.sidebarIsActive || false
+
       return (
-        <div className="row">
-          <div className="col-xs-2">
-            <ul className="row">
+        <div className="sidebar-layout-wrapper">
+          <div className={'sidebar' + (isActive ? ' active' : '')}>
+            <ul className="list-unstyled row">
               <li>
                 <NavLink to={'/'}>
                   <div className="item">
@@ -31,7 +32,7 @@ const withSidebar = WrappedComponent => {
               ))}
             </ul>
           </div>
-          <div className="col-xs-10">
+          <div className="content">
             <WrappedComponent {...this.props} />
           </div>
         </div>

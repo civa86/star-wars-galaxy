@@ -22,7 +22,7 @@ class Home extends Component {
               </h1>
             </div>
             <div className="links col-xs-12 col-sm-8 col-lg-9">
-              <ul>
+              <ul className="list-unstyled">
                 <li className="swapi">
                   powered by{' '}
                   <a href="https://swapi.co/" target="_blank" rel="noopener noreferrer">
@@ -47,7 +47,7 @@ class Home extends Component {
           </span>
         </section>
         <section className="resources">
-          <ul className="row">
+          <ul className="list-unstyled row">
             {resources.map((resource, i) => (
               <li key={i} className="col-xs-12 col-sm-6 col-md-4">
                 <NavLink to={'/' + resource.name}>

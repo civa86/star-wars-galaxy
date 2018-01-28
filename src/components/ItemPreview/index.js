@@ -22,7 +22,7 @@ const ItemPreview = props => {
       <h2>
         <ItemPrimaryField item={item} schema={schema} />
       </h2>
-      <ul>
+      <ul className="list-unstyled">
         {getSecondaryFields().map((e, i) => (
           <li key={i}>
             {e.key}: {e.value}
