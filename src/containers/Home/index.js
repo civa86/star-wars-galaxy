@@ -49,7 +49,7 @@ class Home extends Component {
         <section className="resources">
           <ul className="row">
             {resources.map((resource, i) => (
-              <li key={i} className="col-xs-12 col-sm-4 col-md-3">
+              <li key={i} className="col-xs-12 col-sm-6 col-md-4">
                 <NavLink to={'/' + resource.name}>
                   <div className="item">
                     <ResourceIcon resource={resource.name} />

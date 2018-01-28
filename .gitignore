@@ -21,4 +21,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # generated styles
-src/*.css
+/src/style.css
