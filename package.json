@@ -8,7 +8,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "history": "^4.7.2",
     "husky": "^0.15.0-rc.2",
-    "less-watch-compiler": "^1.10.2",
+    "less": "^2.7.3",
     "lint-staged": "^6.0.1",
     "prettier": "^1.10.2",
     "prop-types": "^15.6.0",
@@ -24,20 +24,18 @@
     "react-switch": "^2.3.0",
     "react-test-renderer": "^16.2.0",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "watch": "^1.0.2"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,json,css,less}": [
-      "prettier --write",
-      "git add"
-    ]
+    "src/**/*.{js,jsx,json,css,less}": ["prettier --write", "git add"]
   },
   "scripts": {
     "precommit": "lint-staged",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build-css": "less-watch-compiler --run-once --main-file=style.less src/less/ src/",
-    "watch-css": "npm run build-css && less-watch-compiler --main-file=style.less src/less/ src/",
+    "build-css": "lessc ./src/less/style.less ./src/style.css",
+    "watch-css": "npm run build-css && watch --interval=0.1 'npm run build-css' ./src/less",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "coverage": "npm test -- --coverage",

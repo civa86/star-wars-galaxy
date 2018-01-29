@@ -12,14 +12,6 @@ const withSidebar = WrappedComponent => {
         <div className="sidebar-layout-wrapper">
           <div className={'sidebar' + (isActive ? ' active' : '')}>
             <ul className="list-unstyled row">
-              <li>
-                <NavLink to={'/'}>
-                  <div className="item">
-                    <ResourceIcon resource="default" />
-                    <span className="sr-only">Home</span>
-                  </div>
-                </NavLink>
-              </li>
               {items.map((item, i) => (
                 <li key={i} className="col-xs-12">
                   <NavLink to={'/' + item.name}>

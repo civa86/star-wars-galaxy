@@ -53,7 +53,7 @@ const getSchemaSuccess = (resource, data) => ({
 })
 
 const errorHandler = (error, dispatch) => {
-  if (error.status === 404) {
+  if (error && error.status === 404) {
     dispatch(push('/404'))
   } else {
     dispatch(push('/error'))

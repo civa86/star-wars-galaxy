@@ -48,10 +48,7 @@ class ItemList extends Component {
     const nextItemsUrl = items[resource] && items[resource].next ? items[resource].next : null
     return (
       <div className="item-list">
-        <h1>
-          <button onClick={() => setActiveSidebar(!sidebarIsActive)}>SIDE</button>
-          {resource}
-        </h1>
+        <h1>{resource}</h1>
         <section>
           <ul className="list-unstyled row">
             {itemsList.map((item, i) => (

@@ -3,6 +3,10 @@
 @import './utils/media-query.less';
 @import './utils/mixin.less';
 
+@import './loader.less';
+@import './sidebar.less';
+@import './home.less';
+
 // General
 html,
 body {
@@ -15,21 +19,19 @@ body {
 .light {
   @bgColor: #dedce4;
   @bgColor2: #a9a2a3;
+  @mainColor: #018acc;
   @textColor: #130c0e;
   @textColor2: #41363a;
   @loaderIcon: '\F04F';
-  @loaderColor: #018acc;
-  @logoColor: #018acc;
   .style();
 }
 .dark {
   @bgColor: #1a1112;
   @bgColor2: #70787d;
+  @mainColor: #bd4422;
   @textColor: #e5e2de;
   @textColor2: #bba79c;
   @loaderIcon: '\F04E';
-  @loaderColor: #bd4422;
-  @logoColor: #bd4422;
   .style();
 }
 
@@ -52,148 +54,8 @@ body {
       color: @textColor;
     }
   }
-  .sidebar-layout-wrapper {
-    display: flex;
-    align-items: stretch;
 
-    .sidebar {
-      min-width: 250px;
-      max-width: 250px;
-      min-height: 100vh;
-      transition: 0.6s;
-
-      @media @only-xs {
-        margin-left: -250px;
-      }
-
-      &.active {
-        margin-left: -250px;
-
-        @media @only-xs {
-          margin-left: 0;
-        }
-      }
-    }
-  }
-  .loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-
-    .icon {
-      i {
-        display: block;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 134px;
-        height: 130px;
-        margin-left: -67px;
-        margin-top: -65px;
-        font-size: 150px;
-        line-height: 150px;
-        color: @loaderColor;
-        .animation-spin();
-        &::before {
-          content: @loaderIcon;
-        }
-      }
-    }
-  }
-  .home {
-    header {
-      .logo {
-        text-align: center;
-        h1 {
-          height: 160px;
-          color: @logoColor;
-          font-size: 250px;
-          line-height: 230px;
-          margin: 0;
-          padding: 0;
-          i {
-            margin-top: -10px;
-          }
-        }
-      }
-
-      ul {
-        text-align: right;
-        padding: 0;
-        li {
-          display: inline-block;
-          padding-left: 30px;
-
-          &.swapi {
-            font-size: 14px;
-            color: @textColor2;
-            a {
-              color: @textColor;
-              font-size: 16px;
-              text-decoration: underline;
-            }
-          }
-
-          &.github {
-            font-size: 40px;
-          }
-        }
-      }
-    }
-
-    .sub-title {
-      color: @textColor2;
-      font-size: 30px;
-      text-align: center;
-      margin-bottom: 15px;
-
-      span {
-        display: inline-block;
-        text-align: left;
-
-        @media @only-xs {
-          margin-top: 15px;
-          font-size: 24px;
-        }
-      }
-    }
-
-    .resources {
-      ul {
-        list-style: none;
-        padding: 0;
-        li {
-          margin-bottom: 30px;
-          a {
-            text-decoration: none;
-            .item {
-              background: fade(@bgColor2, 40);
-              border-radius: 4px;
-              position: relative;
-              .name {
-                width: 100%;
-                text-align: center;
-                text-transform: capitalize;
-                font-size: 50px;
-                padding: 30px 0;
-                display: block;
-                color: @logoColor;
-              }
-              i {
-                display: block;
-                position: absolute;
-                top: 5px;
-                left: 15px;
-                font-size: 140px;
-                color: fade(@textColor, 8);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+  .loader-style();
+  .sidebar-style();
+  .home-style();
 }
