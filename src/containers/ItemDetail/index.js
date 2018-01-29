@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import withSidebar from '../../components/withSidebar'
+import withSidebar from '../../components/Layout/withSidebar'
 import ItemPrimaryField from '../../components/ItemPrimaryField'
 import ItemFieldLabel from '../../components/ItemFieldLabel'
 import { isUrl } from '../../reducers/Api'

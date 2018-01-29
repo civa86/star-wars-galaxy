@@ -42,23 +42,21 @@ export class App extends Component {
     return (
       <div className={force.side}>
         <div className="app">
-          <div className="container-fluid">
-            <Switch>
-              {/* Home route */}
-              <Route exact path="/" component={Home} />
+          <Switch>
+            {/* Home route */}
+            <Route exact path="/" component={Home} />
 
-              {/* Errors routes */}
-              <Route exact path="/error" component={Error} />
-              <Route exact path="/404" component={NotFound} />
+            {/* Errors routes */}
+            <Route exact path="/error" component={Error} />
+            <Route exact path="/404" component={NotFound} />
 
-              {/* Resource and Items routes */}
-              <Route exact path="/:resource" component={ItemList} />
-              <Route exact path="/:resource/:id" component={ItemDetail} />
+            {/* Resource and Items routes */}
+            <Route exact path="/:resource" component={ItemList} />
+            <Route exact path="/:resource/:id" component={ItemDetail} />
 
-              {/* Not Found catch all route */}
-              <Route component={NotFound} />
-            </Switch>
-          </div>
+            {/* Not Found catch all route */}
+            <Route component={NotFound} />
+          </Switch>
           {fetchingItems > 0 && <Loader />}
         </div>
       </div>

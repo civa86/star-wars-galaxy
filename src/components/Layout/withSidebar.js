@@ -11,18 +11,20 @@ const withSidebar = WrappedComponent => {
       return (
         <div className="sidebar-layout-wrapper">
           <div className={'sidebar' + (isActive ? ' active' : '')}>
-            <ul className="list-unstyled row">
-              {items.map((item, i) => (
-                <li key={i} className="col-xs-12">
-                  <NavLink to={'/' + item.name}>
-                    <div className="item">
-                      <ResourceIcon resource={item.name} />
-                      <span className="name">{item.name}</span>
-                    </div>
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
+            <div className="container-fluid">
+              <ul className="list-unstyled row">
+                {items.map((item, i) => (
+                  <li key={i} className="col-xs-12">
+                    <NavLink exact to={'/' + item.name}>
+                      <div className="item">
+                        <ResourceIcon resource={item.name} />
+                        <span className="name">{item.name}</span>
+                      </div>
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
           <div className="content">
             <WrappedComponent {...this.props} />

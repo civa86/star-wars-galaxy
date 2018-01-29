@@ -12,7 +12,7 @@ class Home extends Component {
     const { force, resources, setForceSide } = this.props
 
     return (
-      <div className="home">
+      <div className="home container-fluid">
         <header>
           <div className="row">
             <div className="logo col-xs-12 col-sm-4 col-lg-3">

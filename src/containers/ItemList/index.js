@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import withSidebar from '../../components/withSidebar'
+import withSidebar from '../../components/Layout/withSidebar'
+import withFixedHeader from '../../components/Layout/withFixedHeader'
 import ItemPreview from '../../components/ItemPreview'
 import { setActiveSidebar } from '../../reducers/sidebar'
 import { getItems, getSchema } from '../../reducers/swapi'
+import { setForceSide } from '../../reducers/force'
 
 class ItemList extends Component {
   // Component Methods
@@ -42,12 +44,12 @@ class ItemList extends Component {
 
   // Component Rendering
   render() {
-    const { setActiveSidebar, sidebarIsActive, items, schemas } = this.props
+    const { items, schemas } = this.props
     const resource = this.getResource()
     const itemsList = items[resource] && items[resource].results ? items[resource].results : []
     const nextItemsUrl = items[resource] && items[resource].next ? items[resource].next : null
     return (
-      <div className="item-list">
+      <div className="item-list container-fluid">
         <h1>{resource}</h1>
         <section>
           <ul className="list-unstyled row">
@@ -73,6 +75,7 @@ class ItemList extends Component {
 const mapStateToProps = state => ({
   sidebarItems: state.swapi.resources,
   sidebarIsActive: state.sidebar.active,
+  force: state.force,
   items: state.swapi.items,
   schemas: state.swapi.schemas
 })
@@ -82,9 +85,10 @@ const mapDispatchToProps = dispatch =>
     {
       getItems,
       getSchema,
+      setForceSide,
       setActiveSidebar
     },
     dispatch
   )
 
-export default connect(mapStateToProps, mapDispatchToProps)(withSidebar(ItemList))
+export default connect(mapStateToProps, mapDispatchToProps)(withFixedHeader(withSidebar(ItemList)))

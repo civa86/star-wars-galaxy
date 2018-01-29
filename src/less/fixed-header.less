@@ -1,0 +1,49 @@
+.fixed-header-style() {
+  .fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: @bgColor;
+    z-index: 999;
+    box-shadow: 0 3px 5px @headerShadowColor;
+
+    label {
+      margin-top: 15px;
+    }
+
+    .icon-bar {
+      background-color: @textColor;
+      display: block;
+      width: 25px;
+      height: 3px;
+      border-radius: 1px;
+      margin-top: 4px;
+
+      &:first-child {
+        margin-top: 25px;
+      }
+    }
+
+    .home-link {
+      text-align: center;
+
+      a {
+        display: inline-block;
+        font-size: 100px;
+        line-height: 70px;
+        height: 40px;
+        margin-top: 15px;
+        color: @mainColor;
+
+        i {
+          line-height: 50px;
+        }
+      }
+    }
+  }
+  .fixed-header-content {
+    margin-top: 80px;
+  }
+}

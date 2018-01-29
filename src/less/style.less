@@ -5,6 +5,7 @@
 
 @import './loader.less';
 @import './sidebar.less';
+@import './fixed-header.less';
 @import './home.less';
 
 // General
@@ -22,6 +23,7 @@ body {
   @mainColor: #018acc;
   @textColor: #130c0e;
   @textColor2: #41363a;
+  @headerShadowColor: rgba(57, 63, 72, 0.3);
   @loaderIcon: '\F04F';
   .style();
 }
@@ -31,6 +33,7 @@ body {
   @mainColor: #bd4422;
   @textColor: #e5e2de;
   @textColor2: #bba79c;
+  @headerShadowColor: fade(@bgColor2, 30);
   @loaderIcon: '\F04E';
   .style();
 }
@@ -57,5 +60,6 @@ body {
 
   .loader-style();
   .sidebar-style();
+  .fixed-header-style();
   .home-style();
 }

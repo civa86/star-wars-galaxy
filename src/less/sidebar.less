@@ -1,23 +1,66 @@
 .sidebar-style() {
+  @sidebar-size: 200px;
+
   .sidebar-layout-wrapper {
     display: flex;
     align-items: stretch;
 
     .sidebar {
-      min-width: 250px;
-      max-width: 250px;
+      min-width: @sidebar-size;
+      max-width: @sidebar-size;
       min-height: 100vh;
       transition: 0.6s;
 
       @media @only-xs {
-        margin-left: -250px;
+        margin-left: -@sidebar-size;
       }
 
       &.active {
-        margin-left: -250px;
+        margin-left: -@sidebar-size;
 
         @media @only-xs {
           margin-left: 0;
+        }
+      }
+
+      ul {
+        margin-bottom: 0;
+        // TODO: code duplication...in home...
+        li {
+          a {
+            text-decoration: none;
+            &.active {
+              .item {
+                background: fade(@mainColor, 20);
+                .name {
+                  color: fade(@mainColor, 80);
+                }
+              }
+            }
+            .item {
+              background: fade(@bgColor2, 40);
+              border-radius: 4px;
+              position: relative;
+              margin-bottom: 5px;
+              .name {
+                width: 100%;
+                text-align: center;
+                text-transform: capitalize;
+                font-size: 30px;
+                padding: 20px 0;
+                display: block;
+                color: @bgColor2;
+              }
+              i {
+                display: block;
+                position: absolute;
+                top: 7px;
+                left: 5px;
+                font-size: 80px;
+                color: fade(@textColor, 8);
+              }
+            }
+          }
         }
       }
     }
