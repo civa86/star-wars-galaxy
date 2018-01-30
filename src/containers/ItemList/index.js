@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import withSidebar from '../../components/Layout/withSidebar'
 import withFixedHeader from '../../components/Layout/withFixedHeader'
 import ItemPreview from '../../components/ItemPreview'
+import ResourceIcon from '../../components/ResourceIcon'
 import { setActiveSidebar } from '../../reducers/sidebar'
 import { getItems, getSchema } from '../../reducers/swapi'
 import { setForceSide } from '../../reducers/force'
@@ -50,7 +51,10 @@ class ItemList extends Component {
     const nextItemsUrl = items[resource] && items[resource].next ? items[resource].next : null
     return (
       <div className="item-list container-fluid">
-        <h1>{resource}</h1>
+        <h1 className="resource-title">
+          <ResourceIcon resource={resource} />
+          <span className="name">{resource}</span>
+        </h1>
         <section>
           <ul className="list-unstyled row">
             {itemsList.map((item, i) => (

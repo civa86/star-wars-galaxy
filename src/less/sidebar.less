@@ -4,6 +4,21 @@
   .sidebar-layout-wrapper {
     display: flex;
     align-items: stretch;
+    .without-sidebar {
+      display: none !important;
+      @media @only-xs {
+        display: block !important;
+      }
+    }
+
+    &.active {
+      .without-sidebar {
+        display: block !important;
+        @media @only-xs {
+          display: none !important;
+        }
+      }
+    }
 
     .sidebar {
       min-width: @sidebar-size;

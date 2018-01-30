@@ -9,7 +9,7 @@ const withSidebar = WrappedComponent => {
       const isActive = this.props.sidebarIsActive || false
 
       return (
-        <div className="sidebar-layout-wrapper">
+        <div className={'sidebar-layout-wrapper' + (isActive ? ' active' : '')}>
           <div className={'sidebar' + (isActive ? ' active' : '')}>
             <div className="container-fluid">
               <ul className="list-unstyled row">
