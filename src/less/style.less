@@ -9,11 +9,24 @@
 @import './home.less';
 
 // General
-html,
-body {
-  font-family: 'PT Sans', sans-serif;
+// html,
+// body {
+//   font-family: 'PT Sans', sans-serif;
+// }
+
+html {
   height: 100%;
+  width: 100%;
   overflow: hidden;
+}
+
+body {
+  height: 100%;
+  padding: 0;
+  overflow: auto;
+  margin: 0;
+  -webkit-overflow-scrolling: touch;
+  font-family: 'PT Sans', sans-serif;
 }
 
 //Force Side Theme Colors
@@ -41,16 +54,6 @@ body {
 //WebSite Style
 .style() {
   .app {
-    position: absolute;
-    min-height: 100%;
-    height: auto !important; /* cross-browser */
-    height: 100%; /* cross-browser */
-    width: 100%;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    overflow: auto;
     background: @bgColor;
     color: @textColor;
     a {
