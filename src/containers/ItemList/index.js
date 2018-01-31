@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import Equalizer from 'react-equalizer'
 import withSidebar from '../../components/Layout/withSidebar'
 import withFixedHeader from '../../components/Layout/withFixedHeader'
 import ResourceIcon from '../../components/Icon/ResourceIcon'
@@ -37,6 +38,11 @@ class ItemList extends Component {
     return keys.map(e => (item[e] ? { key: e, value: item[e] } : ''))
   }
 
+  getEqualizerNodes() {
+    return Object.keys(this.refs)
+      .filter(e => e.match(/eq\d/))
+      .map(e => this.refs[e])
+  }
   // Component Lifecycle
   componentWillMount() {
     this.loadData(this.getResource())
@@ -63,35 +69,37 @@ class ItemList extends Component {
           <span className="name">{resource}</span>
         </h1>
         <section className="item-preview">
-          <ul className="list-unstyled row item-preview-listing">
-            {itemsList.map((item, i) => (
-              <li key={i} className="col-xs-12 col-sm-6 col-lg-4">
-                {item &&
-                  schemas[resource] && (
-                    <div className="item-preview-listing-element">
-                      <h2>
-                        <ItemTitle item={item} schema={schemas[resource]} />
-                      </h2>
-                      <ul className="list-unstyled item-property-listing">
-                        {this.getItemProperties(item, schemas[resource]).map((e, i) => (
-                          <li className="item-property-listing-element" key={i}>
-                            <div className="row item-property-row">
-                              <div className="col-xs-12 item-property-label">
-                                <ItemLabel label={e.key} />
+          <Equalizer byRow={false} nodes={this.getEqualizerNodes.bind(this)}>
+            <ul className="list-unstyled row item-preview-listing">
+              {itemsList.map((item, i) => (
+                <li key={i} className="col-xs-12 col-sm-6 col-lg-4">
+                  {item &&
+                    schemas[resource] && (
+                      <div ref={'eq' + i} className="item-preview-listing-element">
+                        <h2>
+                          <ItemTitle item={item} schema={schemas[resource]} />
+                        </h2>
+                        <ul className="list-unstyled item-property-listing">
+                          {this.getItemProperties(item, schemas[resource]).map((e, i) => (
+                            <li className="item-property-listing-element" key={i}>
+                              <div className="row item-property-row">
+                                <div className="col-xs-12 item-property-label">
+                                  <ItemLabel label={e.key} />
+                                </div>
+                                <div className="col-xs-12 item-property-value">{e.value}</div>
                               </div>
-                              <div className="col-xs-12 item-property-value">{e.value}</div>
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                      <NavLink exact to={'/' + resource + '/' + item.id}>
-                        details
-                      </NavLink>
-                    </div>
-                  )}
-              </li>
-            ))}
-          </ul>
+                            </li>
+                          ))}
+                        </ul>
+                        <NavLink exact to={'/' + resource + '/' + item.id}>
+                          details
+                        </NavLink>
+                      </div>
+                    )}
+                </li>
+              ))}
+            </ul>
+          </Equalizer>
           {nextItemsUrl && (
             <div>
               <button className="btn btn-default" onClick={event => this.loadNextItems(event, nextItemsUrl)}>
