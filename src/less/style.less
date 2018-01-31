@@ -9,47 +9,45 @@
 @import './home.less';
 @import './item-list.less';
 
-// General
 html {
   height: 100%;
   width: 100%;
   overflow: hidden;
-}
+  background: red;
 
-body {
-  height: 100%;
-  padding: 0;
-  overflow: auto;
-  margin: 0;
-  -webkit-overflow-scrolling: touch;
-  font-family: 'PT Sans', sans-serif;
-}
-
-//Force Side Theme Colors
-.light {
-  @bgColor: #dedce4;
-  @bgColor2: #a9a2a3;
-  @mainColor: #018acc;
-  @textColor: #130c0e;
-  @textColor2: #41363a;
-  @headerShadowColor: rgba(57, 63, 72, 0.3);
-  @loaderIcon: '\F04F';
-  .style();
-}
-.dark {
-  @bgColor: #1a1112;
-  @bgColor2: #70787d;
-  @mainColor: #bd4422;
-  @textColor: #e5e2de;
-  @textColor2: #bba79c;
-  @headerShadowColor: fade(@bgColor2, 30);
-  @loaderIcon: '\F04E';
-  .style();
+  //Force Side Theme Colors
+  &.light {
+    @bgColor: #dedce4;
+    @bgColor2: #a9a2a3;
+    @mainColor: #018acc;
+    @textColor: #130c0e;
+    @textColor2: #41363a;
+    @headerShadowColor: rgba(57, 63, 72, 0.3);
+    @loaderIcon: '\F04F';
+    .style();
+  }
+  &.dark {
+    @bgColor: #1a1112;
+    @bgColor2: #70787d;
+    @mainColor: #bd4422;
+    @textColor: #e5e2de;
+    @textColor2: #bba79c;
+    @headerShadowColor: fade(@bgColor2, 30);
+    @loaderIcon: '\F04E';
+    .style();
+  }
 }
 
 //WebSite Style
 .style() {
-  .app {
+  body {
+    height: 100%;
+    padding: 0;
+    overflow: auto;
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 16px;
     background: @bgColor;
     color: @textColor;
     a {

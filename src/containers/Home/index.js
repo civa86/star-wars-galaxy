@@ -30,7 +30,7 @@ class Home extends Component {
                   </a>
                 </li>
                 <li className="github">
-                  <a href="https://github.com">
+                  <a href="https://github.com/civa86/star-wars-galaxy" target="_blank" rel="noopener noreferrer">
                     <StarWarsIcon icon="swg-github" />
                     <span className="sr-only">GitHub</span>
                   </a>

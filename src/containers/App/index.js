@@ -5,6 +5,7 @@ import { withRouter } from 'react-router'
 import { Switch, Route } from 'react-router-dom'
 import Loadable from 'react-loadable'
 import Loader from '../../components/Loader'
+import ThemeColor from '../../components/Layout/ThemeColor'
 import Error from '../Error'
 import { getResources } from '../../reducers/swapi'
 
@@ -40,7 +41,7 @@ export class App extends Component {
   render() {
     const { force, fetchingItems } = this.props
     return (
-      <div className={force.side}>
+      <ThemeColor color={force.side}>
         <div className="app">
           <Switch>
             {/* Home route */}
@@ -59,7 +60,7 @@ export class App extends Component {
           </Switch>
           {fetchingItems > 0 && <Loader />}
         </div>
-      </div>
+      </ThemeColor>
     )
   }
 }
