@@ -53,6 +53,7 @@ class ItemList extends Component {
     const nextResource = nextProps.match.params ? nextProps.match.params.resource : null
     if (resource && nextResource && nextResource !== resource) {
       this.loadData(nextResource)
+      document.body.scrollTo(0, 0)
     }
   }
 

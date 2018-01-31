@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import Equalizer from 'react-equalizer'
 import withSidebar from '../../components/Layout/withSidebar'
 import withFixedHeader from '../../components/Layout/withFixedHeader'
 import ItemTitle from '../../components/Item/Title'
@@ -58,43 +59,46 @@ class ItemDetail extends Component {
     }
   }
 
+  componentDidMount() {
+    document.body.scrollTo(0, 0)
+  }
+
   render() {
     const { schemas } = this.props
     const resource = this.getResource()
     const item = this.getLoadedItem()
     const fields = this.getItemFields(item)
-    console.log(item)
+
     return (
       <div>
         {item &&
           schemas[resource] && (
-            <div className="item-detail">
+            <div className="item-detail container-fluid">
               <h1>
                 <ItemTitle item={item} schema={schemas[resource]} />
               </h1>
-              <section>
-                <table className="table">
-                  <tbody>
-                    {fields.filter(e => e.type !== 'array' && !e.name.match(/created|edited|url/)).map((e, i) => (
-                      <tr key={'label' + i}>
-                        <td>{e.name}</td>
-                        <td>
-                          {isUrl(e.value) && <span>url....</span>}
-                          {!isUrl(e.value) && <span>{e.value}</span>}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <ul className="list-unstyled row">
-                  {fields.filter(e => e.type === 'array').map((e, i) => (
-                    <li className="col-xs-12 col-md-4" key={'obj' + i}>
-                      <h2>{e.name}</h2>
-                      <ul className="list-unstyled">{e.value.map((url, i) => <li key={'obj-url' + i}>{url}</li>)}</ul>
-                    </li>
+              <section className="row">
+                <Equalizer nodes={() => document.querySelectorAll('.item-property')}>
+                  {fields.filter(e => e.type !== 'array' && !e.name.match(/created|edited|url/)).map((e, i) => (
+                    <div key={'props' + i} className="col-xs-12 col-md-6 col-lg-4">
+                      <div className="item-property">
+                        <div className="item-property-label">
+                          <ItemLabel label={e.name} />
+                        </div>
+                        <div className="item-property-value">{e.value}</div>
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                </Equalizer>
               </section>
+              <ul className="list-unstyled row">
+                {fields.filter(e => e.type === 'array').map((e, i) => (
+                  <li className="col-xs-12 col-md-4" key={'obj' + i}>
+                    <h2>{e.name}</h2>
+                    <ul className="list-unstyled">{e.value.map((url, i) => <li key={'obj-url' + i}>{url}</li>)}</ul>
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
       </div>

@@ -1,0 +1,27 @@
+.item-detail-style() {
+  .item-detail {
+    h1 {
+      margin: 0;
+      text-transform: capitalize;
+      font-size: 50px;
+      padding: 10px 0;
+      color: fade(@mainColor, 80);
+    }
+
+    .item-property {
+      background: fade(@bgColor2, 40);
+      border-radius: 4px;
+      padding: 15px;
+      margin-bottom: 30px;
+      .item-property-label {
+        color: @textColor2;
+        font-size: 18px;
+        padding-bottom: 3px;
+        margin-bottom: 3px;
+      }
+      .item-property-value {
+        color: @textColor;
+      }
+    }
+  }
+}
