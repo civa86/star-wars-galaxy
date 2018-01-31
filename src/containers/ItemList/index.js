@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import withSidebar from '../../components/Layout/withSidebar'
 import withFixedHeader from '../../components/Layout/withFixedHeader'
-import ItemPreview from '../../components/ItemPreview'
-import ResourceIcon from '../../components/ResourceIcon'
+import ResourceIcon from '../../components/Icon/ResourceIcon'
+import ItemPrimaryField from '../../components/ItemPrimaryField'
 import { setActiveSidebar } from '../../reducers/sidebar'
 import { getItems, getSchema } from '../../reducers/swapi'
 import { setForceSide } from '../../reducers/force'
@@ -59,7 +60,24 @@ class ItemList extends Component {
           <ul className="list-unstyled row">
             {itemsList.map((item, i) => (
               <li key={i} className="col-xs-12 col-sm-6 col-md-4">
-                {item && schemas[resource] && <ItemPreview item={item} schema={schemas[resource]} />}
+                {item &&
+                  schemas[resource] && (
+                    <div>
+                      <h2>
+                        <ItemPrimaryField item={item} schema={schemas[resource]} />
+                      </h2>
+                      {/* <ul className="list-unstyled">
+                        {getSecondaryFields().map((e, i) => (
+                          <li key={i}>
+                            {e.key}: {e.value}
+                          </li>
+                        ))}
+                      </ul> */}
+                      <NavLink exact to={'/' + resource + '/' + item.id}>
+                        details
+                      </NavLink>
+                    </div>
+                  )}
               </li>
             ))}
           </ul>

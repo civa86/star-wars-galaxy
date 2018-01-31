@@ -4,11 +4,7 @@ import ErrorMessage from '../../components/ErrorMessage'
 
 class NotFound extends Component {
   render() {
-    return (
-      <div className="NotFound">
-        <ErrorMessage message="Page not found" />
-      </div>
-    )
+    return <ErrorMessage message="Page not found" />
   }
 }
 

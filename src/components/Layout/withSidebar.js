@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
-import ResourceIcon from '../ResourceIcon'
+import ResourceIcon from '../Icon/ResourceIcon'
 
 const withSidebar = WrappedComponent => {
   return class extends Component {

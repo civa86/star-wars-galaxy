@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
-import StarWarsIcon from '../StarWarsIcon'
+import StarWarsIcon from '../Icon/StarWarsIcon'
 import ForceSideSwitch from '../ForceSideSwitch'
 
 const onWindowScroll = () => {

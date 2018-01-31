@@ -1,6 +1,6 @@
 import React from 'react'
 import Switch from 'react-switch'
-import StarWarsIcon from '../StarWarsIcon'
+import StarWarsIcon from '../Icon/StarWarsIcon'
 
 const ForceSideSwitch = props => (
   <label className="pull-right" htmlFor="force-side-switch">

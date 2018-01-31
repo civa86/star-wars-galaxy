@@ -1,14 +1,14 @@
 import React from 'react'
 
-import StarWarsIcon from '../StarWarsIcon'
+import StarWarsIcon from '../Icon/StarWarsIcon'
 
 const ErrorMessage = props => {
   return (
-    <div className="ErrorMessage">
+    <div className="error text-danger">
       <div className="icon">
         <StarWarsIcon icon="swg-lightsabers" />
       </div>
-      <p>{props.message || ''}</p>
+      <p>{props.message || 'Error'}</p>
     </div>
   )
 }

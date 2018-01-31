@@ -1,6 +1,6 @@
 import React from 'react'
 
-import StarWarsIcon from '../StarWarsIcon'
+import StarWarsIcon from '../Icon/StarWarsIcon'
 import ErrorMessage from '../ErrorMessage'
 
 const Loader = props => {
