@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import withSidebar from '../../components/Layout/withSidebar'
-import ItemPrimaryField from '../../components/ItemPrimaryField'
+import ItemTitle from '../../components/Item/Title'
 import ItemFieldLabel from '../../components/ItemFieldLabel'
 import { isUrl } from '../../reducers/Api'
 import { getSchema, getItem } from '../../reducers/swapi'
@@ -67,7 +67,7 @@ class ItemDetail extends Component {
           schemas[resource] && (
             <div className="Detail">
               <h1>
-                <ItemPrimaryField item={item} schema={schemas[resource]} />
+                <ItemTitle item={item} schema={schemas[resource]} />
               </h1>
               <section>
                 <table className="table">

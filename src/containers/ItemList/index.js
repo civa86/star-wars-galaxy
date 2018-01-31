@@ -5,7 +5,8 @@ import { NavLink } from 'react-router-dom'
 import withSidebar from '../../components/Layout/withSidebar'
 import withFixedHeader from '../../components/Layout/withFixedHeader'
 import ResourceIcon from '../../components/Icon/ResourceIcon'
-import ItemPrimaryField from '../../components/ItemPrimaryField'
+import ItemTitle from '../../components/Item/Title'
+import ItemLabel from '../../components/Item/Label'
 import { setActiveSidebar } from '../../reducers/sidebar'
 import { getItems, getSchema } from '../../reducers/swapi'
 import { setForceSide } from '../../reducers/force'
@@ -23,12 +24,17 @@ class ItemList extends Component {
     getSchema(resource, schemas)
   }
 
-  laodNextItems(event, nextItemsUrl) {
+  loadNextItems(event, nextItemsUrl) {
     event.preventDefault()
     const nextPage = Number(nextItemsUrl.match(/page=(\d)/)[1])
     if (nextPage > 0) {
       this.loadData(this.getResource(), nextPage)
     }
+  }
+
+  getItemProperties(item, schema) {
+    const keys = schema.required.slice(1, 5)
+    return keys.map(e => (item[e] ? { key: e, value: item[e] } : ''))
   }
 
   // Component Lifecycle
@@ -56,23 +62,28 @@ class ItemList extends Component {
           <ResourceIcon resource={resource} />
           <span className="name">{resource}</span>
         </h1>
-        <section>
-          <ul className="list-unstyled row">
+        <section className="item-preview">
+          <ul className="list-unstyled row item-preview-listing">
             {itemsList.map((item, i) => (
-              <li key={i} className="col-xs-12 col-sm-6 col-md-4">
+              <li key={i} className="col-xs-12 col-sm-6 col-lg-4">
                 {item &&
                   schemas[resource] && (
-                    <div>
+                    <div className="item-preview-listing-element">
                       <h2>
-                        <ItemPrimaryField item={item} schema={schemas[resource]} />
+                        <ItemTitle item={item} schema={schemas[resource]} />
                       </h2>
-                      {/* <ul className="list-unstyled">
-                        {getSecondaryFields().map((e, i) => (
-                          <li key={i}>
-                            {e.key}: {e.value}
+                      <ul className="list-unstyled item-property-listing">
+                        {this.getItemProperties(item, schemas[resource]).map((e, i) => (
+                          <li className="item-property-listing-element" key={i}>
+                            <div className="row item-property-row">
+                              <div className="col-xs-12 item-property-label">
+                                <ItemLabel label={e.key} />
+                              </div>
+                              <div className="col-xs-12 item-property-value">{e.value}</div>
+                            </div>
                           </li>
                         ))}
-                      </ul> */}
+                      </ul>
                       <NavLink exact to={'/' + resource + '/' + item.id}>
                         details
                       </NavLink>
@@ -83,7 +94,7 @@ class ItemList extends Component {
           </ul>
           {nextItemsUrl && (
             <div>
-              <button className="btn btn-default" onClick={event => this.laodNextItems(event, nextItemsUrl)}>
+              <button className="btn btn-default" onClick={event => this.loadNextItems(event, nextItemsUrl)}>
                 Load More
               </button>
             </div>

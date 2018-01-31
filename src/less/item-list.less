@@ -6,7 +6,7 @@
       .name {
         width: 100%;
         text-transform: capitalize;
-        margin-left: 90px;
+        margin-left: 85px;
         font-size: 50px;
         padding: 10px 0;
         display: block;
@@ -16,9 +16,52 @@
         display: block;
         position: absolute;
         top: 0px;
-        left: 5px;
+        left: 0px;
         font-size: 80px;
         color: fade(@textColor, 20);
+      }
+    }
+
+    .item-preview {
+      .item-preview-listing {
+        margin-top: 15px;
+        margin-bottom: 0;
+        .item-preview-listing-element {
+          margin-bottom: 30px;
+          background: fade(@bgColor2, 40);
+          border-radius: 4px;
+          padding: 15px;
+
+          h2 {
+            margin: 0 0 10px 0;
+            color: @textColor2;
+            font-size: 22px;
+            min-height: 50px;
+            text-align: center;
+          }
+
+          .item-property-listing {
+            .item-property-listing-element {
+              background: fade(@bgColor, 50);
+              border-radius: 4px;
+              padding: 15px;
+              margin-bottom: 10px;
+
+              .item-property-row {
+                .item-property-label {
+                  color: @bgColor2;
+                  font-size: 18px;
+                  padding-bottom: 3px;
+                  margin-bottom: 3px;
+                }
+                .item-property-value {
+                  color: @textColor2;
+                }
+                text-overflow: ellipsis;
+              }
+            }
+          }
+        }
       }
     }
   }

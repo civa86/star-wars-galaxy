@@ -39,10 +39,10 @@ const ForceSideSwitch = props => (
           <StarWarsIcon icon="swg-reball" />
         </div>
       }
-      offColor="#1a1112"
-      onColor="#bba79c"
-      offHandleColor="#70787D"
-      onHandleColor="#41363A"
+      offColor="#C9C5CA"
+      onColor="#443B3A"
+      offHandleColor="#0089C9"
+      onHandleColor="#C5442A"
       handleDiameter={30}
       height={40}
       width={90}

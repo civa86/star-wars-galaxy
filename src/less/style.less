@@ -1,5 +1,5 @@
-@import './utils/normalize.less';
-@import './utils/reset.less';
+// @import './utils/normalize.less';
+// @import './utils/reset.less';
 @import './utils/media-query.less';
 @import './utils/mixin.less';
 
@@ -21,7 +21,7 @@ html {
     @bgColor2: #a9a2a3;
     @mainColor: #018acc;
     @textColor: #130c0e;
-    @textColor2: #41363a;
+    @textColor2: #75696d;
     @headerShadowColor: rgba(57, 63, 72, 0.3);
     @loaderIcon: '\F04F';
 
@@ -47,9 +47,9 @@ html {
   body {
     height: 100%;
     padding: 0;
-    overflow: auto;
     margin: 0;
-    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+    overflow-x: hidden;
     font-family: 'PT Sans', sans-serif;
     font-size: 16px;
     background: @bgColor;
