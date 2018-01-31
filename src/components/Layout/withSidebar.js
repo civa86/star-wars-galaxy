@@ -15,7 +15,7 @@ const withSidebar = WrappedComponent => {
               <ul className="list-unstyled row">
                 {items.map((item, i) => (
                   <li key={i} className="col-xs-12">
-                    <NavLink exact to={'/' + item.name}>
+                    <NavLink to={'/' + item.name}>
                       <div className="item">
                         <ResourceIcon resource={item.name} />
                         <span className="name">{item.name}</span>

@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import withSidebar from '../../components/Layout/withSidebar'
+import withFixedHeader from '../../components/Layout/withFixedHeader'
 import ItemTitle from '../../components/Item/Title'
-import ItemFieldLabel from '../../components/ItemFieldLabel'
+import ItemLabel from '../../components/Item/Label'
+import { setActiveSidebar } from '../../reducers/sidebar'
+import { getItem, getSchema } from '../../reducers/swapi'
+import { setForceSide } from '../../reducers/force'
 import { isUrl } from '../../reducers/Api'
-import { getSchema, getItem } from '../../reducers/swapi'
 
 class ItemDetail extends Component {
   getResource() {
@@ -15,7 +18,7 @@ class ItemDetail extends Component {
 
   getId() {
     const { match } = this.props
-    return match.params ? match.params.id : null
+    return match.params ? Number(match.params.id) : null
   }
 
   getLoadedItem() {
@@ -60,12 +63,12 @@ class ItemDetail extends Component {
     const resource = this.getResource()
     const item = this.getLoadedItem()
     const fields = this.getItemFields(item)
-
+    console.log(item)
     return (
       <div>
         {item &&
           schemas[resource] && (
-            <div className="Detail">
+            <div className="item-detail">
               <h1>
                 <ItemTitle item={item} schema={schemas[resource]} />
               </h1>
@@ -74,9 +77,7 @@ class ItemDetail extends Component {
                   <tbody>
                     {fields.filter(e => e.type !== 'array' && !e.name.match(/created|edited|url/)).map((e, i) => (
                       <tr key={'label' + i}>
-                        <td>
-                          <ItemFieldLabel label={e.name} />
-                        </td>
+                        <td>{e.name}</td>
                         <td>
                           {isUrl(e.value) && <span>url....</span>}
                           {!isUrl(e.value) && <span>{e.value}</span>}
@@ -102,6 +103,9 @@ class ItemDetail extends Component {
 }
 
 const mapStateToProps = state => ({
+  sidebarItems: state.swapi.resources,
+  sidebarIsActive: state.sidebar.active,
+  force: state.force,
   items: state.swapi.items,
   schemas: state.swapi.schemas
 })
@@ -110,9 +114,11 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getItem,
-      getSchema
+      getSchema,
+      setForceSide,
+      setActiveSidebar
     },
     dispatch
   )
 
-export default connect(mapStateToProps, mapDispatchToProps)(withSidebar(ItemDetail))
+export default connect(mapStateToProps, mapDispatchToProps)(withFixedHeader(withSidebar(ItemDetail)))

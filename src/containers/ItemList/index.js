@@ -58,7 +58,7 @@ class ItemList extends Component {
 
   // Component Rendering
   render() {
-    const { items, schemas } = this.props
+    const { fetchingItems, items, schemas } = this.props
     const resource = this.getResource()
     const itemsList = items[resource] && items[resource].results ? items[resource].results : []
     const nextItemsUrl = items[resource] && items[resource].next ? items[resource].next : null
@@ -68,56 +68,59 @@ class ItemList extends Component {
           <ResourceIcon resource={resource} />
           <span className="name">{resource}</span>
         </h1>
-        <section className="item-preview">
-          <Equalizer byRow={false} nodes={this.getEqualizerNodes.bind(this)}>
-            <ul className="list-unstyled row item-preview-listing">
-              {itemsList.map((item, i) => (
-                <li key={i} className="col-xs-12 col-sm-6 col-lg-4">
-                  {item &&
-                    schemas[resource] && (
-                      <div ref={'eq' + i} className="item-preview-listing-element">
-                        <h2>
-                          <NavLink exact to={'/' + resource + '/' + item.id}>
-                            <ItemTitle item={item} schema={schemas[resource]} />
-                          </NavLink>
-                        </h2>
-                        <ul className="list-unstyled item-property-listing">
-                          {this.getItemProperties(item, schemas[resource]).map((e, i) => (
-                            <li className="item-property-listing-element" key={i}>
-                              <div className="row item-property-row">
-                                <div className="col-xs-12 item-property-label">
-                                  <ItemLabel label={e.key} />
+        {fetchingItems === 0 && (
+          <section className="item-preview">
+            <Equalizer byRow={false} nodes={this.getEqualizerNodes.bind(this)}>
+              <ul className="list-unstyled row item-preview-listing">
+                {itemsList.map((item, i) => (
+                  <li key={i} className="col-xs-12 col-sm-6 col-lg-4">
+                    {item &&
+                      schemas[resource] && (
+                        <div ref={'eq' + i} className="item-preview-listing-element">
+                          <h2>
+                            <NavLink exact to={'/' + resource + '/' + item.id}>
+                              <ItemTitle item={item} schema={schemas[resource]} />
+                            </NavLink>
+                          </h2>
+                          <ul className="list-unstyled item-property-listing">
+                            {this.getItemProperties(item, schemas[resource]).map((e, i) => (
+                              <li className="item-property-listing-element" key={i}>
+                                <div className="row item-property-row">
+                                  <div className="col-xs-12 item-property-label">
+                                    <ItemLabel label={e.key} />
+                                  </div>
+                                  <div className="col-xs-12 item-property-value">{e.value}</div>
                                 </div>
-                                <div className="col-xs-12 item-property-value">{e.value}</div>
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                        <div className="view-more">
-                          <NavLink exact to={'/' + resource + '/' + item.id}>
-                            more
-                          </NavLink>
+                              </li>
+                            ))}
+                          </ul>
+                          <div className="view-more">
+                            <NavLink exact to={'/' + resource + '/' + item.id}>
+                              more
+                            </NavLink>
+                          </div>
                         </div>
-                      </div>
-                    )}
-                </li>
-              ))}
-            </ul>
-          </Equalizer>
-          {nextItemsUrl && (
-            <div>
-              <button className="btn btn-default" onClick={event => this.loadNextItems(event, nextItemsUrl)}>
-                Load More
-              </button>
-            </div>
-          )}
-        </section>
+                      )}
+                  </li>
+                ))}
+              </ul>
+            </Equalizer>
+            {nextItemsUrl && (
+              <div>
+                <button className="btn btn-default" onClick={event => this.loadNextItems(event, nextItemsUrl)}>
+                  Load More
+                </button>
+              </div>
+            )}
+          </section>
+        )}
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
+  fetchingItems: state.api.fetchingItems,
   sidebarItems: state.swapi.resources,
   sidebarIsActive: state.sidebar.active,
   force: state.force,
