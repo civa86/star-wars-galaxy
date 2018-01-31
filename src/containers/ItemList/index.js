@@ -77,7 +77,9 @@ class ItemList extends Component {
                     schemas[resource] && (
                       <div ref={'eq' + i} className="item-preview-listing-element">
                         <h2>
-                          <ItemTitle item={item} schema={schemas[resource]} />
+                          <NavLink exact to={'/' + resource + '/' + item.id}>
+                            <ItemTitle item={item} schema={schemas[resource]} />
+                          </NavLink>
                         </h2>
                         <ul className="list-unstyled item-property-listing">
                           {this.getItemProperties(item, schemas[resource]).map((e, i) => (
@@ -91,9 +93,11 @@ class ItemList extends Component {
                             </li>
                           ))}
                         </ul>
-                        <NavLink exact to={'/' + resource + '/' + item.id}>
-                          details
-                        </NavLink>
+                        <div className="view-more">
+                          <NavLink exact to={'/' + resource + '/' + item.id}>
+                            more
+                          </NavLink>
+                        </div>
                       </div>
                     )}
                 </li>
