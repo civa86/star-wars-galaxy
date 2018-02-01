@@ -9,7 +9,7 @@ import ItemLabel from '../../components/Item/Label'
 import { setActiveSidebar } from '../../reducers/sidebar'
 import { getItem, getSchema } from '../../reducers/swapi'
 import { setForceSide } from '../../reducers/force'
-import { isUrl } from '../../reducers/Api'
+import { isUrl } from '../../reducers/fetchApi'
 
 class ItemDetail extends Component {
   getResource() {

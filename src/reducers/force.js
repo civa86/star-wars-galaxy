@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
     case FORCE_SET_SIDE:
       return {
         ...state,
-        side: action.side === 'dark' ? 'dark' : 'light'
+        side: action.side.match(/light|dark/) ? action.side : state.side
       }
     default:
       return state

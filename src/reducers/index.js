@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
-import { apiReducer } from './Api'
+import { apiReducer } from './fetchApi'
 import forceReducer from './force'
 import sidebarReducer from './sidebar'
 import swapiReducer from './swapi'

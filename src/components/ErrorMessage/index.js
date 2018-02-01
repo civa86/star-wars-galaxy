@@ -8,7 +8,7 @@ const ErrorMessage = props => {
       <div className="icon">
         <StarWarsIcon icon="swg-lightsabers" />
       </div>
-      <p>{props.message || 'Error'}</p>
+      <p className="msg">{props.message || 'Error'}</p>
     </div>
   )
 }

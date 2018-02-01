@@ -1,5 +1,5 @@
 import React from 'react'
-import StarWarsIcon from '../StarWarsIcon'
+import StarWarsIcon from './StarWarsIcon'
 
 const iconMapping = {
   people: 'swg-leia',

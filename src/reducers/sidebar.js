@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
     case SIDEBAR_SET_ACTIVE:
       return {
         ...state,
-        active: action.active === true ? true : false
+        active: typeof action.active === 'boolean' ? action.active : state.active
       }
     default:
       return state

@@ -1,5 +1,5 @@
 import { push } from 'react-router-redux'
-import { apiCall } from '../reducers/Api'
+import { apiCall } from './fetchApi'
 import { sortObjectCollectionByProp } from '../utils/sorter'
 
 // Constants
