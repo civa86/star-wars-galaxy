@@ -12,4 +12,16 @@ describe('ThemeColor Component', () => {
     const component = shallow(<ThemeColor>{children}</ThemeColor>)
     expect(component).toContainReact(children)
   })
+  it('calls setClassName on mount', () => {
+    const spy = jest.spyOn(ThemeColor.prototype, 'setClassName')
+    const component = shallow(<ThemeColor color="red" />)
+    expect(spy).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalledWith('red')
+  })
+  it('calls setClassName on props update', () => {
+    const spy = jest.spyOn(ThemeColor.prototype, 'setClassName')
+    const component = shallow(<ThemeColor color="red" />)
+    component.setProps({ color: 'blue' })
+    expect(spy).toHaveBeenCalledWith('blue')
+  })
 })
