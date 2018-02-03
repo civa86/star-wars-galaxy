@@ -40,9 +40,10 @@ describe('withFixedHeader High Order Component', () => {
     expect(component.find('.home-link')).toBePresent(<NavLink to="/" />)
   })
   it('has the force side switch', () => {
+    const setForceSide = jest.fn()
     const simpleComponent = props => <p>content</p>
     const EnanchedComponent = withFixedHeader(simpleComponent)
-    const component = shallow(<EnanchedComponent />)
+    const component = shallow(<EnanchedComponent setForceSide={setForceSide} force="light" />)
     expect(component).toBePresent(<ForceSideSwitch />)
   })
 })

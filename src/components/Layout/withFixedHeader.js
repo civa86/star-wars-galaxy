@@ -56,7 +56,7 @@ const withFixedHeader = WrappedComponent => {
                       </NavLink>
                     </div>
                   </div>
-                  <div className="col-xs-4">
+                  <div className="col-xs-4 force-switch-container">
                     <ForceSideSwitch side={forceSide} changeForceSide={side => setForceSide(side)} />
                   </div>
                 </div>
