@@ -7,7 +7,7 @@ import ResourceIcon from '../../components/Icon/ResourceIcon'
 import ForceSideSwitch from '../../components/ForceSideSwitch'
 import { setForceSide } from '../../reducers/force'
 
-class Home extends Component {
+export class Home extends Component {
   render() {
     const { force, resources, setForceSide } = this.props
 
