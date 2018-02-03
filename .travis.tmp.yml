@@ -18,10 +18,11 @@ after_script:
   - npm run coverage
   - cat ./coverage/lcov.info | coveralls
 before_deploy:
+  - export VERSION="`node -p -e "require('./package.json').version"`"
   - zip -r star-wars-galaxy.zip build/*
   - git config --local user.name "civa86"
   - git config --local user.email "dario.civallero@gmail.com"
-  - git tag "TAG..."
+  - git tag "v.$VERSION.build.$TRAVIS_BUILD_NUMBER"
 deploy:
   # PUBLISH ON FIREBASE
   - provider: firebase
@@ -31,16 +32,17 @@ deploy:
     skip_cleanup: true
   # UPLOAD RELEASE ARTIFACT
   - provider: releases
-    api_key: "GITHUB OAUTH TOKEN"
+    api_key: "$GH_TOKEN"
     file: "star-wars-galaxy.zip"
     skip_cleanup: true
-# AFTER DEPLOY: Audits and upload to gist
+# AFTER DEPLOY: Audit and upload to gist
 after_deploy:
   - lighthouse --output json --output-path lighthouse.report.json <URL>
   - export REPORT=`cat lighthouse.report.json`
-  - curl -v --request PATCH -H "Authorization: token $GH_TOKEN" -d '{"description": "updated star wars lighthouse report", "files": {"star-wars-galaxy.lighthouse.report.json": {"content": "$REPORT"}}}' https://api.github.com/gists/f01219ac55a43bb2d52657f959a98acc
+  - "curl -v --request PATCH -H \"Authorization: token $GH_TOKEN\" -d \"{\"files\": {\"$GIST_FILE\": {\"content\": \"$REPORT\"}}}\" $GIST_URL"
 env:
   global:
-  - secure: put github token...
-  - secure: put coveralls token...
+  - GIST_URL=https://api.github.com/gists/f01219ac55a43bb2d52657f959a98acc
+  - GIST_FILE=star-wars-galaxy.lighthouse.report.json
+  - secure: create and encrypt GH_TOKEN
 
