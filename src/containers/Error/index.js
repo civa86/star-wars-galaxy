@@ -4,7 +4,7 @@ import ErrorMessage from '../../components/ErrorMessage'
 
 class Error extends Component {
   render() {
-    return <ErrorMessage message="Something went wrong :( " />
+    return <ErrorMessage message="Something went wrong :(" />
   }
 }
 

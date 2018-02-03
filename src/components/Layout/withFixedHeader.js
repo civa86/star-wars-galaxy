@@ -31,6 +31,7 @@ const withFixedHeader = WrappedComponent => {
 
     render() {
       const { setForceSide, force } = this.props
+      const forceSide = force && force.side ? force.side : ''
       return (
         <div>
           <header className="fixed-header">
@@ -56,7 +57,7 @@ const withFixedHeader = WrappedComponent => {
                     </div>
                   </div>
                   <div className="col-xs-4">
-                    <ForceSideSwitch side={force.side} changeForceSide={side => setForceSide(side)} />
+                    <ForceSideSwitch side={forceSide} changeForceSide={side => setForceSide(side)} />
                   </div>
                 </div>
               </div>
