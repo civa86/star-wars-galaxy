@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import ResourceIcon from '../Icon/ResourceIcon'
+import ExternalLinks from '../ExternalLinks'
 
 const withSidebar = WrappedComponent => {
   return class extends Component {
@@ -24,6 +25,7 @@ const withSidebar = WrappedComponent => {
                   </li>
                 ))}
               </ul>
+              <ExternalLinks />
             </div>
           </div>
           <div className="content">

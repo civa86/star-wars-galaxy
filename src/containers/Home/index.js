@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { NavLink } from 'react-router-dom'
 import StarWarsIcon from '../../components/Icon/StarWarsIcon'
 import ResourceIcon from '../../components/Icon/ResourceIcon'
+import ExternalLinks from '../../components/ExternalLinks'
 import ForceSideSwitch from '../../components/ForceSideSwitch'
 import { setForceSide } from '../../reducers/force'
 
@@ -22,20 +23,7 @@ export class Home extends Component {
               </h1>
             </div>
             <div className="links col-xs-12 col-sm-8 col-lg-9">
-              <ul className="list-unstyled">
-                <li className="swapi">
-                  powered by{' '}
-                  <a href="https://swapi.co/" target="_blank" rel="noopener noreferrer">
-                    SWAPI
-                  </a>
-                </li>
-                <li className="github">
-                  <a href="https://github.com/civa86/star-wars-galaxy" target="_blank" rel="noopener noreferrer">
-                    <StarWarsIcon icon="swg-github" />
-                    <span className="sr-only">GitHub</span>
-                  </a>
-                </li>
-              </ul>
+              <ExternalLinks />
               <ForceSideSwitch side={force.side} changeForceSide={side => setForceSide(side)} />
             </div>
           </div>

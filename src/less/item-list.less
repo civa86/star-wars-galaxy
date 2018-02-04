@@ -1,5 +1,6 @@
 .item-list-style() {
   .item-list {
+    margin-bottom: 15px;
     .resource-title {
       margin: 0;
       position: relative;
@@ -81,6 +82,28 @@
             background: fade(@mainColor, 15);
             color: fade(@mainColor, 100);
           }
+        }
+      }
+    }
+    .items-counter {
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+    .load-more-container {
+      .load-more-btn {
+        display: block;
+        width: 100%;
+        color: @textColor2;
+        background: @bgColor;
+        border: 1px solid fade(@textColor2, 50);
+        border-radius: 4px;
+        padding: 10px 0;
+        margin-bottom: 15px;
+        &:hover {
+          color: @bgColor;
+          background: fade(@textColor2, 50);
         }
       }
     }

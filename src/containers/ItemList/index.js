@@ -8,6 +8,7 @@ import withFixedHeader from '../../components/Layout/withFixedHeader'
 import ResourceIcon from '../../components/Icon/ResourceIcon'
 import ItemTitle from '../../components/Item/Title'
 import ItemLabel from '../../components/Item/Label'
+import ItemCounter from '../../components/Item/Counter'
 import { setActiveSidebar } from '../../reducers/sidebar'
 import { getItems, getSchema } from '../../reducers/swapi'
 import { setForceSide } from '../../reducers/force'
@@ -75,40 +76,40 @@ class ItemList extends Component {
               <ul className="list-unstyled row item-preview-listing">
                 {itemsList.map((item, i) => (
                   <li key={i} className="col-xs-12 col-sm-6 col-lg-4">
-                    {item &&
-                      schemas[resource] && (
-                        <div ref={'eq' + i} className="item-preview-listing-element">
-                          <h2>
-                            <NavLink exact to={'/' + resource + '/' + item.id}>
-                              <ItemTitle item={item} schema={schemas[resource]} />
-                            </NavLink>
-                          </h2>
-                          <ul className="list-unstyled item-property-listing">
-                            {this.getItemProperties(item, schemas[resource]).map((e, i) => (
-                              <li className="item-property-listing-element" key={i}>
-                                <div className="row item-property-row">
-                                  <div className="col-xs-12 item-property-label">
-                                    <ItemLabel label={e.key} />
-                                  </div>
-                                  <div className="col-xs-12 item-property-value">{e.value}</div>
+                    {schemas[resource] && (
+                      <div ref={'eq' + i} className="item-preview-listing-element">
+                        <h2>
+                          <NavLink exact to={'/' + resource + '/' + item.id}>
+                            <ItemTitle item={item} schema={schemas[resource]} />
+                          </NavLink>
+                        </h2>
+                        <ul className="list-unstyled item-property-listing">
+                          {this.getItemProperties(item, schemas[resource]).map((e, i) => (
+                            <li className="item-property-listing-element" key={i}>
+                              <div className="row item-property-row">
+                                <div className="col-xs-12 item-property-label">
+                                  <ItemLabel label={e.key} />
                                 </div>
-                              </li>
-                            ))}
-                          </ul>
-                          <div className="view-more">
-                            <NavLink exact to={'/' + resource + '/' + item.id}>
-                              more
-                            </NavLink>
-                          </div>
+                                <div className="col-xs-12 item-property-value">{e.value}</div>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="view-more">
+                          <NavLink exact to={'/' + resource + '/' + item.id}>
+                            more
+                          </NavLink>
                         </div>
-                      )}
+                      </div>
+                    )}
                   </li>
                 ))}
               </ul>
             </Equalizer>
+            <ItemCounter item={items[resource]} />
             {nextItemsUrl && (
-              <div>
-                <button className="btn btn-default" onClick={event => this.loadNextItems(event, nextItemsUrl)}>
+              <div className="load-more-container">
+                <button className="load-more-btn" onClick={event => this.loadNextItems(event, nextItemsUrl)}>
                   Load More
                 </button>
               </div>
