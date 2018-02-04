@@ -17,9 +17,11 @@ describe('Home Container', () => {
     const resources = []
     const component = shallow(<Home force={{ side: 'light' }} resources={resources} />)
     expect(component.find('.resources ul')).toContainReact(<ul className="list-unstyled row" />)
+    expect(component.find('.resources ul').children().length).toBe(0)
   })
   it('render resources passed in prop', () => {
-    const resources = [{ name: 'A', name: 'B' }]
+    const resources = [{ name: 'A' }, { name: 'B' }]
     const component = shallow(<Home force={{ side: 'light' }} resources={resources} />)
+    expect(component.find('.resources ul').children().length).toBe(2)
   })
 })
