@@ -6,10 +6,10 @@ import Loader from '../../components/Loader'
 import ItemTitle from '../../components/Item/Title'
 import { getItem, getSchema } from '../../reducers/swapi'
 
-class ItemLoader extends Component {
-  getItemParamsFromUrl() {
-    const { url } = this.props
-    const urlParts = url
+class ItemLoaderSingle extends Component {
+  getItemParamsFromUrl(overrideUrl) {
+    const urlToSplit = overrideUrl ? overrideUrl : this.props.url
+    const urlParts = urlToSplit
       .split('/')
       .filter(e => e !== '')
       .slice(-2)
@@ -31,11 +31,20 @@ class ItemLoader extends Component {
     return schemas && schemas[resource] ? schemas[resource] : null
   }
 
-  componentWillMount() {
+  loadData(overrideUrl) {
     const { items, schemas, getItem, getSchema } = this.props
-    const itemToLoad = this.getItemParamsFromUrl()
+    const itemToLoad = this.getItemParamsFromUrl(overrideUrl)
     getItem(itemToLoad.resource, itemToLoad.id, items)
     getSchema(itemToLoad.resource, schemas)
+  }
+  componentWillMount() {
+    this.loadData()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.url !== nextProps.url) {
+      this.loadData(nextProps.url)
+    }
   }
 
   render() {
@@ -52,7 +61,6 @@ class ItemLoader extends Component {
     } else {
       return (
         <div>
-          {JSON.stringify(itemToLoad)}
           <Loader />
         </div>
       )
@@ -74,4 +82,4 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default connect(mapStateToProps, mapDispatchToProps)(ItemLoader)
+export default connect(mapStateToProps, mapDispatchToProps)(ItemLoaderSingle)

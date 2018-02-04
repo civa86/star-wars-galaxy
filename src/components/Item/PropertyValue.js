@@ -1,5 +1,5 @@
 import React from 'react'
-import ItemLoader from '../../containers/ItemLoader'
+import ItemLoaderSingle from '../../containers/ItemLoader/Single'
 
 const ItemPropertyValue = props => {
   const { value } = props
@@ -20,7 +20,7 @@ const ItemPropertyValue = props => {
     }
   }
   if (isUrl(value)) {
-    return <ItemLoader url={value} />
+    return <ItemLoaderSingle url={value} />
   } else {
     return <span>{value}</span>
   }

@@ -11,9 +11,9 @@ describe('ItemPropertyValue Component', () => {
     const component = shallow(<ItemPropertyValue value="test" />)
     expect(component).toContainReact(<span>test</span>)
   })
-  it('return the ItemLoader if value prop is a url', () => {
+  it('return the ItemLoaderSingle if value prop is a url', () => {
     const url = 'https://swapi.co/api/species/1/'
     const component = shallow(<ItemPropertyValue value={url} />)
-    expect(component.find('Connect(ItemLoader)')).toHaveLength(1)
+    expect(component.find('Connect(ItemLoaderSingle)')).toHaveLength(1)
   })
 })

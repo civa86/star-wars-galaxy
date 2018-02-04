@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Equalizer from 'react-equalizer'
+import ItemLoaderList from '../ItemLoader/List'
 import withSidebar from '../../components/Layout/withSidebar'
 import withFixedHeader from '../../components/Layout/withFixedHeader'
 import ItemTitle from '../../components/Item/Title'
@@ -109,20 +110,21 @@ class ItemDetail extends Component {
                   ))}
                 </Equalizer>
               </section>
-              <ul className="list-unstyled row">
-                {fields.filter(e => e.type === 'array').map((e, i) => (
-                  <li className="col-xs-12 col-md-4" key={'obj' + i}>
-                    <h2>{e.name}</h2>
-                    <ul className="list-unstyled">
-                      {e.value.map((url, i) => (
-                        <li key={'obj-url' + i}>
-                          {url}
-                          {/* <ItemPropertyValue value={url} /> */}
+              <ul className="links-to-resources list-unstyled row">
+                <Equalizer>
+                  {fields.filter(e => e.type === 'array').map((e, i) => {
+                    return (
+                      e.value.length > 0 && (
+                        <li className="col-xs-12 col-md-4" key={'obj' + i}>
+                          <div className="list">
+                            <h2>{e.name}</h2>
+                            <ItemLoaderList list={e.value} />
+                          </div>
                         </li>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
+                      )
+                    )
+                  })}
+                </Equalizer>
               </ul>
             </div>
           )}

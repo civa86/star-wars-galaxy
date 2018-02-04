@@ -1,5 +1,6 @@
 .item-detail-style() {
   .item-detail {
+    margin-bottom: 30px;
     h1 {
       margin: 0;
       text-transform: capitalize;
@@ -24,6 +25,33 @@
 
         a {
           text-decoration: underline;
+        }
+      }
+    }
+
+    .links-to-resources {
+      li {
+        .list {
+          background: fade(@bgColor2, 40);
+          border-radius: 4px;
+          padding: 15px;
+          margin-bottom: 30px;
+
+          h2 {
+            margin: 0;
+            padding-bottom: 10px;
+            text-transform: capitalize;
+            text-align: center;
+            color: @textColor;
+          }
+          ul {
+            li {
+              padding-bottom: 5px;
+              a {
+                text-decoration: underline;
+              }
+            }
+          }
         }
       }
     }
