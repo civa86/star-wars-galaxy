@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ItemLabel = props => {
+const ItemPropertyLabel = props => {
   const label = props.label
     .split('_')
     .map(s => s.charAt(0).toUpperCase() + s.slice(1))
@@ -8,4 +8,4 @@ const ItemLabel = props => {
   return <span>{label}</span>
 }
 
-export default ItemLabel
+export default ItemPropertyLabel

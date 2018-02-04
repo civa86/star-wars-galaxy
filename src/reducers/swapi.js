@@ -66,7 +66,7 @@ export const getItems = (resource, items, page = 1) => {
   const lastPage = items[resource] && items[resource].lastPage ? items[resource].lastPage : 0
   if (!items[resource] || lastPage < page) {
     return apiCall(
-      API_DOMAIN + '/api/' + resource + '?page=' + page,
+      API_DOMAIN + '/api/' + resource + '/?page=' + page,
       null,
       data => getItemsSuccess(resource, data, page),
       errorHandler
@@ -80,7 +80,7 @@ export const getItem = (resource, itemId, items) => {
   const currentItems = items && items[resource] && items[resource].results ? items[resource].results : []
   if (!currentItems.map(e => getIdFromUrl(e.url)).includes(itemId)) {
     return apiCall(
-      API_DOMAIN + '/api/' + resource + '/' + itemId,
+      API_DOMAIN + '/api/' + resource + '/' + itemId + '/',
       null,
       data => getItemSuccess(resource, data),
       errorHandler

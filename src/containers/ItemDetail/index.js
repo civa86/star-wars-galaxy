@@ -5,13 +5,29 @@ import Equalizer from 'react-equalizer'
 import withSidebar from '../../components/Layout/withSidebar'
 import withFixedHeader from '../../components/Layout/withFixedHeader'
 import ItemTitle from '../../components/Item/Title'
-import ItemLabel from '../../components/Item/Label'
+import ItemPropertyLabel from '../../components/Item/PropertyLabel'
+import ItemPropertyValue from '../../components/Item/PropertyValue'
 import { setActiveSidebar } from '../../reducers/sidebar'
 import { getItem, getSchema } from '../../reducers/swapi'
 import { setForceSide } from '../../reducers/force'
-// import { isUrl } from '../../reducers/fetchApi'
 
 class ItemDetail extends Component {
+  isUrl(str) {
+    const pattern = new RegExp(
+      '^((https?:)?\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$',
+      'i'
+    ) // fragment locater
+    if (!pattern.test(str)) {
+      return false
+    } else {
+      return true
+    }
+  }
   getResource() {
     const { match } = this.props
     return match.params ? match.params.resource : null
@@ -83,9 +99,11 @@ class ItemDetail extends Component {
                     <div key={'props' + i} className="col-xs-12 col-md-6 col-lg-4">
                       <div className="item-property">
                         <div className="item-property-label">
-                          <ItemLabel label={e.name} />
+                          <ItemPropertyLabel label={e.name} />
                         </div>
-                        <div className="item-property-value">{e.value}</div>
+                        <div className="item-property-value">
+                          <ItemPropertyValue value={e.value} />
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -95,7 +113,14 @@ class ItemDetail extends Component {
                 {fields.filter(e => e.type === 'array').map((e, i) => (
                   <li className="col-xs-12 col-md-4" key={'obj' + i}>
                     <h2>{e.name}</h2>
-                    <ul className="list-unstyled">{e.value.map((url, i) => <li key={'obj-url' + i}>{url}</li>)}</ul>
+                    <ul className="list-unstyled">
+                      {e.value.map((url, i) => (
+                        <li key={'obj-url' + i}>
+                          {url}
+                          {/* <ItemPropertyValue value={url} /> */}
+                        </li>
+                      ))}
+                    </ul>
                   </li>
                 ))}
               </ul>

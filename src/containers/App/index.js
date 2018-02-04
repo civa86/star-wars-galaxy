@@ -58,7 +58,11 @@ export class App extends Component {
             {/* Not Found catch all route */}
             <Route component={NotFound} />
           </Switch>
-          {fetchingItems > 0 && <Loader />}
+          {fetchingItems > 0 && (
+            <div className="fixed-loader">
+              <Loader />
+            </div>
+          )}
         </div>
       </ThemeColor>
     )

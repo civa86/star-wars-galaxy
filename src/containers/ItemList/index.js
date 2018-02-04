@@ -7,7 +7,8 @@ import withSidebar from '../../components/Layout/withSidebar'
 import withFixedHeader from '../../components/Layout/withFixedHeader'
 import ResourceIcon from '../../components/Icon/ResourceIcon'
 import ItemTitle from '../../components/Item/Title'
-import ItemLabel from '../../components/Item/Label'
+import ItemPropertyLabel from '../../components/Item/PropertyLabel'
+import ItemPropertyValue from '../../components/Item/PropertyValue'
 import ItemCounter from '../../components/Item/Counter'
 import { setActiveSidebar } from '../../reducers/sidebar'
 import { getItems, getSchema } from '../../reducers/swapi'
@@ -88,9 +89,11 @@ class ItemList extends Component {
                             <li className="item-property-listing-element" key={i}>
                               <div className="row item-property-row">
                                 <div className="col-xs-12 item-property-label">
-                                  <ItemLabel label={e.key} />
+                                  <ItemPropertyLabel label={e.key} />
                                 </div>
-                                <div className="col-xs-12 item-property-value">{e.value}</div>
+                                <div className="col-xs-12 item-property-value">
+                                  <ItemPropertyValue value={e.value} />
+                                </div>
                               </div>
                             </li>
                           ))}
