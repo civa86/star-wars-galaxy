@@ -73,6 +73,7 @@ class ItemDetail extends Component {
     const nextResource = nextProps.match.params ? nextProps.match.params.resource : null
     if (resource && nextResource && nextResource !== resource) {
       this.loadData(nextResource)
+      document.body.scrollTo(0, 0)
     }
   }
 
@@ -111,12 +112,12 @@ class ItemDetail extends Component {
                 </Equalizer>
               </section>
               <ul className="links-to-resources list-unstyled row">
-                <Equalizer>
+                <Equalizer nodes={() => document.querySelectorAll('.links-to-resources-list')}>
                   {fields.filter(e => e.type === 'array').map((e, i) => {
                     return (
                       e.value.length > 0 && (
                         <li className="col-xs-12 col-md-4" key={'obj' + i}>
-                          <div className="list">
+                          <div className="links-to-resources-list">
                             <h2>{e.name}</h2>
                             <ItemLoaderList list={e.value} />
                           </div>

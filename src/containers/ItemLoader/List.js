@@ -42,7 +42,7 @@ class ItemLoaderList extends Component {
   }
 
   render() {
-    const { list, items, schemas, getItem, getSchema } = this.props
+    const { list, items, schemas } = this.props
     const loadedItems = list.map(e => {
       const itemToLoad = this.getItemParamsFromUrl(e)
       if (
