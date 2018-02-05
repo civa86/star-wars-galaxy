@@ -13,22 +13,7 @@ import { getItem, getSchema } from '../../reducers/swapi'
 import { setForceSide } from '../../reducers/force'
 
 class ItemDetail extends Component {
-  isUrl(str) {
-    const pattern = new RegExp(
-      '^((https?:)?\\/\\/)?' + // protocol
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-        '(\\#[-a-z\\d_]*)?$',
-      'i'
-    ) // fragment locater
-    if (!pattern.test(str)) {
-      return false
-    } else {
-      return true
-    }
-  }
+  // TODO: create a HOC ItemManager
   getResource() {
     const { match } = this.props
     return match.params ? match.params.resource : null
@@ -109,24 +94,24 @@ class ItemDetail extends Component {
                       </div>
                     </div>
                   ))}
-                </Equalizer>
-              </section>
-              <ul className="links-to-resources list-unstyled row">
-                <Equalizer nodes={() => document.querySelectorAll('.links-to-resources-list')}>
                   {fields.filter(e => e.type === 'array').map((e, i) => {
                     return (
                       e.value.length > 0 && (
-                        <li className="col-xs-12 col-md-4" key={'obj' + i}>
-                          <div className="links-to-resources-list">
-                            <h2>{e.name}</h2>
-                            <ItemLoaderList list={e.value} />
+                        <div key={'links-resource' + i} className="col-xs-12 col-md-6 col-lg-4">
+                          <div className="item-property">
+                            <div className="item-property-label">
+                              <ItemPropertyLabel label={e.name} />
+                            </div>
+                            <div className="item-property-value">
+                              <ItemLoaderList list={e.value} />
+                            </div>
                           </div>
-                        </li>
+                        </div>
                       )
                     )
                   })}
                 </Equalizer>
-              </ul>
+              </section>
             </div>
           )}
       </div>

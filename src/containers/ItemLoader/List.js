@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import Loader from '../../components/Loader'
 import ItemTitle from '../../components/Item/Title'
+import { sortObjectCollectionByProp } from '../../utils/sorter'
 import { getItem, getSchema } from '../../reducers/swapi'
 
 class ItemLoaderList extends Component {
@@ -60,7 +61,7 @@ class ItemLoaderList extends Component {
     if (loadedItems.every(e => e !== null)) {
       return (
         <ul className="item-loader-list list-unstyled">
-          {loadedItems.map(item => (
+          {sortObjectCollectionByProp(loadedItems, 'id').map(item => (
             <li className="item-loader-list-element" key={item.resource + '-' + item.id}>
               <NavLink to={'/' + item.resource + '/' + item.id}>
                 <ItemTitle item={item} schema={schemas[item.resource]} />
