@@ -1,7 +1,7 @@
 import React from 'react'
 import StarWarsIcon from '../Icon/StarWarsIcon'
 
-const ExternalLinks = props => {
+const ExternalLinks = () => {
   return (
     <ul className="list-unstyled external-links">
       <li className="swapi">
@@ -19,5 +19,7 @@ const ExternalLinks = props => {
     </ul>
   )
 }
+
+ExternalLinks.propTypes = {}
 
 export default ExternalLinks

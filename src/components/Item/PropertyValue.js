@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ItemLoaderSingle from '../../containers/ItemLoader/Single'
 
 const ItemPropertyValue = props => {
@@ -24,6 +25,10 @@ const ItemPropertyValue = props => {
   } else {
     return <span>{value}</span>
   }
+}
+
+ItemPropertyValue.propTypes = {
+  value: PropTypes.string.isRequired
 }
 
 export default ItemPropertyValue

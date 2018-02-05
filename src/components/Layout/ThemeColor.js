@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class ThemeColor extends React.Component {
   setClassName(color) {
@@ -16,6 +17,11 @@ class ThemeColor extends React.Component {
   render() {
     return this.props.children
   }
+}
+
+ThemeColor.propTypes = {
+  color: PropTypes.string.isRequired,
+  children: PropTypes.any.isRequired
 }
 
 export default ThemeColor

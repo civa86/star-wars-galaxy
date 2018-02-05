@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Switch from 'react-switch'
 import StarWarsIcon from '../Icon/StarWarsIcon'
 
@@ -6,7 +7,7 @@ const ForceSideSwitch = props => (
   <label className="pull-right" htmlFor="force-side-switch">
     <span className="sr-only">Switch to change Force Side</span>
     <Switch
-      checked={props.side && props.side === 'dark'}
+      checked={props.side === 'dark'}
       onChange={() => {
         const changeSide = props.side === 'light' ? 'dark' : 'light'
         return props.changeForceSide(changeSide)
@@ -51,5 +52,10 @@ const ForceSideSwitch = props => (
     />
   </label>
 )
+
+ForceSideSwitch.propTypes = {
+  side: PropTypes.string.isRequired,
+  changeForceSide: PropTypes.func.isRequired
+}
 
 export default ForceSideSwitch

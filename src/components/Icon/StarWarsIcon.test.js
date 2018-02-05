@@ -5,7 +5,7 @@ import StarWarsIcon from './StarWarsIcon'
 
 describe('StarWarsIcon Component', () => {
   it('renders without crashing', () => {
-    shallow(<StarWarsIcon />)
+    shallow(<StarWarsIcon icon="" />)
   })
   it('renders the icon passed in props', () => {
     const component = shallow(<StarWarsIcon icon="some-icon" />)

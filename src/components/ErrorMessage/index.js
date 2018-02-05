@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import StarWarsIcon from '../Icon/StarWarsIcon'
 
@@ -11,6 +12,10 @@ const ErrorMessage = props => {
       <p className="msg">{props.message || 'Error'}</p>
     </div>
   )
+}
+
+ErrorMessage.propTypes = {
+  message: PropTypes.string
 }
 
 export default ErrorMessage

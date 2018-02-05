@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import StarWarsIcon from '../Icon/StarWarsIcon'
 import ForceSideSwitch from '../ForceSideSwitch'
@@ -14,7 +15,7 @@ const onWindowScroll = () => {
 }
 
 const withFixedHeader = WrappedComponent => {
-  return class extends Component {
+  class withFixedHeaderHOC extends Component {
     toggleSidebar(event) {
       const { setActiveSidebar, sidebarIsActive } = this.props
       event.preventDefault()
@@ -31,7 +32,6 @@ const withFixedHeader = WrappedComponent => {
 
     render() {
       const { setForceSide, force } = this.props
-      const forceSide = force && force.side ? force.side : ''
       return (
         <div>
           <header className="fixed-header">
@@ -57,7 +57,7 @@ const withFixedHeader = WrappedComponent => {
                     </div>
                   </div>
                   <div className="col-xs-4 force-switch-container">
-                    <ForceSideSwitch side={forceSide} changeForceSide={side => setForceSide(side)} />
+                    <ForceSideSwitch side={force.side} changeForceSide={side => setForceSide(side)} />
                   </div>
                 </div>
               </div>
@@ -70,6 +70,15 @@ const withFixedHeader = WrappedComponent => {
       )
     }
   }
+
+  withFixedHeaderHOC.propTypes = {
+    setActiveSidebar: PropTypes.func.isRequired,
+    sidebarIsActive: PropTypes.bool.isRequired,
+    setForceSide: PropTypes.func.isRequired,
+    force: PropTypes.object.isRequired
+  }
+
+  return withFixedHeaderHOC
 }
 
 export default withFixedHeader

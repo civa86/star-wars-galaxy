@@ -8,7 +8,7 @@ import ExternalLinks from '../../components/ExternalLinks'
 import ForceSideSwitch from '../../components/ForceSideSwitch'
 import { setForceSide } from '../../reducers/force'
 
-export class Home extends Component {
+class Home extends Component {
   render() {
     const { force, resources, setForceSide } = this.props
 

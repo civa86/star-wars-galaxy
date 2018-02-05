@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import ResourceIcon from '../Icon/ResourceIcon'
 import ExternalLinks from '../ExternalLinks'
 
 const withSidebar = WrappedComponent => {
-  return class extends Component {
+  class withSidebarHOC extends Component {
     render() {
       const items = this.props.sidebarItems || []
       const isActive = this.props.sidebarIsActive || false
@@ -35,6 +36,13 @@ const withSidebar = WrappedComponent => {
       )
     }
   }
+
+  withSidebarHOC.propTypes = {
+    sidebarItems: PropTypes.array,
+    sidebarIsActive: PropTypes.bool
+  }
+
+  return withSidebarHOC
 }
 
 export default withSidebar

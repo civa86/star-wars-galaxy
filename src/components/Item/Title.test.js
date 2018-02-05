@@ -5,7 +5,7 @@ import Title from './Title'
 
 describe('Title Component', () => {
   it('renders without crashing', () => {
-    shallow(<Title />)
+    shallow(<Title item={{}} />)
   })
   it('renders the first required field of an item', () => {
     const item = { name: 'A A', prop: 'B B' }

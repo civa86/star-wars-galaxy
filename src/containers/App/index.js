@@ -30,7 +30,7 @@ const NotFound = Loadable({
   loading: () => <Loader />
 })
 
-export class App extends Component {
+class App extends Component {
   // Component Lifecycle
   componentWillMount() {
     const { getResources } = this.props

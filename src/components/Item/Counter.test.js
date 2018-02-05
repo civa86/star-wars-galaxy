@@ -5,10 +5,10 @@ import Counter from './Counter'
 
 describe('Counter Component', () => {
   it('renders without crashing', () => {
-    shallow(<Counter item="" />)
+    shallow(<Counter item={{}} />)
   })
   it('has default values', () => {
-    const component = shallow(<Counter item="" />)
+    const component = shallow(<Counter item={{}} />)
     expect(component).toContainReact(<div className="items-counter">0/0</div>)
   })
   it('shows counter based on item prop', () => {

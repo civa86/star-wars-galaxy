@@ -6,10 +6,10 @@ import ForceSideSwitch from './index'
 
 describe('ForceSideSwitch Component', () => {
   it('renders without crashing', () => {
-    shallow(<ForceSideSwitch side="light" />)
+    shallow(<ForceSideSwitch side="light" changeForceSide={() => 1} />)
   })
   it('has the Switch component', () => {
-    const component = shallow(<ForceSideSwitch side="light" />)
+    const component = shallow(<ForceSideSwitch side="light" changeForceSide={() => 1} />)
     expect(component).toBePresent(<label />)
     expect(component).toBePresent(<Switch checked={true} onChange={() => true} />)
   })

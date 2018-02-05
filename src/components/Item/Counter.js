@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const ItemCounter = props => {
   const { item } = props
@@ -9,6 +10,10 @@ const ItemCounter = props => {
       {current}/{total}
     </div>
   )
+}
+
+ItemCounter.propTypes = {
+  item: PropTypes.object
 }
 
 export default ItemCounter

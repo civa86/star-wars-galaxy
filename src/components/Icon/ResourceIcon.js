@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import StarWarsIcon from './StarWarsIcon'
 
 const iconMapping = {
@@ -12,8 +13,13 @@ const iconMapping = {
 }
 
 const ResourceIcon = props => {
-  const icon = props.resource && iconMapping[props.resource] ? iconMapping[props.resource] : iconMapping.defaultIcon
+  const { resource } = props
+  const icon = iconMapping[resource] ? iconMapping[resource] : iconMapping.defaultIcon
   return <StarWarsIcon icon={icon} />
+}
+
+ResourceIcon.propTypes = {
+  resource: PropTypes.string.isRequired
 }
 
 export default ResourceIcon
