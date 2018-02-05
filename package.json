@@ -33,7 +33,7 @@
     "src/**/*.{js,jsx,json,css,less}": ["prettier --write", "git add"]
   },
   "jest": {
-    "collectCoverageFrom": ["src/**/*.js", "!src/*.js", "!src/reducers/index.js"]
+    "collectCoverageFrom": ["src/**/*.js", "!src/*.js", "!src/containers/**/*.js", "!src/reducers/index.js"]
   },
   "scripts": {
     "precommit": "lint-staged",
