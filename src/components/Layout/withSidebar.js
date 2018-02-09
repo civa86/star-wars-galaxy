@@ -7,6 +7,7 @@ import ExternalLinks from '../ExternalLinks'
 const withSidebar = WrappedComponent => {
   class withSidebarHOC extends Component {
     render() {
+      const forceSide = this.props.force && this.props.force.side ? this.props.force.side : 'light'
       const items = this.props.sidebarItems || []
       const isActive = this.props.sidebarIsActive || false
 
@@ -19,7 +20,7 @@ const withSidebar = WrappedComponent => {
                   <li key={i} className="col-xs-12">
                     <NavLink to={'/' + item.name}>
                       <div className="item">
-                        <ResourceIcon resource={item.name} />
+                        <ResourceIcon resource={item.name} forceSide={forceSide} />
                         <span className="name">{item.name}</span>
                       </div>
                     </NavLink>

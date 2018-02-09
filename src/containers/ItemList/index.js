@@ -61,14 +61,14 @@ class ItemList extends Component {
 
   // Component Rendering
   render() {
-    const { fetchingItems, items, schemas } = this.props
+    const { force, fetchingItems, items, schemas } = this.props
     const resource = this.getResource()
     const itemsList = items[resource] && items[resource].results ? items[resource].results : []
     const nextItemsUrl = items[resource] && items[resource].next ? items[resource].next : null
     return (
       <div className="item-list container-fluid">
         <h1 className="resource-title">
-          <ResourceIcon resource={resource} />
+          <ResourceIcon resource={resource} forceSide={force.side} />
           <span className="name">{resource}</span>
         </h1>
         {fetchingItems === 0 && (
@@ -76,7 +76,7 @@ class ItemList extends Component {
             <Equalizer byRow={false} nodes={this.getEqualizerNodes.bind(this)}>
               <ul className="list-unstyled row item-preview-listing">
                 {itemsList.map((item, i) => (
-                  <li key={i} className="col-xs-12 col-sm-6 col-lg-4">
+                  <li key={i} className="col-xs-12 col-sm-6 col-lg-3">
                     {schemas[resource] && (
                       <div ref={'eq' + i} className="item-preview-listing-element">
                         <h2>
