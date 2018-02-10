@@ -4,12 +4,13 @@ import thunk from 'redux-thunk'
 import { apiMiddleware } from 'redux-api-middleware'
 import createHistory from 'history/createBrowserHistory'
 
+import ErrorMiddleware from './middleware/error'
 import rootReducer from './reducers'
 
 export const history = createHistory()
 
 const enhancers = []
-const middleware = [thunk, apiMiddleware, routerMiddleware(history)]
+const middleware = [thunk, apiMiddleware, routerMiddleware(history), ErrorMiddleware]
 
 if (process.env.NODE_ENV === 'development') {
   const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__

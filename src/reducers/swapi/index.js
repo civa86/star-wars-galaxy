@@ -1,16 +1,15 @@
-import { push } from 'react-router-redux'
 import { RSAA } from 'redux-api-middleware'
-import { sortObjectCollectionByProp } from '../utils/sorter'
+import { sortObjectCollectionByProp } from '../../utils/sorter'
 
 // Constants
 const API_DOMAIN = 'https://swapi.co'
-const SWAPI_REQUEST = 'SWAPI_REQUEST'
-const SWAPI_GET_RESOURCES_SUCCESS = 'SWAPI_GET_RESOURCES_SUCCESS'
-const SWAPI_GET_ITEMS_SUCCESS = 'SWAPI_GET_ITEMS_SUCCESS'
-const SWAPI_GET_ITEM_SUCCESS = 'SWAPI_GET_ITEM_SUCCESS'
-const SWAPI_GET_SCHEMA_SUCCESS = 'SWAPI_GET_SCHEMA_SUCCESS'
-const SWAPI_FAILURE = 'SWAPI_FAILURE'
-const SWAPI_NO_OP = 'SWAPI_NO_OP'
+export const SWAPI_REQUEST = 'SWAPI_REQUEST'
+export const SWAPI_GET_RESOURCES_SUCCESS = 'SWAPI_GET_RESOURCES_SUCCESS'
+export const SWAPI_GET_ITEMS_SUCCESS = 'SWAPI_GET_ITEMS_SUCCESS'
+export const SWAPI_GET_ITEM_SUCCESS = 'SWAPI_GET_ITEM_SUCCESS'
+export const SWAPI_GET_SCHEMA_SUCCESS = 'SWAPI_GET_SCHEMA_SUCCESS'
+export const SWAPI_FAILURE = 'SWAPI_FAILURE'
+export const SWAPI_NO_OP = 'SWAPI_NO_OP'
 
 // Utilities
 const getIdFromUrl = url =>
@@ -31,6 +30,14 @@ const addItemIfNotInStateResults = (resource, newResults, state) => {
   return sortObjectCollectionByProp([...oldResults, ...itemsToAdd], 'id')
 }
 
+const errorHandler = () => ({
+  type: SWAPI_FAILURE,
+  meta: (action, state, res) => ({
+    status: res.status,
+    statusText: res.statusText
+  })
+})
+
 // Actions
 export const getResources = () => {
   return {
@@ -38,12 +45,13 @@ export const getResources = () => {
       endpoint: API_DOMAIN + '/api/',
       method: 'GET',
       types: [
+        //TODO: write a request action creator...
         {
           type: SWAPI_REQUEST,
           meta: { source: 'resources' }
         },
         SWAPI_GET_RESOURCES_SUCCESS,
-        push('/error') //TODO: push a failure action with meta props and create a ERROR middleware
+        errorHandler()
       ]
     }
   }
@@ -65,7 +73,7 @@ export const getItems = (resource, items, page = 1) => {
             type: SWAPI_GET_ITEMS_SUCCESS,
             meta: { resource, page }
           },
-          push('/error') //TODO: push a failure action with meta props and create a ERROR middleware
+          errorHandler()
         ]
       }
     }
@@ -92,7 +100,7 @@ export const getItem = (resource, itemId, items) => {
             type: SWAPI_GET_ITEM_SUCCESS,
             meta: { resource }
           },
-          push('/error') //TODO: push a failure action with meta props and create a ERROR middleware
+          errorHandler()
         ]
       }
     }
@@ -118,7 +126,7 @@ export const getSchema = (resource, schemas) => {
             type: SWAPI_GET_SCHEMA_SUCCESS,
             meta: { resource }
           },
-          push('/error') //TODO: push a failure action with meta props and create a ERROR middleware
+          errorHandler()
         ]
       }
     }

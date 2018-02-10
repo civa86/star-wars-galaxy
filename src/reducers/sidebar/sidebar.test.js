@@ -1,4 +1,4 @@
-import sidebar, { initialState, setActiveSidebar } from './sidebar'
+import sidebar, { initialState, setActiveSidebar } from './index'
 
 describe('sidebar actions', () => {
   it('provides a setActiveSidebar action', () => {
