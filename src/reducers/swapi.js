@@ -1,13 +1,16 @@
 import { push } from 'react-router-redux'
-import { apiCall } from './fetchApi'
+import { RSAA } from 'redux-api-middleware'
 import { sortObjectCollectionByProp } from '../utils/sorter'
 
 // Constants
 const API_DOMAIN = 'https://swapi.co'
-const GET_RESOURCE_SUCCESS = 'GET_RESOURCE_SUCCESS'
-const GET_ITEMS_SUCCESS = 'GET_ITEMS_SUCCESS'
-const GET_ITEM_SUCCESS = 'GET_ITEM_SUCCESS'
-const GET_SCHEMA_SUCCESS = 'GET_SCHEMA_SUCCESS'
+const SWAPI_REQUEST = 'SWAPI_REQUEST'
+const SWAPI_GET_RESOURCES_SUCCESS = 'SWAPI_GET_RESOURCES_SUCCESS'
+const SWAPI_GET_ITEMS_SUCCESS = 'SWAPI_GET_ITEMS_SUCCESS'
+const SWAPI_GET_ITEM_SUCCESS = 'SWAPI_GET_ITEM_SUCCESS'
+const SWAPI_GET_SCHEMA_SUCCESS = 'SWAPI_GET_SCHEMA_SUCCESS'
+const SWAPI_FAILURE = 'SWAPI_FAILURE'
+const SWAPI_NO_OP = 'SWAPI_NO_OP'
 
 // Utilities
 const getIdFromUrl = url =>
@@ -29,78 +32,100 @@ const addItemIfNotInStateResults = (resource, newResults, state) => {
 }
 
 // Actions
-const getResourcesSuccess = data => ({
-  type: GET_RESOURCE_SUCCESS,
-  data
-})
-
-const getItemsSuccess = (resource, data, page) => ({
-  type: GET_ITEMS_SUCCESS,
-  resource,
-  data,
-  page
-})
-
-const getItemSuccess = (resource, data) => ({
-  type: GET_ITEM_SUCCESS,
-  resource,
-  data
-})
-
-const getSchemaSuccess = (resource, data) => ({
-  type: GET_SCHEMA_SUCCESS,
-  resource,
-  data
-})
-
-const errorHandler = (error, dispatch) => {
-  if (error && error.status === 404) {
-    dispatch(push('/404'))
-  } else {
-    dispatch(push('/error'))
+export const getResources = () => {
+  return {
+    [RSAA]: {
+      endpoint: API_DOMAIN + '/api/',
+      method: 'GET',
+      types: [
+        {
+          type: SWAPI_REQUEST,
+          meta: { source: 'resources' }
+        },
+        SWAPI_GET_RESOURCES_SUCCESS,
+        push('/error') //TODO: push a failure action with meta props and create a ERROR middleware
+      ]
+    }
   }
 }
-
-export const getResources = () => apiCall(API_DOMAIN + '/api/', null, getResourcesSuccess, errorHandler)
 
 export const getItems = (resource, items, page = 1) => {
   const lastPage = items[resource] && items[resource].lastPage ? items[resource].lastPage : 0
   if (!items[resource] || lastPage < page) {
-    return apiCall(
-      API_DOMAIN + '/api/' + resource + '/?page=' + page,
-      null,
-      data => getItemsSuccess(resource, data, page),
-      errorHandler
-    )
+    return {
+      [RSAA]: {
+        endpoint: API_DOMAIN + '/api/' + resource + '/?page=' + page,
+        method: 'GET',
+        types: [
+          {
+            type: SWAPI_REQUEST,
+            meta: { source: 'items' }
+          },
+          {
+            type: SWAPI_GET_ITEMS_SUCCESS,
+            meta: { resource, page }
+          },
+          push('/error') //TODO: push a failure action with meta props and create a ERROR middleware
+        ]
+      }
+    }
   } else {
-    return getItemsSuccess(resource, items[resource], page)
+    return {
+      type: SWAPI_NO_OP
+    }
   }
 }
 
 export const getItem = (resource, itemId, items) => {
   const currentItems = items && items[resource] && items[resource].results ? items[resource].results : []
   if (!currentItems.map(e => getIdFromUrl(e.url)).includes(itemId)) {
-    return apiCall(
-      API_DOMAIN + '/api/' + resource + '/' + itemId + '/',
-      null,
-      data => getItemSuccess(resource, data),
-      errorHandler
-    )
+    return {
+      [RSAA]: {
+        endpoint: API_DOMAIN + '/api/' + resource + '/' + itemId + '/',
+        method: 'GET',
+        types: [
+          {
+            type: SWAPI_REQUEST,
+            meta: { source: resource + '-' + itemId }
+          },
+          {
+            type: SWAPI_GET_ITEM_SUCCESS,
+            meta: { resource }
+          },
+          push('/error') //TODO: push a failure action with meta props and create a ERROR middleware
+        ]
+      }
+    }
   } else {
-    return getItemSuccess(resource, currentItems.filter(e => getIdFromUrl(e.url) === itemId).pop())
+    return {
+      type: SWAPI_NO_OP
+    }
   }
 }
 
 export const getSchema = (resource, schemas) => {
   if (!schemas[resource]) {
-    return apiCall(
-      API_DOMAIN + '/api/' + resource + '/schema',
-      null,
-      data => getSchemaSuccess(resource, data),
-      errorHandler
-    )
+    return {
+      [RSAA]: {
+        endpoint: API_DOMAIN + '/api/' + resource + '/schema',
+        method: 'GET',
+        types: [
+          {
+            type: SWAPI_REQUEST,
+            meta: { source: 'schema' }
+          },
+          {
+            type: SWAPI_GET_SCHEMA_SUCCESS,
+            meta: { resource }
+          },
+          push('/error') //TODO: push a failure action with meta props and create a ERROR middleware
+        ]
+      }
+    }
   } else {
-    return getSchemaSuccess(resource, schemas[resource])
+    return {
+      type: SWAPI_NO_OP
+    }
   }
 }
 
@@ -114,38 +139,41 @@ export const initialState = {
 // Reducer
 export default (state = initialState, action) => {
   switch (action.type) {
-    case GET_RESOURCE_SUCCESS:
-      return { ...state, resources: Object.keys(action.data).map(e => ({ name: e, url: action.data[e] })) }
+    case SWAPI_GET_RESOURCES_SUCCESS:
+      const data = action.payload || {}
+      return { ...state, resources: Object.keys(data).map(e => ({ name: e, url: data[e] })) }
 
-    case GET_ITEMS_SUCCESS:
+    case SWAPI_GET_ITEMS_SUCCESS:
       return {
         ...state,
         items: {
           ...state.items,
-          [action.resource]: {
-            ...action.data,
-            results: addItemIfNotInStateResults(action.resource, action.data.results, state),
+          [action.meta.resource]: {
+            ...action.payload,
+            results: addItemIfNotInStateResults(action.meta.resource, action.payload.results, state),
             lastPage: action.page
           }
         }
       }
-    case GET_ITEM_SUCCESS:
+
+    case SWAPI_GET_ITEM_SUCCESS:
       return {
         ...state,
         items: {
           ...state.items,
-          [action.resource]: {
-            ...state.items[action.resource],
-            results: addItemIfNotInStateResults(action.resource, [action.data], state)
+          [action.meta.resource]: {
+            ...state.items[action.meta.resource],
+            results: addItemIfNotInStateResults(action.meta.resource, [action.payload], state)
           }
         }
       }
-    case GET_SCHEMA_SUCCESS:
+
+    case SWAPI_GET_SCHEMA_SUCCESS:
       return {
         ...state,
         schemas: {
           ...state.schemas,
-          [action.resource]: action.data
+          [action.meta.resource]: action.payload
         }
       }
 

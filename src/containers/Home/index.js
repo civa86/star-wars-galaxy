@@ -55,7 +55,6 @@ class Home extends Component {
 
 const mapStateToProps = state => ({
   force: state.force,
-  fetchingItems: state.api.fetchingItems,
   resources: state.swapi.resources
 })
 

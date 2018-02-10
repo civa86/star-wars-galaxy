@@ -26,7 +26,7 @@ const withSidebar = WrappedComponent => {
                   </li>
                 ))}
               </ul>
-              <ExternalLinks />
+              {items.length !== 0 && <ExternalLinks />}
             </div>
           </div>
           <div className="content">
