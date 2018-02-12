@@ -30,6 +30,11 @@ const addItemIfNotInStateResults = (resource, newResults, state) => {
   return sortObjectCollectionByProp([...oldResults, ...itemsToAdd], 'id')
 }
 
+const apiRequest = source => ({
+  type: SWAPI_REQUEST,
+  meta: { source }
+})
+
 const errorHandler = () => ({
   type: SWAPI_FAILURE,
   meta: (action, state, res) => ({
@@ -44,15 +49,7 @@ export const getResources = () => {
     [RSAA]: {
       endpoint: API_DOMAIN + '/api/',
       method: 'GET',
-      types: [
-        //TODO: write a request action creator...
-        {
-          type: SWAPI_REQUEST,
-          meta: { source: 'resources' }
-        },
-        SWAPI_GET_RESOURCES_SUCCESS,
-        errorHandler()
-      ]
+      types: [apiRequest('resources'), SWAPI_GET_RESOURCES_SUCCESS, errorHandler()]
     }
   }
 }
@@ -65,10 +62,7 @@ export const getItems = (resource, items, page = 1) => {
         endpoint: API_DOMAIN + '/api/' + resource + '/?page=' + page,
         method: 'GET',
         types: [
-          {
-            type: SWAPI_REQUEST,
-            meta: { source: 'items' }
-          },
+          apiRequest(page === 1 ? 'itemsPage' : 'itemsLoadMore'),
           {
             type: SWAPI_GET_ITEMS_SUCCESS,
             meta: { resource, page }
@@ -92,10 +86,7 @@ export const getItem = (resource, itemId, items) => {
         endpoint: API_DOMAIN + '/api/' + resource + '/' + itemId + '/',
         method: 'GET',
         types: [
-          {
-            type: SWAPI_REQUEST,
-            meta: { source: resource + '-' + itemId }
-          },
+          apiRequest('singleItem'),
           {
             type: SWAPI_GET_ITEM_SUCCESS,
             meta: { resource }
@@ -118,10 +109,7 @@ export const getSchema = (resource, schemas) => {
         endpoint: API_DOMAIN + '/api/' + resource + '/schema',
         method: 'GET',
         types: [
-          {
-            type: SWAPI_REQUEST,
-            meta: { source: 'schema' }
-          },
+          apiRequest('schema'),
           {
             type: SWAPI_GET_SCHEMA_SUCCESS,
             meta: { resource }
@@ -141,25 +129,42 @@ export const getSchema = (resource, schemas) => {
 export const initialState = {
   resources: [],
   items: {},
-  schemas: {}
+  schemas: {},
+  fetching: {
+    schema: false,
+    resources: false,
+    itemsPage: false,
+    itemsLoadMore: false,
+    singleItem: false
+  }
 }
 
 // Reducer
 export default (state = initialState, action) => {
   switch (action.type) {
+    case SWAPI_REQUEST:
+      return { ...state, fetching: { ...state.fetching, [action.meta.source]: true } }
+
     case SWAPI_GET_RESOURCES_SUCCESS:
       const data = action.payload || {}
-      return { ...state, resources: Object.keys(data).map(e => ({ name: e, url: data[e] })) }
-
-    case SWAPI_GET_ITEMS_SUCCESS:
       return {
         ...state,
+        fetching: { ...state.fetching, resources: false },
+        resources: Object.keys(data).map(e => ({ name: e, url: data[e] }))
+      }
+
+    case SWAPI_GET_ITEMS_SUCCESS:
+      const fetchingKey = action.meta.page === 1 ? 'itemsPage' : 'itemsLoadMore'
+
+      return {
+        ...state,
+        fetching: { ...state.fetching, [fetchingKey]: false },
         items: {
           ...state.items,
           [action.meta.resource]: {
             ...action.payload,
             results: addItemIfNotInStateResults(action.meta.resource, action.payload.results, state),
-            lastPage: action.page
+            lastPage: action.meta.page
           }
         }
       }
@@ -179,6 +184,7 @@ export default (state = initialState, action) => {
     case SWAPI_GET_SCHEMA_SUCCESS:
       return {
         ...state,
+        fetching: { ...state.fetching, schema: false },
         schemas: {
           ...state.schemas,
           [action.meta.resource]: action.payload
