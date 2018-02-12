@@ -135,6 +135,7 @@ export const initialState = {
     resources: false,
     itemsPage: false,
     itemsLoadMore: false,
+    //TODO: separate singleItemPage and singleItemProp
     singleItem: false
   }
 }
