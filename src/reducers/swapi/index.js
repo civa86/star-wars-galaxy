@@ -135,7 +135,6 @@ export const initialState = {
     resources: false,
     itemsPage: false,
     itemsLoadMore: false,
-    //TODO: separate singleItemPage and singleItemProp
     singleItem: false
   }
 }
@@ -173,6 +172,7 @@ export default (state = initialState, action) => {
     case SWAPI_GET_ITEM_SUCCESS:
       return {
         ...state,
+        fetching: { ...state.fetching, singleItem: false },
         items: {
           ...state.items,
           [action.meta.resource]: {

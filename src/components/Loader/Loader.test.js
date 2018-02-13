@@ -19,7 +19,7 @@ describe('Loader Component', () => {
   })
   it('renders the StarWarsIcon', () => {
     const component = shallow(<Loader />)
-    const icon = <StarWarsIcon icon="swg-reball" />
+    const icon = <StarWarsIcon icon="placeholder" />
     expect(component).toContainReact(icon)
   })
 })

@@ -137,6 +137,7 @@ const mapStateToProps = state => ({
   sidebarItems: state.swapi.resources,
   sidebarIsActive: state.sidebar.active,
   force: state.force,
+  isFetchingResources: state.swapi.fetching.resources,
   isFetchingPage: state.swapi.fetching.itemsPage,
   isFetchingSchema: state.swapi.fetching.schema,
   isLoadingMore: state.swapi.fetching.itemsLoadMore,
