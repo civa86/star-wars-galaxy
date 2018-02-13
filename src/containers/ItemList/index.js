@@ -46,6 +46,7 @@ class ItemList extends Component {
       .filter(e => e.match(/eq\d/))
       .map(e => this.refs[e])
   }
+
   // Component Lifecycle
   componentWillMount() {
     this.loadData(this.getResource())
