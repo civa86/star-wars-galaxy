@@ -74,7 +74,6 @@ class ItemList extends Component {
         </h1>
         {!isFetchingPage &&
           !isFetchingSchema && (
-            // TODO: create more inner components...
             <section className="item-preview">
               <Equalizer byRow={false} nodes={this.getEqualizerNodes.bind(this)}>
                 <ul className="list-unstyled row item-preview-listing">

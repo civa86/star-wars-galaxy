@@ -14,7 +14,6 @@ import { getItem, getSchema } from '../../reducers/swapi'
 import { setForceSide } from '../../reducers/force'
 
 class ItemDetail extends Component {
-  // TODO: create a HOC ItemManager
   getResource() {
     const { match } = this.props
     return match.params ? match.params.resource : null
