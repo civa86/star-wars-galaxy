@@ -18,7 +18,7 @@ const withSidebar = WrappedComponent => {
             {isFetchingResources && <Loader />}
             {!isFetchingResources && (
               <div className="container-fluid">
-                <ul className="list-unstyled row">
+                <ul className="navigation-links list-unstyled row">
                   {items.map((item, i) => (
                     <li key={i} className="col-xs-12">
                       <NavLink to={'/' + item.name}>
