@@ -1,5 +1,7 @@
 # Star Wars Galaxy
 
+[![Build Status](https://travis-ci.org/civa86/star-wars-galaxy.svg?branch=master)](https://travis-ci.org/civa86/star-wars-galaxy)
+
 ### Audit
 
 Check Lighthouse audit on production build
