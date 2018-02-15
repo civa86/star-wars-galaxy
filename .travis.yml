@@ -8,7 +8,8 @@ branches:
   only:
   - master
 before_script:
-  - npm install -g coveralls lighthouse
+  - npm install -g coveralls
+  # - npm install -g coveralls lighthouse
   - npm install
 script:
   - npm test
