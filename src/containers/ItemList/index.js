@@ -70,7 +70,7 @@ class ItemList extends Component {
     return (
       <div className="item-list container-fluid">
         <h1 className="resource-title">
-          <ResourceIcon resource={resource} />
+          <ResourceIcon resource={resource} forceSide={force.side} />
           <span className="name">{resource}</span>
         </h1>
         {!isFetchingPage &&

@@ -41,7 +41,7 @@ class Home extends Component {
               <li key={i} className="col-xs-12 col-sm-6 col-md-4">
                 <NavLink to={'/' + resource.name}>
                   <div className="item">
-                    <ResourceIcon resource={resource.name} />
+                    <ResourceIcon resource={resource.name} forceSide={force.side} />
                     <span className="name">{resource.name}</span>
                   </div>
                 </NavLink>
