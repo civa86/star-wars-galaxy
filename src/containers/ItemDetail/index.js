@@ -5,6 +5,7 @@ import Equalizer from 'react-equalizer'
 import ItemLoaderList from '../ItemLoader/List'
 import withSidebar from '../../components/Layout/withSidebar'
 import withFixedHeader from '../../components/Layout/withFixedHeader'
+import Loader from '../../components/Loader'
 import ItemTitle from '../../components/Item/Title'
 import ItemPropertyLabel from '../../components/Item/PropertyLabel'
 import ItemPropertyValue from '../../components/Item/PropertyValue'
@@ -13,7 +14,6 @@ import { getItem, getSchema } from '../../reducers/swapi'
 import { setForceSide } from '../../reducers/force'
 
 class ItemDetail extends Component {
-  // TODO: create a HOC ItemManager
   getResource() {
     const { match } = this.props
     return match.params ? match.params.resource : null
@@ -67,7 +67,7 @@ class ItemDetail extends Component {
   }
 
   render() {
-    const { schemas } = this.props
+    const { schemas, isFetchingItem } = this.props
     const resource = this.getResource()
     const item = this.getLoadedItem()
     const fields = this.getItemFields(item)
@@ -114,12 +114,20 @@ class ItemDetail extends Component {
               </section>
             </div>
           )}
+        {isFetchingItem &&
+          (!item || !schemas[resource]) && (
+            <div className="fixed-loader">
+              <Loader />
+            </div>
+          )}
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
+  isFetchingResources: state.swapi.fetching.resources,
+  isFetchingItem: state.swapi.fetching.singleItem,
   sidebarItems: state.swapi.resources,
   sidebarIsActive: state.sidebar.active,
   force: state.force,

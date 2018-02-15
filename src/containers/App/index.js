@@ -9,25 +9,31 @@ import ThemeColor from '../../components/Layout/ThemeColor'
 import Error from '../Error'
 import { getResources } from '../../reducers/swapi'
 
+const FixedLoader = () => (
+  <div className="fixed-loader">
+    <Loader />
+  </div>
+)
+
 // Async Components Loading
 const Home = Loadable({
   loader: () => import('../Home'),
-  loading: () => <Loader />
+  loading: () => <FixedLoader />
 })
 
 const ItemList = Loadable({
   loader: () => import('../ItemList'),
-  loading: () => <Loader />
+  loading: () => <FixedLoader />
 })
 
 const ItemDetail = Loadable({
   loader: () => import('../ItemDetail'),
-  loading: () => <Loader />
+  loading: () => <FixedLoader />
 })
 
 const NotFound = Loadable({
   loader: () => import('../NotFound'),
-  loading: () => <Loader />
+  loading: () => <FixedLoader />
 })
 
 class App extends Component {
@@ -39,7 +45,7 @@ class App extends Component {
 
   // Component Rendering
   render() {
-    const { force, fetchingItems } = this.props
+    const { force } = this.props
     return (
       <ThemeColor color={force.side}>
         <div className="app">
@@ -58,11 +64,6 @@ class App extends Component {
             {/* Not Found catch all route */}
             <Route component={NotFound} />
           </Switch>
-          {fetchingItems > 0 && (
-            <div className="fixed-loader">
-              <Loader />
-            </div>
-          )}
         </div>
       </ThemeColor>
     )
@@ -71,7 +72,6 @@ class App extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   force: state.force,
-  fetchingItems: state.api.fetchingItems,
   resources: state.swapi.resources,
   ownProps: ownProps
 })

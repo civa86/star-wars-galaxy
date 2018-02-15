@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { NavLink } from 'react-router-dom'
+import Loader from '../../components/Loader'
 import StarWarsIcon from '../../components/Icon/StarWarsIcon'
 import ResourceIcon from '../../components/Icon/ResourceIcon'
 import ExternalLinks from '../../components/ExternalLinks'
@@ -10,7 +11,7 @@ import { setForceSide } from '../../reducers/force'
 
 class Home extends Component {
   render() {
-    const { force, resources, setForceSide } = this.props
+    const { force, isFetching, resources, setForceSide } = this.props
 
     return (
       <div className="home container-fluid">
@@ -48,6 +49,11 @@ class Home extends Component {
             ))}
           </ul>
         </section>
+        {isFetching && (
+          <div className="fixed-loader">
+            <Loader />
+          </div>
+        )}
       </div>
     )
   }
@@ -55,7 +61,7 @@ class Home extends Component {
 
 const mapStateToProps = state => ({
   force: state.force,
-  fetchingItems: state.api.fetchingItems,
+  isFetching: state.swapi.fetching.resources,
   resources: state.swapi.resources
 })
 

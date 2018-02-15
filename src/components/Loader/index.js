@@ -10,7 +10,7 @@ const Loader = props => {
     return (
       <div className="loader">
         <div className="icon">
-          <StarWarsIcon icon="swg-reball" />
+          <StarWarsIcon icon="placeholder" />
         </div>
       </div>
     )

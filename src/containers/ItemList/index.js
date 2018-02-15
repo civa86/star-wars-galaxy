@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom'
 import Equalizer from 'react-equalizer'
 import withSidebar from '../../components/Layout/withSidebar'
 import withFixedHeader from '../../components/Layout/withFixedHeader'
+import Loader from '../../components/Loader'
 import ResourceIcon from '../../components/Icon/ResourceIcon'
 import ItemTitle from '../../components/Item/Title'
 import ItemPropertyLabel from '../../components/Item/PropertyLabel'
@@ -45,6 +46,7 @@ class ItemList extends Component {
       .filter(e => e.match(/eq\d/))
       .map(e => this.refs[e])
   }
+
   // Component Lifecycle
   componentWillMount() {
     this.loadData(this.getResource())
@@ -61,7 +63,7 @@ class ItemList extends Component {
 
   // Component Rendering
   render() {
-    const { force, fetchingItems, items, schemas } = this.props
+    const { isFetchingPage, isFetchingSchema, isLoadingMore, force, items, schemas } = this.props
     const resource = this.getResource()
     const itemsList = items[resource] && items[resource].results ? items[resource].results : []
     const nextItemsUrl = items[resource] && items[resource].next ? items[resource].next : null
@@ -71,53 +73,60 @@ class ItemList extends Component {
           <ResourceIcon resource={resource} forceSide={force.side} />
           <span className="name">{resource}</span>
         </h1>
-        {fetchingItems === 0 && (
-          <section className="item-preview">
-            <Equalizer byRow={false} nodes={this.getEqualizerNodes.bind(this)}>
-              <ul className="list-unstyled row item-preview-listing">
-                {itemsList.map((item, i) => (
-                  <li key={i} className="col-xs-12 col-sm-6 col-lg-3">
-                    {schemas[resource] && (
-                      <div ref={'eq' + i} className="item-preview-listing-element">
-                        <h2>
-                          <NavLink exact to={'/' + resource + '/' + item.id}>
-                            <ItemTitle item={item} schema={schemas[resource]} />
-                          </NavLink>
-                        </h2>
-                        <ul className="list-unstyled item-property-listing">
-                          {this.getItemProperties(item, schemas[resource]).map((e, i) => (
-                            <li className="item-property-listing-element" key={i}>
-                              <div className="row item-property-row">
-                                <div className="col-xs-12 item-property-label">
-                                  <ItemPropertyLabel label={e.key} />
+        {!isFetchingPage &&
+          !isFetchingSchema && (
+            <section className="item-preview">
+              <Equalizer byRow={false} nodes={this.getEqualizerNodes.bind(this)}>
+                <ul className="list-unstyled row item-preview-listing">
+                  {itemsList.map((item, i) => (
+                    <li key={i} className="col-xs-12 col-sm-6 col-lg-4">
+                      {schemas[resource] && (
+                        <div ref={'eq' + i} className="item-preview-listing-element">
+                          <h2>
+                            <NavLink exact to={'/' + resource + '/' + item.id}>
+                              <ItemTitle item={item} schema={schemas[resource]} />
+                            </NavLink>
+                          </h2>
+                          <ul className="list-unstyled item-property-listing">
+                            {this.getItemProperties(item, schemas[resource]).map((e, i) => (
+                              <li className="item-property-listing-element" key={i}>
+                                <div className="row item-property-row">
+                                  <div className="col-xs-12 item-property-label">
+                                    <ItemPropertyLabel label={e.key} />
+                                  </div>
+                                  <div className="col-xs-12 item-property-value">
+                                    <ItemPropertyValue value={e.value} />
+                                  </div>
                                 </div>
-                                <div className="col-xs-12 item-property-value">
-                                  <ItemPropertyValue value={e.value} />
-                                </div>
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                        <div className="view-more">
-                          <NavLink exact to={'/' + resource + '/' + item.id}>
-                            more
-                          </NavLink>
+                              </li>
+                            ))}
+                          </ul>
+                          <div className="view-more">
+                            <NavLink exact to={'/' + resource + '/' + item.id}>
+                              more
+                            </NavLink>
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </Equalizer>
-            <ItemCounter item={items[resource]} />
-            {nextItemsUrl && (
-              <div className="load-more-container">
-                <button className="load-more-btn" onClick={event => this.loadNextItems(event, nextItemsUrl)}>
-                  Load More
-                </button>
-              </div>
-            )}
-          </section>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </Equalizer>
+              <ItemCounter item={items[resource]} />
+              {nextItemsUrl && (
+                <div className="load-more-container">
+                  <button className="load-more-btn" onClick={event => this.loadNextItems(event, nextItemsUrl)}>
+                    {isLoadingMore && <Loader />}
+                    {!isLoadingMore && <span>Load More</span>}
+                  </button>
+                </div>
+              )}
+            </section>
+          )}
+        {(isFetchingPage || isFetchingSchema) && (
+          <div className="fixed-loader">
+            <Loader />
+          </div>
         )}
       </div>
     )
@@ -125,10 +134,13 @@ class ItemList extends Component {
 }
 
 const mapStateToProps = state => ({
-  fetchingItems: state.api.fetchingItems,
   sidebarItems: state.swapi.resources,
   sidebarIsActive: state.sidebar.active,
   force: state.force,
+  isFetchingResources: state.swapi.fetching.resources,
+  isFetchingPage: state.swapi.fetching.itemsPage,
+  isFetchingSchema: state.swapi.fetching.schema,
+  isLoadingMore: state.swapi.fetching.itemsLoadMore,
   items: state.swapi.items,
   schemas: state.swapi.schemas
 })

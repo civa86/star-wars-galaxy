@@ -1,4 +1,4 @@
-import force, { initialState, setForceSide } from './force'
+import force, { initialState, setForceSide } from './index'
 
 describe('force actions', () => {
   it('provides a setForceSide action', () => {

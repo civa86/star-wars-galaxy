@@ -45,4 +45,3 @@ env:
   - GIST_URL=https://api.github.com/gists/f01219ac55a43bb2d52657f959a98acc
   - GIST_FILE=star-wars-galaxy.lighthouse.report.json
   # - secure: create and encrypt GH_TOKEN
-

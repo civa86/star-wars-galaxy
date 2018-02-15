@@ -1,6 +1,7 @@
 # Star Wars Galaxy
 
 [![Build Status](https://travis-ci.org/civa86/star-wars-galaxy.svg?branch=master)](https://travis-ci.org/civa86/star-wars-galaxy)
+[![Coverage Status](https://coveralls.io/repos/github/civa86/star-wars-galaxy/badge.svg?branch=master)](https://coveralls.io/github/civa86/star-wars-galaxy?branch=master)
 
 ### Audit
 

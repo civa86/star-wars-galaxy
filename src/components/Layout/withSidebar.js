@@ -1,34 +1,38 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
+import Loader from '../Loader'
 import ResourceIcon from '../Icon/ResourceIcon'
 import ExternalLinks from '../ExternalLinks'
 
 const withSidebar = WrappedComponent => {
   class withSidebarHOC extends Component {
     render() {
-      const forceSide = this.props.force && this.props.force.side ? this.props.force.side : 'light'
+      const isFetchingResources = this.props.isFetchingResources || false
       const items = this.props.sidebarItems || []
       const isActive = this.props.sidebarIsActive || false
 
       return (
         <div className={'sidebar-layout-wrapper' + (isActive ? ' active' : '')}>
           <div className={'sidebar' + (isActive ? ' active' : '')}>
-            <div className="container-fluid">
-              <ul className="list-unstyled row">
-                {items.map((item, i) => (
-                  <li key={i} className="col-xs-12">
-                    <NavLink to={'/' + item.name}>
-                      <div className="item">
-                        <ResourceIcon resource={item.name} forceSide={forceSide} />
-                        <span className="name">{item.name}</span>
-                      </div>
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-              <ExternalLinks />
-            </div>
+            {isFetchingResources && <Loader />}
+            {!isFetchingResources && (
+              <div className="container-fluid">
+                <ul className="navigation-links list-unstyled row">
+                  {items.map((item, i) => (
+                    <li key={i} className="col-xs-12">
+                      <NavLink to={'/' + item.name}>
+                        <div className="item">
+                          <ResourceIcon resource={item.name} />
+                          <span className="name">{item.name}</span>
+                        </div>
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+                {items.length !== 0 && <ExternalLinks />}
+              </div>
+            )}
           </div>
           <div className="content">
             <WrappedComponent {...this.props} />
@@ -39,6 +43,7 @@ const withSidebar = WrappedComponent => {
   }
 
   withSidebarHOC.propTypes = {
+    isFetchingResources: PropTypes.bool,
     sidebarItems: PropTypes.array,
     sidebarIsActive: PropTypes.bool
   }
