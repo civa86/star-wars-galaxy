@@ -63,7 +63,7 @@ class ItemList extends Component {
 
   // Component Rendering
   render() {
-    const { isFetchingPage, isFetchingSchema, isLoadingMore, items, schemas } = this.props
+    const { isFetchingPage, isFetchingSchema, isLoadingMore, force, items, schemas } = this.props
     const resource = this.getResource()
     const itemsList = items[resource] && items[resource].results ? items[resource].results : []
     const nextItemsUrl = items[resource] && items[resource].next ? items[resource].next : null
