@@ -22,3 +22,6 @@ yarn-error.log*
 
 # generated styles
 /src/style.css
+
+# styleguide
+/styleguide

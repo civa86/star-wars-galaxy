@@ -22,6 +22,7 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "next",
     "react-scripts": "1.0.17",
+    "react-styleguidist": "^6.2.5",
     "react-switch": "^2.3.0",
     "react-test-renderer": "^16.2.0",
     "redux": "^3.7.2",
@@ -62,6 +63,8 @@
     "watch-css": "npm run build-css && watch --interval=0.1 'npm run build-css' ./src/less",
     "test": "react-scripts test --env=jsdom",
     "coverage": "npm test -- --coverage",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build",
     "eject": "react-scripts eject"
   }
 }
