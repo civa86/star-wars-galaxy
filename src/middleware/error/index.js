@@ -1,7 +1,7 @@
 import { push } from 'react-router-redux'
-import { SWAPI_FAILURE } from '../reducers/swapi'
+import { SWAPI_FAILURE } from '../../reducers/swapi'
 
-const ErrorMiddleware = store => next => action => {
+const error = store => next => action => {
   let result = next(action)
 
   if (action && action.type) {
@@ -21,4 +21,4 @@ const ErrorMiddleware = store => next => action => {
   return result
 }
 
-export default ErrorMiddleware
+export default error

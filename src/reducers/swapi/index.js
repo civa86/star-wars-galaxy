@@ -2,13 +2,13 @@ import { RSAA } from 'redux-api-middleware'
 import { sortObjectCollectionByProp } from '../../utils/sorter'
 
 // Constants
-const API_DOMAIN = 'https://swapi.co'
+export const API_DOMAIN = 'https://swapi.co'
 export const SWAPI_REQUEST = 'SWAPI_REQUEST'
+export const SWAPI_FAILURE = 'SWAPI_FAILURE'
 export const SWAPI_GET_RESOURCES_SUCCESS = 'SWAPI_GET_RESOURCES_SUCCESS'
 export const SWAPI_GET_ITEMS_SUCCESS = 'SWAPI_GET_ITEMS_SUCCESS'
 export const SWAPI_GET_ITEM_SUCCESS = 'SWAPI_GET_ITEM_SUCCESS'
 export const SWAPI_GET_SCHEMA_SUCCESS = 'SWAPI_GET_SCHEMA_SUCCESS'
-export const SWAPI_FAILURE = 'SWAPI_FAILURE'
 export const SWAPI_NO_OP = 'SWAPI_NO_OP'
 
 // Utilities
@@ -30,17 +30,19 @@ const addItemIfNotInStateResults = (resource, newResults, state) => {
   return sortObjectCollectionByProp([...oldResults, ...itemsToAdd], 'id')
 }
 
-const apiRequest = source => ({
+export const apiRequest = source => ({
   type: SWAPI_REQUEST,
   meta: { source }
 })
 
-const errorHandler = () => ({
+export const addErrorMetaData = (action, state, res) => ({
+  status: res.status,
+  statusText: res.statusText
+})
+
+export const errorHandler = () => ({
   type: SWAPI_FAILURE,
-  meta: (action, state, res) => ({
-    status: res.status,
-    statusText: res.statusText
-  })
+  meta: addErrorMetaData
 })
 
 // Actions

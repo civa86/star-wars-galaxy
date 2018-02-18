@@ -1,5 +1,5 @@
 // Constants
-const FORCE_SET_SIDE = 'FORCE_SET_SIDE'
+export const FORCE_SET_SIDE = 'FORCE_SET_SIDE'
 
 // Actions
 export const setForceSide = side => ({

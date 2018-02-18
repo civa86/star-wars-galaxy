@@ -1,5 +1,5 @@
 // Constants
-const SIDEBAR_SET_ACTIVE = 'SIDEBAR_SET_ACTIVE'
+export const SIDEBAR_SET_ACTIVE = 'SIDEBAR_SET_ACTIVE'
 
 // Actions
 export const setActiveSidebar = active => ({

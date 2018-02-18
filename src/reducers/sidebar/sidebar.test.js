@@ -1,10 +1,10 @@
-import sidebar, { initialState, setActiveSidebar } from './index'
+import sidebar, { SIDEBAR_SET_ACTIVE, initialState, setActiveSidebar } from './index'
 
 describe('sidebar actions', () => {
   it('provides a setActiveSidebar action', () => {
     expect(typeof setActiveSidebar).toBe('function')
     expect(setActiveSidebar('anything')).toEqual({
-      type: 'SIDEBAR_SET_ACTIVE',
+      type: SIDEBAR_SET_ACTIVE,
       active: 'anything'
     })
   })
@@ -18,12 +18,12 @@ describe('sidebar reducer', () => {
     expect(sidebar(undefined, {})).toEqual(initialState)
   })
   it('changes the active value if input is boolean', () => {
-    expect(sidebar(initialState, { type: 'SIDEBAR_SET_ACTIVE', active: true })).toEqual({ active: true })
-    expect(sidebar(initialState, { type: 'SIDEBAR_SET_ACTIVE', active: false })).toEqual({ active: false })
+    expect(sidebar(initialState, { type: SIDEBAR_SET_ACTIVE, active: true })).toEqual({ active: true })
+    expect(sidebar(initialState, { type: SIDEBAR_SET_ACTIVE, active: false })).toEqual({ active: false })
   })
   it("doesn't change the active value if input is not a boolean", () => {
-    expect(sidebar(initialState, { type: 'SIDEBAR_SET_ACTIVE', active: 'not_valid_input' })).toEqual({ active: false })
-    expect(sidebar({ active: true }, { type: 'SIDEBAR_SET_ACTIVE', active: 'not_valid_input' })).toEqual({
+    expect(sidebar(initialState, { type: SIDEBAR_SET_ACTIVE, active: 'not_valid_input' })).toEqual({ active: false })
+    expect(sidebar({ active: true }, { type: SIDEBAR_SET_ACTIVE, active: 'not_valid_input' })).toEqual({
       active: true
     })
   })
