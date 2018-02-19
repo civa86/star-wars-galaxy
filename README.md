@@ -114,6 +114,12 @@ REST API requests are processed within the middleware calling `fetch`.
 
 ## NPM Scripts
 
+Usage:
+
+```bash
+npm run < script >
+```
+
 | script     | description                                   |
 | ---------- | --------------------------------------------- |
 | start      | start the development workflow                |
@@ -130,13 +136,17 @@ Applicaiton is continuously built with Travis CI.
 
 Every push sent to `master` or one opened `pull requests` triggers the build process.
 
-#### Build Process: master branch + pull requests
+#### Build Process
+
+`master branch + pull requests`
 
 * Unit Test the application
 * Build the style.css file from less source code
 * Build the production package
 
-#### After Build: only master branch
+#### After Build
+
+`only master branch`
 
 All builds that are not triggered on a `pull request` produce coverage report.
 
@@ -144,11 +154,31 @@ Coverage Report uploaded to [coveralls](https://coveralls.io/).
 
 ## Continuous Delivery
 
-#### Audit
+Every push sent to `master` triggers the deploy process.
 
-Check Lighthouse audit on production build
+Pull Request builds never trigger deploy.
 
-[Lighthouse Viewer](https://googlechrome.github.io/lighthouse/viewer/?gist=f01219ac55a43bb2d52657f959a98acc)
+#### Before Deploy
+
+* Read application version from `package.json`.
+* Write `version.txt` with version and travis incremental build number.
+* Add `version.txt` to `build/static` folder.
+* Zip the `build` folder into `star-wars-galaxy.zip` artifact archive.
+* Git Tag with version and travis incremental build number.
+
+#### Deploy Process
+
+* Upload website on `firebase` hosting.
+* Upload `star-wars-galaxy.zip` artifact to `GitHub Releases`.
+
+#### After Deploy
+
+* Run progressive web application audit on new deployed version.
+* Upload the audit report to GitHub Gists.
+
+Audit tool: [Lighthouse](https://developers.google.com/web/tools/lighthouse/)
+
+Last Audit Report: [Lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/?gist=f01219ac55a43bb2d52657f959a98acc)
 
 ## Full Workflow Scheme
 
