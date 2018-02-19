@@ -13,7 +13,14 @@ describe('withSidebar High Order Component', () => {
     const simpleComponent = props => <p>content</p>
     const EnanchedComponent = withSidebar(simpleComponent)
     const component = shallow(<EnanchedComponent />)
-    expect(component).toBePresent(<div className="sidebar" />)
-    expect(component).toBePresent(<div className="content" />)
+    expect(component.find('.sidebar')).toBePresent()
+    expect(component.find('.sidebar').length).toBe(1)
+    expect(component.find('.content')).toBePresent()
+    expect(component.find('.content').length).toBe(1)
+  })
+  it('renders sidebar items passed in props', () => {
+    const simpleComponent = props => <p>content</p>
+    const EnanchedComponent = withSidebar(simpleComponent)
+    const component = shallow(<EnanchedComponent sidebarItems={[{ name: 'a' }, { name: 'b' }]} />)
   })
 })

@@ -10,8 +10,8 @@ describe('ForceSideSwitch Component', () => {
   })
   it('has the Switch component', () => {
     const component = shallow(<ForceSideSwitch side="light" changeForceSide={() => 1} />)
-    expect(component).toBePresent(<label />)
-    expect(component).toBePresent(<Switch checked={true} onChange={() => true} />)
+    expect(component.find('label')).toBePresent()
+    expect(component.find(Switch)).toBePresent()
   })
   it('switch force side from light to dark', () => {
     const spy = jest.fn()

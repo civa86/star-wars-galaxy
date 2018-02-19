@@ -4,9 +4,11 @@ describe('sorter utility', () => {
   it('sorts collections of object by a property', () => {
     const collection1 = [{ id: 3 }, { id: 1 }, { id: 10 }]
     const collection2 = [{ id: 3, name: 'b' }, { id: 1, name: 'r' }, { id: 10, name: 'a' }]
+    const collection3 = [{ id: 3, name: 'b' }, { id: 3, name: 'b' }]
     const sorted1 = sortObjectCollectionByProp(collection1, 'id')
     const sorted2 = sortObjectCollectionByProp(collection2, 'name')
     const sorted2Desc = sortObjectCollectionByProp(collection2, 'name', 'desc')
+    const sorted3 = sortObjectCollectionByProp(collection3, 'id')
 
     expect(sorted1[0].id).toBe(1)
     expect(sorted1[sorted1.length - 1].id).toBe(10)
@@ -20,5 +22,8 @@ describe('sorter utility', () => {
     expect(sorted2Desc[0].id).toBe(1)
     expect(sorted2Desc[sorted1.length - 1].name).toBe('a')
     expect(sorted2Desc[sorted1.length - 1].id).toBe(10)
+
+    expect(sorted3[0].id).toBe(3)
+    expect(sorted3[1].id).toBe(3)
   })
 })

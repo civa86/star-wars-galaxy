@@ -26,9 +26,9 @@ const ItemPropertyValue = props => {
     return <span>{value}</span>
   }
 }
-
+//TODO: accept string or numbers....test!!
 ItemPropertyValue.propTypes = {
-  value: PropTypes.string.isRequired
+  value: PropTypes.any.isRequired
 }
 
 export default ItemPropertyValue

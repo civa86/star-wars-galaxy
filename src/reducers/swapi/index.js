@@ -82,7 +82,7 @@ export const getItems = (resource, items, page = 1) => {
 
 export const getItem = (resource, itemId, items) => {
   const currentItems = items && items[resource] && items[resource].results ? items[resource].results : []
-  if (!currentItems.map(e => getIdFromUrl(e.url)).includes(itemId)) {
+  if (!currentItems.map(e => e.id).includes(itemId)) {
     return {
       [RSAA]: {
         endpoint: API_DOMAIN + '/api/' + resource + '/' + itemId + '/',
@@ -105,7 +105,8 @@ export const getItem = (resource, itemId, items) => {
 }
 
 export const getSchema = (resource, schemas) => {
-  if (!schemas[resource]) {
+  const currentSchema = schemas && schemas[resource] ? schemas[resource] : null
+  if (!currentSchema) {
     return {
       [RSAA]: {
         endpoint: API_DOMAIN + '/api/' + resource + '/schema',
@@ -148,11 +149,10 @@ export default (state = initialState, action) => {
       return { ...state, fetching: { ...state.fetching, [action.meta.source]: true } }
 
     case SWAPI_GET_RESOURCES_SUCCESS:
-      const data = action.payload || {}
       return {
         ...state,
         fetching: { ...state.fetching, resources: false },
-        resources: Object.keys(data).map(e => ({ name: e, url: data[e] }))
+        resources: Object.keys(action.payload).map(e => ({ name: e, url: action.payload[e] }))
       }
 
     case SWAPI_GET_ITEMS_SUCCESS:

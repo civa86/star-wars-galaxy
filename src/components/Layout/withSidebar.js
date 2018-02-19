@@ -8,29 +8,32 @@ import ExternalLinks from '../ExternalLinks'
 const withSidebar = WrappedComponent => {
   class withSidebarHOC extends Component {
     render() {
-      const isFetchingResources = this.props.isFetchingResources || false
-      const items = this.props.sidebarItems || []
-      const isActive = this.props.sidebarIsActive || false
+      const {
+        isFetchingResources = false,
+        sidebarItems = [],
+        sidebarIsActive = false,
+        force = { side: 'light' }
+      } = this.props
 
       return (
-        <div className={'sidebar-layout-wrapper' + (isActive ? ' active' : '')}>
-          <div className={'sidebar' + (isActive ? ' active' : '')}>
+        <div className={'sidebar-layout-wrapper' + (sidebarIsActive ? ' active' : '')}>
+          <div className={'sidebar' + (sidebarIsActive ? ' active' : '')}>
             {isFetchingResources && <Loader />}
             {!isFetchingResources && (
               <div className="container-fluid">
                 <ul className="navigation-links list-unstyled row">
-                  {items.map((item, i) => (
+                  {sidebarItems.map((item, i) => (
                     <li key={i} className="col-xs-12">
                       <NavLink to={'/' + item.name}>
                         <div className="item">
-                          <ResourceIcon resource={item.name} />
+                          <ResourceIcon resource={item.name} forceSide={force.side} />
                           <span className="name">{item.name}</span>
                         </div>
                       </NavLink>
                     </li>
                   ))}
                 </ul>
-                {items.length !== 0 && <ExternalLinks />}
+                {sidebarItems.length !== 0 && <ExternalLinks />}
               </div>
             )}
           </div>
@@ -45,7 +48,8 @@ const withSidebar = WrappedComponent => {
   withSidebarHOC.propTypes = {
     isFetchingResources: PropTypes.bool,
     sidebarItems: PropTypes.array,
-    sidebarIsActive: PropTypes.bool
+    sidebarIsActive: PropTypes.bool,
+    force: PropTypes.object
   }
 
   return withSidebarHOC
