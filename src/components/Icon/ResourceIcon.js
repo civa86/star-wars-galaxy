@@ -31,8 +31,8 @@ const ResourceIcon = props => {
 }
 
 ResourceIcon.propTypes = {
-  resource: PropTypes.string.isRequired,
-  forceSide: PropTypes.string.isRequired
+  resource: PropTypes.string,
+  forceSide: PropTypes.string
 }
 
 export default ResourceIcon

@@ -4,16 +4,6 @@ import { NavLink } from 'react-router-dom'
 import StarWarsIcon from '../Icon/StarWarsIcon'
 import ForceSideSwitch from '../ForceSideSwitch'
 
-const onWindowScroll = () => {
-  const content = document.querySelector('.fixed-header-content')
-  const header = document.querySelector('.fixed-header')
-  if (content.getBoundingClientRect().y - content.offsetTop < 0) {
-    header.classList.add('shadow')
-  } else {
-    header.classList.remove('shadow')
-  }
-}
-
 const withFixedHeader = WrappedComponent => {
   class withFixedHeaderHOC extends Component {
     toggleSidebar(event) {
@@ -22,12 +12,22 @@ const withFixedHeader = WrappedComponent => {
       setActiveSidebar(!sidebarIsActive)
     }
 
+    onWindowScroll() {
+      const content = document.querySelector('.fixed-header-content')
+      const header = document.querySelector('.fixed-header')
+      if (content.getBoundingClientRect().y - content.offsetTop < 0) {
+        header.classList.add('shadow')
+      } else {
+        header.classList.remove('shadow')
+      }
+    }
+
     componentDidMount() {
-      document.body.addEventListener('scroll', onWindowScroll)
+      document.body.addEventListener('scroll', this.onWindowScroll)
     }
 
     componentWillUnmount() {
-      document.body.removeEventListener('scroll', onWindowScroll)
+      document.body.removeEventListener('scroll', this.onWindowScroll)
     }
 
     render() {
