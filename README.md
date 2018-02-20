@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/civa86/star-wars-galaxy.svg?branch=master)](https://travis-ci.org/civa86/star-wars-galaxy)
 [![Dependency Status](https://david-dm.org/civa86/star-wars-galaxy.svg)](https://david-dm.org/civa86/star-wars-galaxy)
 
-This project wants to collect instruments for a modern progresive web application.
+This project wants to collect instruments and best practices to build a modern progressive web application.
 
 Data are provided by the public [Star Wars Api](https://swapi.co/).
 
@@ -132,7 +132,7 @@ npm run < script >
 
 ## Continuous Integration
 
-Applicaiton is continuously built with Travis CI.
+Application is continuously built with Travis CI.
 
 Every push sent to `master` or one opened `pull requests` triggers the build process.
 
