@@ -21,9 +21,9 @@ before_deploy:
   - export TAG="v.$VERSION.build.$TRAVIS_BUILD_NUMBER"
   - echo "$TAG" > build/static/version.txt
   - zip -r star-wars-galaxy.zip build/*
-  - git config --local user.name "civa86"
-  - git config --local user.email "dario.civallero@gmail.com"
-  - git tag "$TAG"
+  # - git config --local user.name "civa86"
+  # - git config --local user.email "dario.civallero@gmail.com"
+  # - git tag "$TAG"
 deploy:
   - provider: firebase
     token:
