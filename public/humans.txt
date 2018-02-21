@@ -1,0 +1,21 @@
+/* TEAM */
+
+Your title: Dario Civallero.
+
+Site: dario.civallero@gmail.com, www.civa8.info.
+
+Location: Turin, Italy.
+
+/* THANKS */
+
+Name: https://swapi.co/
+
+/* SITE */
+
+Last update: YYYY/MM/DD
+
+Standards: HTML5, CSS3, ES6.
+
+Components: Bootstrap, React, Redux, Create React App, Webpack.
+
+Software: Visual Studio Code
