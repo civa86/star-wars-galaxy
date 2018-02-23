@@ -1,6 +1,10 @@
+sudo: required
+dist: trusty
 language: node_js
 node_js:
 - 8
+addons:
+  chrome: stable
 cache:
   directories:
   - node_modules
@@ -9,6 +13,8 @@ branches:
   - master
 before_script:
   - npm install -g coveralls lighthouse
+  - "sudo chown root /opt/google/chrome/chrome-sandbox"
+  - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
 script:
   - npm test
   - npm run build-css
