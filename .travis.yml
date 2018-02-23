@@ -42,7 +42,7 @@ deploy:
     file: "star-wars-galaxy.zip"
     skip_cleanup: true
 after_deploy:
-  - lighthouse --chrome-flags="--headless" --output json --output-path lighthouse.report.json $PROD_URL
+  - lighthouse --chrome-flags="--headless" --output json --output-path lighthouse.report.json "$PROD_URL"
   - export REPORT=`cat lighthouse.report.json`
   - echo "$REPORT"
   # - "curl -v --request PATCH -H \"Authorization: token $GH_TOKEN\" -d \"{\"files\": {\"$GIST_FILE\": {\"content\": \"$REPORT\"}}}\" $GIST_URL"
@@ -50,6 +50,6 @@ env:
   global:
   - GIST_URL=https://api.github.com/gists/f01219ac55a43bb2d52657f959a98acc
   - GIST_FILE=star-wars-galaxy.lighthouse.report.json
-  - PROD_URL=star-wars.civa86.info
+  - PROD_URL=https://star-wars.civa86.info
   - secure: oxkVcRiIaQ9SuBfByWWSxL0Sw3sB9Z49K6Ypq5HSYJbIXcXLDjhkOLaI0qNnuFvmNgTlEdhM5T9jf7g4wLAauCsPA7A1Ljy+yWZcZfSf8UrzWtspCAKacwmt8Y9Z+8ByMdPmkJitS7kLEGP+Mvb+eFwKbnBUcOXZZApSL6WUNnzfjQW/WnaCcdM80mI2glM16NSwAyHf9W0hoUgJjVP5AG/J9N1fRVSitoWPCsdmbK1JlMCoRH+GCatsdznNaHmuiTVmtwhtTKXJ+qR4RI1xG09mODQAHeg+AWIok+TgpEzEdkM1geoXc/MJk745KD/TlnYINeVvNqzCkWWdJfzyjQC2CocIm+43XLKxZSL7yQ301lrq9vpTVLVFJjr+MKxhaCOnbxbb6IQu3Vn4sJcIBcT0/agDWn+ywWlw3TFLbMTbjofVO1Igau1e3pUIEWmtVvwytJiU8UPgW/d35fz4FxjuKuNjet4zQunX06FuAvRrL+OKNuwqtFQqfHkIye8LN2q+76iLKPU6yhSgFIKD6s8ntktrsdZbrlx/h+WvELbQJ28Fs7zxNlkcsJkWdVaMiJaQSRV8a0Ye7dlIyqdxCL574kEW0N/nIidzdHN4WkVPjOKoXUQdgNw+XAg2YVvHTg3N9t/yJfcgUYQP9RezeSbwgbj+gtwEnR7Q2jUGxhQ=
   - secure: Z+O+n1Vk59P54tF1Ag4+GeNoTyW+MQj0455gN184B0UDZgoch2vdMHPjucr6azzbE+GkgDOtEGBNCIOJ525itMsdpDQ3+tcvvwWu2jbpeYBRLFUkzghjeEOy7wWEcUUCI8mRCo2aCydbzUqCxDSamUhPzMz3nrYQyHNNdhy2THAeHZuwyBHcvY3KIosjOthJ/ldLgydfjWOTAqN/iSr+HRVD/xeaawm874EF2bsnk8jZvTgzXRQyup2kQCn1rgBB8VIg0QLqMN/NUOP6GxZLllc3jaxd7o5ZJcTx4hyMzezSoZI/7Lj1QlQi9KxgttsglSMC1EEZ3wFyk8ttmaWGnNO9WDdhgI94UjPMEW40tyiKMl8umW9pMJnbaihb3vn2xfXk1a1QFyx0opPUDCg7M8fkJQAXGaK3MOYvGB4EIHvRAXhY4OZv1QLxr3UbfylnSKE+Lrsm0jEjG4eDWgg/nD24Kg1ISt59+Evb0bwVyKqG1Y2XOU7nUDQsrJYiJsyEtltm3MIQ6hrgvflbKOKQIKFjdw8euyZqcx4dQyi0jrrcFur5xoS4U3B0GnqgCisHaZkCxNHlY7oNP/kLQ/IZ4NsZNqhP0FtgcJ/G3Qaa/Z5CK7+uwvwCE+8Kyb3n5RwYX6skwXpKXwreN7iIy5Tq/M3osfHbOwISqFTECtPoB0c=
