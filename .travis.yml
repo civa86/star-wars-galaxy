@@ -14,7 +14,7 @@ script:
   - npm test
   - npm run build-css
   - npm run build
-after_script:
+after_success:
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm run coverage && cat ./coverage/lcov.info | coveralls; fi'
 before_deploy:
   - export VERSION="`node -p -e "require('./package.json').version"`"
