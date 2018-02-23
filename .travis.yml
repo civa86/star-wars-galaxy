@@ -36,7 +36,7 @@ deploy:
     file: "star-wars-galaxy.zip"
     skip_cleanup: true
 after_deploy:
-  - lighthouse --chrome-flags="--no-sandbox --disable-setuid-sandbox" --output json --output-path lighthouse.report.json $PROD_URL
+  - lighthouse --chrome-flags="--headless" --output json --output-path lighthouse.report.json $PROD_URL
   - export REPORT=`cat lighthouse.report.json`
   - echo "$REPORT"
   # - "curl -v --request PATCH -H \"Authorization: token $GH_TOKEN\" -d \"{\"files\": {\"$GIST_FILE\": {\"content\": \"$REPORT\"}}}\" $GIST_URL"
