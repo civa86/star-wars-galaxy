@@ -8,8 +8,7 @@ branches:
   only:
   - master
 before_script:
-  - npm install -g coveralls
-  # - npm install -g coveralls lighthouse
+  - npm install -g coveralls lighthouse
 script:
   - npm test
   - npm run build-css
@@ -19,7 +18,9 @@ after_success:
 before_deploy:
   - export VERSION="`node -p -e "require('./package.json').version"`"
   - export TAG="v.$VERSION.build.$TRAVIS_BUILD_NUMBER"
-  - echo "$TAG" > build/static/version.txt
+  - export NOW="`date +'%Y\/%m\/%d'`"
+  - sed -i "s/YYYY\/MM\/DD/${NOW}/g" build/humans.txt
+  - echo "$TAG" > build/version.txt
   - zip -r star-wars-galaxy.zip build/*
   - git config --local user.name "civa86"
   - git config --local user.email "dario.civallero@gmail.com"
@@ -34,11 +35,11 @@ deploy:
     api_key: "$GH_TOKEN"
     file: "star-wars-galaxy.zip"
     skip_cleanup: true
-# # AFTER DEPLOY: Audit and upload to gist
-# after_deploy:
-#   - lighthouse --output json --output-path lighthouse.report.json <URL>
-#   - export REPORT=`cat lighthouse.report.json`
-#   - "curl -v --request PATCH -H \"Authorization: token $GH_TOKEN\" -d \"{\"files\": {\"$GIST_FILE\": {\"content\": \"$REPORT\"}}}\" $GIST_URL"
+after_deploy:
+  - lighthouse --output json --output-path lighthouse.report.json <URL>
+  - export REPORT=`cat lighthouse.report.json`
+  - echo $REPORT
+  # - "curl -v --request PATCH -H \"Authorization: token $GH_TOKEN\" -d \"{\"files\": {\"$GIST_FILE\": {\"content\": \"$REPORT\"}}}\" $GIST_URL"
 env:
   global:
   - GIST_URL=https://api.github.com/gists/f01219ac55a43bb2d52657f959a98acc

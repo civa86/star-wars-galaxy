@@ -7,10 +7,6 @@
     ],
     "rewrites": [
       {
-        "source": "/version.txt",
-        "destination": "/static/version.txt"
-      },
-      {
         "source": "**",
         "destination": "/index.html"
       }
