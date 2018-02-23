@@ -2,14 +2,13 @@
   "hosting": {
     "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "headers": [
+      { "source":"/service-worker.js", "headers": [{"key": "Cache-Control", "value": "no-cache"}] }
+    ],
     "rewrites": [
       {
         "source": "/version.txt",
         "destination": "/static/version.txt"
-      },
-      {
-        "source": "/humans.txt",
-        "destination": "/humans.txt"
       },
       {
         "source": "**",
