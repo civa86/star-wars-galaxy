@@ -43,11 +43,10 @@ deploy:
     skip_cleanup: true
 after_deploy:
   - lighthouse --chrome-flags="--headless" --output json --output-path lighthouse.report.json "$PROD_URL"
-  - export REPORT=`cat lighthouse.report.json`
-  - "curl -v --request PATCH -H \"Authorization: token $GH_TOKEN\" -d \"{\"files\": {\"$GIST_FILE\": {\"content\": \"$REPORT\"}}}\" $GIST_URL"
+  - ./gist.sh $GH_TOKEN lighthouse.report.json $GIST_FILE $GIST_ID
 env:
   global:
-  - GIST_URL=https://api.github.com/gists/f01219ac55a43bb2d52657f959a98acc
+  - GIST_ID=f01219ac55a43bb2d52657f959a98acc
   - GIST_FILE=star-wars-galaxy.lighthouse.report.json
   - PROD_URL=https://star-wars.civa86.info
   - secure: oxkVcRiIaQ9SuBfByWWSxL0Sw3sB9Z49K6Ypq5HSYJbIXcXLDjhkOLaI0qNnuFvmNgTlEdhM5T9jf7g4wLAauCsPA7A1Ljy+yWZcZfSf8UrzWtspCAKacwmt8Y9Z+8ByMdPmkJitS7kLEGP+Mvb+eFwKbnBUcOXZZApSL6WUNnzfjQW/WnaCcdM80mI2glM16NSwAyHf9W0hoUgJjVP5AG/J9N1fRVSitoWPCsdmbK1JlMCoRH+GCatsdznNaHmuiTVmtwhtTKXJ+qR4RI1xG09mODQAHeg+AWIok+TgpEzEdkM1geoXc/MJk745KD/TlnYINeVvNqzCkWWdJfzyjQC2CocIm+43XLKxZSL7yQ301lrq9vpTVLVFJjr+MKxhaCOnbxbb6IQu3Vn4sJcIBcT0/agDWn+ywWlw3TFLbMTbjofVO1Igau1e3pUIEWmtVvwytJiU8UPgW/d35fz4FxjuKuNjet4zQunX06FuAvRrL+OKNuwqtFQqfHkIye8LN2q+76iLKPU6yhSgFIKD6s8ntktrsdZbrlx/h+WvELbQJ28Fs7zxNlkcsJkWdVaMiJaQSRV8a0Ye7dlIyqdxCL574kEW0N/nIidzdHN4WkVPjOKoXUQdgNw+XAg2YVvHTg3N9t/yJfcgUYQP9RezeSbwgbj+gtwEnR7Q2jUGxhQ=
