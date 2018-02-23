@@ -8,7 +8,7 @@ GIST_ID=$4
 CONTENT=$(sed -e 's/\r//' -e's/\t/\\t/g' -e 's/"/\\"/g' "${FILE_TO_UPLOAD}" | awk '{ printf($0 "\\n") }')
 read -r -d '' DESC <<EOF
 {
-  "description": "some description",
+  "description": "Lighthouse Audit Report",
   "files": {
     "${GIST_FILE}": {
       "content": "${CONTENT}"
@@ -17,4 +17,4 @@ read -r -d '' DESC <<EOF
 }
 EOF
 
-curl -v --request PATCH -H \"Authorization: token $TOKEN\" -d "${DESC}" "https://api.github.com/gists/$GIST_ID"
+curl -v --request PATCH -H "Authorization: token $TOKEN" -d "${DESC}" "https://api.github.com/gists/$GIST_ID"
