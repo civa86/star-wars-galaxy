@@ -42,8 +42,12 @@ deploy:
     file: "star-wars-galaxy.zip"
     skip_cleanup: true
 after_deploy:
-  - lighthouse --chrome-flags="--headless" --output json --output-path lighthouse.report.json "$PROD_URL"
-  - ./gist.sh $GH_TOKEN lighthouse.report.json $GIST_FILE $GIST_ID
+  - git clone https://gist.github.com/f01219ac55a43bb2d52657f959a98acc.git audit
+  - lighthouse --chrome-flags="--headless" --output json --output-path "audit/$GIST_FILE" "$PROD_URL"
+  - cd audit
+  - git add .
+  - git commit -m "Audit $TAG"
+  - git push origin master
 env:
   global:
   - GIST_ID=f01219ac55a43bb2d52657f959a98acc
