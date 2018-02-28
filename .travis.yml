@@ -48,6 +48,7 @@ after_deploy:
   - git add .
   - git commit -m "Audit $TAG"
   - git push origin master
+  - cd ..
 env:
   global:
   - GIST_ID=f01219ac55a43bb2d52657f959a98acc
