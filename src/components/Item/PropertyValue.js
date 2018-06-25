@@ -23,12 +23,12 @@ const ItemPropertyValue = props => {
   if (isUrl(value)) {
     return <ItemLoaderSingle url={value} />
   } else {
-    return <span>{value}</span>
+    return <span>{value || '-'}</span>
   }
 }
 //TODO: accept string or numbers....test!!
 ItemPropertyValue.propTypes = {
-  value: PropTypes.any.isRequired
+  value: PropTypes.any
 }
 
 export default ItemPropertyValue

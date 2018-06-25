@@ -14,9 +14,9 @@ describe('withSidebar High Order Component', () => {
     const simpleComponent = props => <p>content</p>
     const EnanchedComponent = withSidebar(simpleComponent)
     const component = shallow(<EnanchedComponent />)
-    expect(component.find('.sidebar')).toBePresent()
+    expect(component.find('.sidebar')).toExist()
     expect(component.find('.sidebar').length).toBe(1)
-    expect(component.find('.content')).toBePresent()
+    expect(component.find('.content')).toExist()
     expect(component.find('.content').length).toBe(1)
   })
   it('renders sidebar items passed in props', () => {
@@ -37,7 +37,7 @@ describe('withSidebar High Order Component', () => {
     const EnanchedComponent = withSidebar(simpleComponent)
     const componentFetching = shallow(<EnanchedComponent isFetchingResources={true} />)
     const componentNotFetching = shallow(<EnanchedComponent isFetchingResources={false} />)
-    expect(componentFetching.find(Loader)).toBePresent()
-    expect(componentNotFetching.find(Loader)).not.toBePresent()
+    expect(componentFetching.find(Loader)).toExist()
+    expect(componentNotFetching.find(Loader)).not.toExist()
   })
 })

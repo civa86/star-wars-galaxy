@@ -114,10 +114,10 @@ describe('withFixedHeader High Order Component', () => {
         setForceSide={() => 1}
       />
     )
-    expect(component.find('header')).toBePresent()
+    expect(component.find('header')).toExist()
     expect(component.find('header').length).toBe(1)
     expect(component.find('header')).toHaveClassName('fixed-header')
-    expect(component.find('.fixed-header-content')).toBePresent()
+    expect(component.find('.fixed-header-content')).toExist()
     expect(component.find('.fixed-header-content').length).toBe(1)
   })
   it('has a button to toggle sidebar visibility', () => {
@@ -134,7 +134,7 @@ describe('withFixedHeader High Order Component', () => {
       />
     )
     const spy = jest.spyOn(EnanchedComponent.prototype, 'toggleSidebar')
-    expect(component.find('.toggleSidebar')).toBePresent()
+    expect(component.find('.toggleSidebar')).toExist()
     expect(component.find('.toggleSidebar').length).toBe(1)
     component.find('.toggleSidebar a').simulate('click', { preventDefault })
     expect(spy).toHaveBeenCalled()
@@ -152,8 +152,8 @@ describe('withFixedHeader High Order Component', () => {
         setForceSide={() => 1}
       />
     )
-    expect(component.find('.home-link')).toBePresent()
-    expect(component.find('.home-link').find(NavLink)).toBePresent()
+    expect(component.find('.home-link')).toExist()
+    expect(component.find('.home-link').find(NavLink)).toExist()
   })
   it('has the force side switch', () => {
     const setForceSide = jest.fn()
@@ -167,7 +167,7 @@ describe('withFixedHeader High Order Component', () => {
         sidebarIsActive={true}
       />
     )
-    expect(component.find(ForceSideSwitch)).toBePresent()
+    expect(component.find(ForceSideSwitch)).toExist()
     component
       .find(ForceSideSwitch)
       .dive()

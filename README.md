@@ -129,6 +129,7 @@ npm run < script >
 | code-style | run code style check on src files             |
 | build      | produce the production build                  |
 | build-css  | produce the style.css file, single run        |
+| check-deps | check for dependencies version and updates    |
 
 ## Continuous Integration
 
