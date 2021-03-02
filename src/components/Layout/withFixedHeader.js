@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import StarWarsIcon from '../Icon/StarWarsIcon'
@@ -47,7 +47,7 @@ const withFixedHeader = WrappedComponent => {
                     </a>
                   </div>
                 </div>
-                <div>
+                <Fragment>
                   <div className="col-4 home-link">
                     <div className="hidden-xs">
                       <NavLink to="/">
@@ -56,10 +56,10 @@ const withFixedHeader = WrappedComponent => {
                       </NavLink>
                     </div>
                   </div>
-                  <div className="col-4 force-switch-container">
+                  <div className="col-4 force-switch-container text-right">
                     <ForceSideSwitch side={force.side} changeForceSide={side => setForceSide(side)} />
                   </div>
-                </div>
+                </Fragment>
               </div>
             </div>
           </header>

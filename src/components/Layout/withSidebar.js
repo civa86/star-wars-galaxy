@@ -37,7 +37,7 @@ const withSidebar = WrappedComponent => {
               </div>
             )}
           </div>
-          <div className="content">
+          <div className="content w-100">
             <WrappedComponent {...this.props} />
           </div>
         </div>

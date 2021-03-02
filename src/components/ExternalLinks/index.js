@@ -3,7 +3,7 @@ import StarWarsIcon from '../Icon/StarWarsIcon'
 
 const ExternalLinks = () => {
   return (
-    <ul className="list-unstyled external-links">
+    <ul className="list-unstyled external-links mb-1 text-sm-right text-center">
       <li className="swapi">
         powered by{' '}
         <a href="https://swapi.co/" target="_blank" rel="noopener noreferrer">

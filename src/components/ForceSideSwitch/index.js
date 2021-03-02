@@ -4,7 +4,7 @@ import Switch from 'react-switch'
 import StarWarsIcon from '../Icon/StarWarsIcon'
 
 const ForceSideSwitch = props => (
-  <label className="pull-right" htmlFor="force-side-switch">
+  <label className="d-inline-block" htmlFor="force-side-switch">
     <span className="sr-only">Switch to change Force Side</span>
     <Switch
       checked={props.side === 'dark'}

@@ -23,7 +23,7 @@ class Home extends Component {
                 <span className="sr-only">Star Wars Logo</span>
               </h1>
             </div>
-            <div className="links col-12 col-sm-8 col-lg-9">
+            <div className="links col-12 col-sm-8 col-lg-9 text-sm-right text-center">
               <ExternalLinks />
               <ForceSideSwitch side={force.side} changeForceSide={side => setForceSide(side)} />
             </div>
@@ -39,7 +39,7 @@ class Home extends Component {
         <section className="resources">
           <ul className="list-unstyled row">
             {resources.map((resource, i) => (
-              <li key={i} className="col-12 col-sm-6 col-md-4">
+              <li key={i} className="col-12 col-md-6 col-lg-4">
                 <NavLink to={'/' + resource.name}>
                   <div className="item">
                     <ResourceIcon resource={resource.name} forceSide={force.side} />

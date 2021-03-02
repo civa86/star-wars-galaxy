@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import Equalizer from 'react-equalizer'
 import withSidebar from '../../components/Layout/withSidebar'
 import withFixedHeader from '../../components/Layout/withFixedHeader'
 import Loader from '../../components/Loader'
@@ -41,12 +40,6 @@ class ItemList extends Component {
     return keys.map(e => (item[e] ? { key: e, value: item[e] } : ''))
   }
 
-  getEqualizerNodes() {
-    return Object.keys(this.refs)
-      .filter(e => e.match(/eq\d/))
-      .map(e => this.refs[e])
-  }
-
   // Component Lifecycle
   componentWillMount() {
     this.loadData(this.getResource())
@@ -76,42 +69,40 @@ class ItemList extends Component {
         {!isFetchingPage &&
           !isFetchingSchema && (
             <section className="item-preview">
-              <Equalizer byRow={false} nodes={this.getEqualizerNodes.bind(this)}>
-                <ul className="list-unstyled row item-preview-listing">
-                  {itemsList.map((item, i) => (
-                    <li key={i} className="col-12 col-sm-6 col-lg-4">
-                      {schemas[resource] && (
-                        <div ref={'eq' + i} className="item-preview-listing-element">
-                          <h2>
-                            <NavLink exact to={'/' + resource + '/' + item.id}>
-                              <ItemTitle item={item} schema={schemas[resource]} />
-                            </NavLink>
-                          </h2>
-                          <ul className="list-unstyled item-property-listing">
-                            {this.getItemProperties(item, schemas[resource]).map((e, i) => (
-                              <li className="item-property-listing-element" key={i}>
-                                <div className="row item-property-row">
-                                  <div className="col-12 item-property-label">
-                                    <ItemPropertyLabel label={e.key} />
-                                  </div>
-                                  <div className="col-12 item-property-value">
-                                    <ItemPropertyValue value={e.value} />
-                                  </div>
+              <ul className="list-unstyled row item-preview-listing">
+                {itemsList.map((item, i) => (
+                  <li key={i} className="col-12 col-sm-6 col-lg-4 mb-3">
+                    {schemas[resource] && (
+                      <div ref={'eq' + i} className="item-preview-listing-element h-100 d-flex flex-column">
+                        <h2>
+                          <NavLink exact to={'/' + resource + '/' + item.id}>
+                            <ItemTitle item={item} schema={schemas[resource]} />
+                          </NavLink>
+                        </h2>
+                        <ul className="list-unstyled item-property-listing flex-grow-1">
+                          {this.getItemProperties(item, schemas[resource]).map((e, i) => (
+                            <li className="item-property-listing-element" key={i}>
+                              <div className="row item-property-row">
+                                <div className="col-12 item-property-label">
+                                  <ItemPropertyLabel label={e.key} />
                                 </div>
-                              </li>
-                            ))}
-                          </ul>
-                          <div className="view-more">
-                            <NavLink exact to={'/' + resource + '/' + item.id}>
-                              more
-                            </NavLink>
-                          </div>
+                                <div className="col-12 item-property-value">
+                                  <ItemPropertyValue value={e.value} />
+                                </div>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="view-more">
+                          <NavLink exact to={'/' + resource + '/' + item.id}>
+                            more
+                          </NavLink>
                         </div>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </Equalizer>
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
               <ItemCounter item={items[resource]} />
               {nextItemsUrl && (
                 <div className="load-more-container">

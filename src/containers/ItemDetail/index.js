@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Equalizer from 'react-equalizer'
 import ItemLoaderList from '../ItemLoader/List'
 import withSidebar from '../../components/Layout/withSidebar'
 import withFixedHeader from '../../components/Layout/withFixedHeader'
@@ -73,7 +72,7 @@ class ItemDetail extends Component {
     const fields = this.getItemFields(item)
 
     return (
-      <div>
+      <Fragment>
         {item &&
           schemas[resource] && (
             <div className="item-detail container-fluid">
@@ -81,36 +80,34 @@ class ItemDetail extends Component {
                 <ItemTitle item={item} schema={schemas[resource]} />
               </h1>
               <section className="row">
-                <Equalizer nodes={() => document.querySelectorAll('.item-property')}>
-                  {fields.filter(e => e.type !== 'array' && !e.name.match(/created|edited|url/)).map((e, i) => (
-                    <div key={'props' + i} className="col-12 col-md-6 col-lg-4">
-                      <div className="item-property">
-                        <div className="item-property-label">
-                          <ItemPropertyLabel label={e.name} />
-                        </div>
-                        <div className="item-property-value">
-                          <ItemPropertyValue value={e.value} />
-                        </div>
+                {fields.filter(e => e.type !== 'array' && !e.name.match(/created|edited|url/)).map((e, i) => (
+                  <div key={'props' + i} className="col-12 col-md-6 col-lg-4 mb-3">
+                    <div className="item-property h-100">
+                      <div className="item-property-label">
+                        <ItemPropertyLabel label={e.name} />
+                      </div>
+                      <div className="item-property-value">
+                        <ItemPropertyValue value={e.value} />
                       </div>
                     </div>
-                  ))}
-                  {fields.filter(e => e.type === 'array').map((e, i) => {
-                    return (
-                      e.value.length > 0 && (
-                        <div key={'links-resource' + i} className="col-12 col-md-6 col-lg-4">
-                          <div className="item-property">
-                            <div className="item-property-label">
-                              <ItemPropertyLabel label={e.name} />
-                            </div>
-                            <div className="item-property-value">
-                              <ItemLoaderList list={e.value} />
-                            </div>
+                  </div>
+                ))}
+                {fields.filter(e => e.type === 'array').map((e, i) => {
+                  return (
+                    e.value.length > 0 && (
+                      <div key={'links-resource' + i} className="col-12 col-sm-6 col-lg-4 mb-3">
+                        <div className="item-property h-100">
+                          <div className="item-property-label">
+                            <ItemPropertyLabel label={e.name} />
+                          </div>
+                          <div className="item-property-value">
+                            <ItemLoaderList list={e.value} />
                           </div>
                         </div>
-                      )
+                      </div>
                     )
-                  })}
-                </Equalizer>
+                  )
+                })}
               </section>
             </div>
           )}
@@ -120,7 +117,7 @@ class ItemDetail extends Component {
               <Loader />
             </div>
           )}
-      </div>
+      </Fragment>
     )
   }
 }
