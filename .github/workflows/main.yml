@@ -101,6 +101,10 @@ jobs:
           echo "DEPLOY DATE `date -R`" >> ./build/version.txt
           echo -e "VERSION ${{ steps.get_version.outputs.version }}\n$(cat ./build/version.txt)" > ./build/version.txt
 
+      - name: update humans.txt
+        shell: bash
+        run: NOW=`date +'%Y\/%m\/%d'` && sed -i "s/YYYY\/MM\/DD/${NOW}/g" build/humans.txt
+
       - name: deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
