@@ -11,9 +11,8 @@ describe('error middleware', () => {
   })
 
   describe('handle next', () => {
-    const nextSpy = jest.fn(action => 'next-action')
+    const nextSpy = jest.fn()
     const actionHandler = nextHandler(nextSpy)
-
     it('must return a function to handle action', () => {
       expect(typeof actionHandler).toBe('function')
       expect(actionHandler.length).toBe(1)
@@ -21,16 +20,15 @@ describe('error middleware', () => {
 
     describe('handle action', () => {
       it('must call the function passed to handle next', () => {
-        const result = actionHandler()
+        actionHandler()
         expect(nextSpy).toHaveBeenCalled()
-        expect(result).toBe('next-action')
       })
 
       it('let pass any action', () => {
         const result = actionHandler({
           type: 'ANY_ACTION'
         })
-        expect(result).toBe('next-action')
+        expect(result).toBeUndefined()
       })
 
       it('must handle the SWAPI_FAILURE action with no meta data', () => {
