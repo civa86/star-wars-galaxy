@@ -1,7 +1,6 @@
 import { RSAA } from 'redux-api-middleware'
 import swapi, {
 //CONSTANTS
-  API_DOMAIN,
   SWAPI_REQUEST,
   SWAPI_FAILURE,
   SWAPI_GET_RESOURCES_SUCCESS,
@@ -58,7 +57,7 @@ describe('swapi actions', () => {
       expect(typeof getResources).toBe('function')
       const apiAction = getResources()
       expect(typeof apiAction[RSAA]).toBe('object')
-      expect(apiAction[RSAA].endpoint).toBe(API_DOMAIN + '/api/')
+      expect(apiAction[RSAA].endpoint).toBe(`${process.env.REACT_APP_SWAPI_URL}api/`)
       expect(apiAction[RSAA].method).toBe('GET')
       expect(apiAction[RSAA].types[0].type).toBe(SWAPI_REQUEST)
       expect(apiAction[RSAA].types[1]).toBe(SWAPI_GET_RESOURCES_SUCCESS)
@@ -84,7 +83,7 @@ describe('swapi actions', () => {
     it('loads items if are not present', () => {
       const action = getItems('test', {})
       expect(typeof action[RSAA]).toBe('object')
-      expect(action[RSAA].endpoint).toBe(API_DOMAIN + '/api/test/?page=1')
+      expect(action[RSAA].endpoint).toBe(`${process.env.REACT_APP_SWAPI_URL}api/test/?page=1`)
       expect(action[RSAA].method).toBe('GET')
       expect(action[RSAA].types[0].type).toBe(SWAPI_REQUEST)
       expect(action[RSAA].types[1].type).toBe(SWAPI_GET_ITEMS_SUCCESS)
@@ -94,7 +93,7 @@ describe('swapi actions', () => {
     it('loads the next page', () => {
       const action = getItems('test', { test: { lastPage: 1 } }, 2)
       expect(typeof action[RSAA]).toBe('object')
-      expect(action[RSAA].endpoint).toBe(API_DOMAIN + '/api/test/?page=2')
+      expect(action[RSAA].endpoint).toBe(`${process.env.REACT_APP_SWAPI_URL}api/test/?page=2`)
       expect(action[RSAA].method).toBe('GET')
       expect(action[RSAA].types[0].type).toBe(SWAPI_REQUEST)
       expect(action[RSAA].types[1].type).toBe(SWAPI_GET_ITEMS_SUCCESS)
@@ -115,7 +114,7 @@ describe('swapi actions', () => {
     it('loads item if is not present', () => {
       const action = getItem('test', 1)
       expect(typeof action[RSAA]).toBe('object')
-      expect(action[RSAA].endpoint).toBe(API_DOMAIN + '/api/test/1/')
+      expect(action[RSAA].endpoint).toBe(`${process.env.REACT_APP_SWAPI_URL}api/test/1/`)
       expect(action[RSAA].method).toBe('GET')
       expect(action[RSAA].types[0].type).toBe(SWAPI_REQUEST)
       expect(action[RSAA].types[1].type).toBe(SWAPI_GET_ITEM_SUCCESS)
@@ -136,7 +135,7 @@ describe('swapi actions', () => {
     it('loads item if is not present', () => {
       const action = getSchema('test')
       expect(typeof action[RSAA]).toBe('object')
-      expect(action[RSAA].endpoint).toBe(API_DOMAIN + '/api/test/schema')
+      expect(action[RSAA].endpoint).toBe(`${process.env.REACT_APP_SWAPI_URL}api/test/schema`)
       expect(action[RSAA].method).toBe('GET')
       expect(action[RSAA].types[0].type).toBe(SWAPI_REQUEST)
       expect(action[RSAA].types[1].type).toBe(SWAPI_GET_SCHEMA_SUCCESS)
