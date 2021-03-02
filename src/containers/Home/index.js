@@ -17,13 +17,13 @@ class Home extends Component {
       <div className="home container-fluid">
         <header>
           <div className="row">
-            <div className="logo col-xs-12 col-sm-4 col-lg-3">
+            <div className="logo col-12 col-sm-4 col-lg-3">
               <h1>
                 <StarWarsIcon icon="swg-starwars" />
                 <span className="sr-only">Star Wars Logo</span>
               </h1>
             </div>
-            <div className="links col-xs-12 col-sm-8 col-lg-9">
+            <div className="links col-12 col-sm-8 col-lg-9">
               <ExternalLinks />
               <ForceSideSwitch side={force.side} changeForceSide={side => setForceSide(side)} />
             </div>
@@ -31,14 +31,15 @@ class Home extends Component {
         </header>
         <section className="sub-title">
           <span>
-            A long time ago in a galaxy far,<br />
+            A long time ago in a galaxy far,
+            <br />
             far away....
           </span>
         </section>
         <section className="resources">
           <ul className="list-unstyled row">
             {resources.map((resource, i) => (
-              <li key={i} className="col-xs-12 col-sm-6 col-md-4">
+              <li key={i} className="col-12 col-sm-6 col-md-4">
                 <NavLink to={'/' + resource.name}>
                   <div className="item">
                     <ResourceIcon resource={resource.name} forceSide={force.side} />
@@ -73,4 +74,7 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home)

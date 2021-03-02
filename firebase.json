@@ -3,10 +3,20 @@
     "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "headers": [
-      { "source": "/service-worker.js", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] },
-      { "source": "/version.txt", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] }
+      {
+        "source": "/service-worker.js",
+        "headers": [{ "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }]
+      },
+      {
+        "source": "/version.txt",
+        "headers": [{ "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }]
+      }
     ],
     "rewrites": [
+      {
+        "source": "/version.txt",
+        "destination": "/version.txt"
+      },
       {
         "source": "**",
         "destination": "/index.html"

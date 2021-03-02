@@ -194,7 +194,9 @@ describe('swapi reducer', () => {
         {
           type: SWAPI_GET_ITEMS_SUCCESS,
           meta: { page: 1, resource: 'test' },
-          payload: { results: [{ name: 'a', url: '/test/1' }, { name: 'b', url: '/test/2' }] }
+          payload: {
+            results: [{ name: 'a', url: '/test/1' }, { name: 'b', url: '/test/2' }]
+          }
         }
       )
       expect(state).toEqual({

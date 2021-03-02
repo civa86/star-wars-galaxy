@@ -83,7 +83,7 @@ class ItemDetail extends Component {
               <section className="row">
                 <Equalizer nodes={() => document.querySelectorAll('.item-property')}>
                   {fields.filter(e => e.type !== 'array' && !e.name.match(/created|edited|url/)).map((e, i) => (
-                    <div key={'props' + i} className="col-xs-12 col-md-6 col-lg-4">
+                    <div key={'props' + i} className="col-12 col-md-6 col-lg-4">
                       <div className="item-property">
                         <div className="item-property-label">
                           <ItemPropertyLabel label={e.name} />
@@ -97,7 +97,7 @@ class ItemDetail extends Component {
                   {fields.filter(e => e.type === 'array').map((e, i) => {
                     return (
                       e.value.length > 0 && (
-                        <div key={'links-resource' + i} className="col-xs-12 col-md-6 col-lg-4">
+                        <div key={'links-resource' + i} className="col-12 col-md-6 col-lg-4">
                           <div className="item-property">
                             <div className="item-property-label">
                               <ItemPropertyLabel label={e.name} />
@@ -146,4 +146,7 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default connect(mapStateToProps, mapDispatchToProps)(withFixedHeader(withSidebar(ItemDetail)))
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withFixedHeader(withSidebar(ItemDetail)))

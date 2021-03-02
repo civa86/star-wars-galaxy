@@ -79,7 +79,7 @@ class ItemList extends Component {
               <Equalizer byRow={false} nodes={this.getEqualizerNodes.bind(this)}>
                 <ul className="list-unstyled row item-preview-listing">
                   {itemsList.map((item, i) => (
-                    <li key={i} className="col-xs-12 col-sm-6 col-lg-4">
+                    <li key={i} className="col-12 col-sm-6 col-lg-4">
                       {schemas[resource] && (
                         <div ref={'eq' + i} className="item-preview-listing-element">
                           <h2>
@@ -91,10 +91,10 @@ class ItemList extends Component {
                             {this.getItemProperties(item, schemas[resource]).map((e, i) => (
                               <li className="item-property-listing-element" key={i}>
                                 <div className="row item-property-row">
-                                  <div className="col-xs-12 item-property-label">
+                                  <div className="col-12 item-property-label">
                                     <ItemPropertyLabel label={e.key} />
                                   </div>
-                                  <div className="col-xs-12 item-property-value">
+                                  <div className="col-12 item-property-value">
                                     <ItemPropertyValue value={e.value} />
                                   </div>
                                 </div>
@@ -156,4 +156,7 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default connect(mapStateToProps, mapDispatchToProps)(withFixedHeader(withSidebar(ItemList)))
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withFixedHeader(withSidebar(ItemList)))

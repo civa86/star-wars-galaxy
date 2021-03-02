@@ -23,7 +23,7 @@ const withSidebar = WrappedComponent => {
               <div className="container-fluid">
                 <ul className="navigation-links list-unstyled row">
                   {sidebarItems.map((item, i) => (
-                    <li key={i} className="col-xs-12">
+                    <li key={i} className="col-12">
                       <NavLink to={'/' + item.name}>
                         <div className="item">
                           <ResourceIcon resource={item.name} forceSide={force.side} />

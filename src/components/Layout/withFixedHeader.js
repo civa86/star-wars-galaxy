@@ -37,7 +37,7 @@ const withFixedHeader = WrappedComponent => {
           <header className="fixed-header">
             <div className="container-fluid">
               <div className="row">
-                <div className="col-xs-4">
+                <div className="col-4">
                   <div className="toggleSidebar">
                     <a href="" onClick={event => this.toggleSidebar(event)}>
                       <span className="icon-bar" />
@@ -48,7 +48,7 @@ const withFixedHeader = WrappedComponent => {
                   </div>
                 </div>
                 <div>
-                  <div className="col-xs-4 home-link">
+                  <div className="col-4 home-link">
                     <div className="hidden-xs">
                       <NavLink to="/">
                         <StarWarsIcon icon="swg-starwars" />
@@ -56,7 +56,7 @@ const withFixedHeader = WrappedComponent => {
                       </NavLink>
                     </div>
                   </div>
-                  <div className="col-xs-4 force-switch-container">
+                  <div className="col-4 force-switch-container">
                     <ForceSideSwitch side={force.side} changeForceSide={side => setForceSide(side)} />
                   </div>
                 </div>
