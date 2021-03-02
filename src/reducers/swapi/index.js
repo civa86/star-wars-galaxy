@@ -2,7 +2,6 @@ import { RSAA } from 'redux-api-middleware'
 import { sortObjectCollectionByProp } from '../../utils/sorter'
 
 // Constants
-export const API_DOMAIN = 'https://swapi.dev'
 export const SWAPI_REQUEST = 'SWAPI_REQUEST'
 export const SWAPI_FAILURE = 'SWAPI_FAILURE'
 export const SWAPI_GET_RESOURCES_SUCCESS = 'SWAPI_GET_RESOURCES_SUCCESS'
@@ -49,7 +48,7 @@ export const errorHandler = () => ({
 export const getResources = () => {
   return {
     [RSAA]: {
-      endpoint: API_DOMAIN + '/api/',
+      endpoint: `${process.env.REACT_APP_SWAPI_URL}api/`,
       method: 'GET',
       types: [apiRequest('resources'), SWAPI_GET_RESOURCES_SUCCESS, errorHandler()]
     }
@@ -61,7 +60,7 @@ export const getItems = (resource, items, page = 1) => {
   if (!items[resource] || lastPage < page) {
     return {
       [RSAA]: {
-        endpoint: API_DOMAIN + '/api/' + resource + '/?page=' + page,
+        endpoint: `${process.env.REACT_APP_SWAPI_URL}api/${resource}/?page=${page}`,
         method: 'GET',
         types: [
           apiRequest(page === 1 ? 'itemsPage' : 'itemsLoadMore'),
@@ -85,7 +84,7 @@ export const getItem = (resource, itemId, items) => {
   if (!currentItems.map(e => e.id).includes(itemId)) {
     return {
       [RSAA]: {
-        endpoint: API_DOMAIN + '/api/' + resource + '/' + itemId + '/',
+        endpoint: `${process.env.REACT_APP_SWAPI_URL}api/${resource}/${itemId}/`,
         method: 'GET',
         types: [
           apiRequest('singleItem'),
@@ -109,7 +108,7 @@ export const getSchema = (resource, schemas) => {
   if (!currentSchema) {
     return {
       [RSAA]: {
-        endpoint: API_DOMAIN + '/api/' + resource + '/schema',
+        endpoint: `${process.env.REACT_APP_SWAPI_URL}api/${resource}/schema`,
         method: 'GET',
         types: [
           apiRequest('schema'),

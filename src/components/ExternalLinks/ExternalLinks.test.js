@@ -19,6 +19,6 @@ describe('ExternalLinks Component', () => {
   })
   it('renders the github link', () => {
     const component = shallow(<ExternalLinks />)
-    expect(component.find('a[href="https://swapi.co/"]').length).toBe(1)
+    expect(component.find(`a[href="${process.env.REACT_APP_SWAPI_URL}"]`).length).toBe(1)
   })
 })

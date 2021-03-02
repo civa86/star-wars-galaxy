@@ -6,7 +6,7 @@ const ExternalLinks = () => {
     <ul className="list-unstyled external-links mb-1 text-sm-right text-center">
       <li className="swapi">
         powered by{' '}
-        <a href="https://swapi.co/" target="_blank" rel="noopener noreferrer">
+        <a href={process.env.REACT_APP_SWAPI_URL} target="_blank" rel="noopener noreferrer">
           SWAPI
         </a>
       </li>

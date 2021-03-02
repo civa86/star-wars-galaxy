@@ -8,7 +8,7 @@ Location: Turin, Italy.
 
 /* THANKS */
 
-Name: https://swapi.co/
+Name: https://swapi.dev/
 
 /* SITE */
 

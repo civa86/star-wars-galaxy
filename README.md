@@ -2,12 +2,11 @@
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Coverage Status](https://coveralls.io/repos/github/civa86/star-wars-galaxy/badge.svg?branch=master)](https://coveralls.io/github/civa86/star-wars-galaxy?branch=master)
-[![Build Status](https://travis-ci.org/civa86/star-wars-galaxy.svg?branch=master)](https://travis-ci.org/civa86/star-wars-galaxy)
-[![Dependency Status](https://david-dm.org/civa86/star-wars-galaxy.svg)](https://david-dm.org/civa86/star-wars-galaxy)
+[![Continuous Integration](https://github.com/civa86/star-wars-galaxy/actions/workflows/main.yml/badge.svg)](https://github.com/civa86/star-wars-galaxy/actions/workflows/main.yml)
 
 This project wants to collect instruments and best practices to build a modern progressive web application.
 
-Data are provided by the public [Star Wars Api](https://swapi.co/).
+Data are provided by the public [Star Wars Api](https://swapi.dev/).
 
 ## Development
 
@@ -19,9 +18,9 @@ Project has been started with [create-react-app](https://github.com/facebook/cre
 
 Default tools and configurations provided by CRA (no `eject`):
 
-* Code Transpilation: [Babel](https://babeljs.io/).
-* Code Linting: [ESLint](https://eslint.org/) with `react-app` configuration.
-* Code Packaging: [webpack](https://webpack.js.org/)
+- Code Transpilation: [Babel](https://babeljs.io/).
+- Code Linting: [ESLint](https://eslint.org/) with `react-app` configuration.
+- Code Packaging: [webpack](https://webpack.js.org/)
 
 #### Application Structure
 
@@ -67,8 +66,8 @@ Configure code style with `prettier` property in `package.json` file.
 
 Git Hook Configuration:
 
-* `precommit` script (not supposed to run manually)
-* `lint-staged` property in `package.json`
+- `precommit` script (not supposed to run manually)
+- `lint-staged` property in `package.json`
 
 #### Unit Testing
 
@@ -80,8 +79,8 @@ Tools: [Jest](https://facebook.github.io/jest/) + [Enzyme](http://airbnb.io/enzy
 
 Running mode depends on `CI` environment variable:
 
-* CI with `true` value for single run
-* CI with no value for watch mode
+- CI with `true` value for single run
+- CI with no value for watch mode
 
 ###### Coverage
 
@@ -141,9 +140,9 @@ Every push sent to `master` or one opened `pull requests` triggers the build pro
 
 `master branch + pull requests`
 
-* Unit Test the application
-* Build the style.css file from less source code
-* Build the production package
+- Unit Test the application
+- Build the style.css file from less source code
+- Build the production package
 
 #### After Build
 
@@ -161,21 +160,21 @@ Pull Request builds never trigger deploy.
 
 #### Before Deploy
 
-* Read application version from `package.json`.
-* Write `version.txt` with version and travis incremental build number.
-* Add `version.txt` to `build/static` folder.
-* Zip the `build` folder into `star-wars-galaxy.zip` artifact archive.
-* Git Tag with version and travis incremental build number.
+- Read application version from `package.json`.
+- Write `version.txt` with version and travis incremental build number.
+- Add `version.txt` to `build/static` folder.
+- Zip the `build` folder into `star-wars-galaxy.zip` artifact archive.
+- Git Tag with version and travis incremental build number.
 
 #### Deploy Process
 
-* Upload website on `firebase` hosting.
-* Upload `star-wars-galaxy.zip` artifact to `GitHub Releases`.
+- Upload website on `firebase` hosting.
+- Upload `star-wars-galaxy.zip` artifact to `GitHub Releases`.
 
 #### After Deploy
 
-* Run progressive web application audit on new deployed version.
-* Upload the audit report to GitHub Gists.
+- Run progressive web application audit on new deployed version.
+- Upload the audit report to GitHub Gists.
 
 Audit tool: [Lighthouse](https://developers.google.com/web/tools/lighthouse/)
 
