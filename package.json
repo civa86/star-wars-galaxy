@@ -14,14 +14,14 @@
     "npm-check-updates": "2.14.2",
     "prettier": "1.13.5",
     "prop-types": "15.6.2",
-    "react": "16.4.1",
-    "react-dom": "16.4.2",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
     "react-loadable": "5.4.0",
     "react-redux": "5.0.7",
     "react-router": "4.3.1",
     "react-router-dom": "4.3.1",
     "react-router-redux": "next",
-    "react-scripts": "1.1.4",
+    "react-scripts": "4.0.2",
     "react-switch": "3.0.4",
     "react-test-renderer": "16.4.1",
     "redux": "4.0.0",
@@ -43,17 +43,6 @@
       "!src/reducers/index.js"
     ]
   },
-  "prettier": {
-    "printWidth": 120,
-    "tabWidth": 2,
-    "useTabs": false,
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "none",
-    "bracketSpacing": true,
-    "jsxBracketSameLine": true,
-    "arrowParens": "avoid"
-  },
   "scripts": {
     "precommit": "lint-staged",
     "start": "react-scripts start",
@@ -64,5 +53,17 @@
     "code-style": "prettier --write \"src/**/*.{js,jsx,json,css}\"",
     "coverage": "npm test -- --coverage",
     "check-deps": "ncu"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

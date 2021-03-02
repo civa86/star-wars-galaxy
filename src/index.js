@@ -8,18 +8,16 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
 
 import App from './containers/App'
-
-import registerServiceWorker from './registerServiceWorker'
+import ServiceWorker from './components/ServiceWorker'
 
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <div>
         <App />
+        <ServiceWorker />
       </div>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 )
-
-registerServiceWorker()
