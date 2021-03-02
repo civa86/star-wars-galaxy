@@ -1,0 +1,138 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches: [master]
+  release:
+    types: [published]
+
+jobs:
+  build:
+    name: Build Application
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.15.4]
+
+    steps:
+      - name: setup node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: git checkout
+        uses: actions/checkout@v2
+
+      - name: yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: yarn cache
+        id: yarn-cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: test
+        run: yarn run test
+        env:
+          CI: true
+
+      - name: build css
+        run: yarn run build-css
+
+      - name: build
+        run: yarn run build
+
+      - name: test coverage
+        if: github.event_name == 'release' && github.event.action == 'published'
+        run: yarn run coverage
+        env:
+          CI: true
+
+      - name: coveralls
+        if: github.event_name == 'release' && github.event.action == 'published'
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: version.txt
+        if: github.event_name == 'release' && github.event.action == 'published'
+        run: |
+          echo "BUILD NUMBER #$GITHUB_RUN_NUMBER" > ./build/version.txt
+          echo "COMMIT SHA $GITHUB_SHA" >> ./build/version.txt
+          echo "BUILD DATE `date -R`" >> ./build/version.txt
+
+      - name: upload aritfact
+        if: github.event_name == 'release' && github.event.action == 'published'
+        uses: actions/upload-artifact@v1
+        with:
+          name: build-${{ github.run_number }}-${{ github.sha }}
+          path: build
+
+  deploy:
+    name: Deploy and Versioning
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' && github.event.action == 'published'
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v2
+
+      - name: get version
+        id: get_version
+        run: echo ::set-output name=version::${GITHUB_REF/refs\/tags\/v/}
+
+      - name: download artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: build-${{ github.run_number }}-${{ github.sha }}
+          path: build
+
+      - name: update version.txt
+        shell: bash
+        run: |
+          echo "DEPLOY DATE `date -R`" >> ./build/version.txt
+          echo -e "VERSION ${{ steps.get_version.outputs.version }}\n$(cat ./build/version.txt)" > ./build/version.txt
+
+      - name: deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --message \"deploy version ${{ steps.get_version.outputs.version }}\"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: release binary archive create
+        shell: bash
+        run: zip -r release_archive.zip build
+
+      - name: release binary archive upload
+        uses: svenstaro/upload-release-action@v1-release
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: release_archive.zip
+          asset_name: star-wars-galaxy-${{ steps.get_version.outputs.version }}.zip
+          tag: ${{ github.ref }}
+          overwrite: true
+
+      - name: update package.json
+        shell: bash
+        run: yarn version --new-version ${{ steps.get_version.outputs.version }} --no-git-tag-version
+
+      - name: push master
+        shell: bash
+        run: |
+          git config user.email "dario.civallero@gmail.com"
+          git config user.name "Dario Civallero"
+          git fetch --prune --unshallow
+          git checkout master
+          git remote set-url --push origin https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git add package.json
+          git commit -m "release version ${{ steps.get_version.outputs.version }}"
+          git push origin master
