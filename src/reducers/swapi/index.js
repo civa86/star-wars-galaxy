@@ -2,7 +2,7 @@ import { RSAA } from 'redux-api-middleware'
 import { sortObjectCollectionByProp } from '../../utils/sorter'
 
 // Constants
-export const API_DOMAIN = 'https://swapi.co'
+export const API_DOMAIN = 'https://swapi.dev'
 export const SWAPI_REQUEST = 'SWAPI_REQUEST'
 export const SWAPI_FAILURE = 'SWAPI_FAILURE'
 export const SWAPI_GET_RESOURCES_SUCCESS = 'SWAPI_GET_RESOURCES_SUCCESS'
