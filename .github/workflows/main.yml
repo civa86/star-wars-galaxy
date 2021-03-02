@@ -136,3 +136,13 @@ jobs:
           git add package.json
           git commit -m "release version ${{ steps.get_version.outputs.version }}"
           git push origin master
+
+      - name: audit production url
+        uses: jakejarvis/lighthouse-action@master
+        with:
+          url: 'https://star-wars-galaxy.web.app/'
+      - name: Upload results as an artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: report
+          path: './report'
